@@ -1,0 +1,149 @@
+/* ============================================================
+   Design tokens
+   ============================================================ */
+
+:root {
+  /* Colours — light mode */
+  --bg: #f9f8f6;
+  --bg-surface: #ffffff;
+  --text: #1a1917;
+  --text-muted: #6b6763;
+  --accent: #d4621a;
+  --border: #e5e3de;
+  --card-shadow-hover: 0 4px 28px rgba(0, 0, 0, 0.09);
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.75rem;
+  --text-5xl: clamp(2.5rem, 6vw, 3.5rem);
+
+  /* Spacing */
+  --section-gap: clamp(4rem, 8vw, 6.5rem);
+  --container-max: 860px;
+  --container-px: clamp(1.25rem, 5vw, 2rem);
+
+  /* Transitions */
+  --transition-base: 160ms ease;
+  --transition-slow: 280ms ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111110;
+    --bg-surface: #1a1a19;
+    --text: #e8e6e1;
+    --text-muted: #8a8580;
+    --accent: #e8743a;
+    --border: #2a2a28;
+    --card-shadow-hover: 0 4px 28px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* ============================================================
+   Reset + base
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ============================================================
+   Focus styles (keyboard nav)
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   Container
+   ============================================================ */
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+}
+
+/* ============================================================
+   Typography utilities
+   ============================================================ */
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+/* ============================================================
+   Section spacing
+   ============================================================ */
+
+section {
+  padding-block: var(--section-gap);
+}
+
+section + section {
+  border-top: 1px solid var(--border);
+}
+
+/* ============================================================
+   Section headings
+   ============================================================ */
+
+.section-heading {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+
+.section-subheading {
+  font-size: var(--text-lg);
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  max-width: 56ch;
+}

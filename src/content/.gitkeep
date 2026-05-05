@@ -1,0 +1,6 @@
+# Future content collections go here.
+# When you're ready to add a blog:
+#   1. Create src/content/config.ts and define your collection
+#   2. Add .md/.mdx files in src/content/blog/
+#   3. Create src/pages/blog/index.astro and src/pages/blog/[slug].astro
+# See: https://docs.astro.build/en/guides/content-collections/

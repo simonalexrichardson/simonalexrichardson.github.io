@@ -1,0 +1,46 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer container">
+  <p class="site-footer__copy">© Simon Richardson {year}</p>
+  <p class="site-footer__contact">
+    Direct contact: <a href="mailto:simonalexrichardson@gmail.com" class="site-footer__email">
+      simonalexrichardson@gmail.com
+    </a>
+  </p>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: 2.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .site-footer__copy {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .site-footer__contact {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .site-footer__email {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    transition: color var(--transition-base), text-decoration-color var(--transition-base);
+  }
+
+  .site-footer__email:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+</style>

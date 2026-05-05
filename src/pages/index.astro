@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Work from '../components/Work.astro';
+import Services from '../components/Services.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+
+// Future additions:
+// - src/pages/blog/index.astro + src/pages/blog/[slug].astro
+// - src/content/blog/ collection (define in src/content/config.ts with defineCollection)
+// - src/pages/case-studies/ similarly
+---
+
+<BaseLayout>
+  <main>
+    <Hero />
+    <Work />
+    <Services />
+    <Contact />
+  </main>
+  <Footer />
+</BaseLayout>

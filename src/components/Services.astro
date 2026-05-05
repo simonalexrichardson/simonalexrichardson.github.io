@@ -1,0 +1,60 @@
+---
+const services = [
+  {
+    heading: 'Marketing sites',
+    body: 'Landing pages and multi-page sites that load fast and read well.',
+  },
+  {
+    heading: 'Web applications',
+    body: 'Custom apps with forms, dashboards, payments, auth — whatever the project needs.',
+  },
+  {
+    heading: 'AI features',
+    body: 'Email automation, AI-powered workflows, integrations with Claude and similar APIs.',
+  },
+];
+---
+
+<section id="services" class="container">
+  <h2 class="section-heading">What I build</h2>
+
+  <ul class="services-grid" role="list">
+    {
+      services.map((service) => (
+        <li class="service">
+          <h3 class="service__heading">{service.heading}</h3>
+          <p class="service__body">{service.body}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 3rem;
+    list-style: none;
+  }
+
+  @media (max-width: 700px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .service__heading {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .service__body {
+    font-size: var(--text-base);
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+</style>

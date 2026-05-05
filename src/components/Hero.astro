@@ -1,0 +1,62 @@
+---
+// No props — static content
+---
+
+<header class="hero container">
+  <div class="hero__inner">
+    <p class="hero__greeting">Hi, I'm Simon.</p>
+
+    <!--
+      Option B: "Websites and web apps, built properly. Simple landing pages to
+      full applications with AI features and custom integrations. I've built for
+      my own projects too, so I understand what shipping under real constraints looks like."
+
+      Option C: "Most of what I build falls somewhere between 'we just need a site'
+      and 'we need something custom.' I work across that whole range — and because I
+      build my own products too, I understand the difference between building
+      something and actually using it."
+
+      Chosen — Option A:
+    -->
+    <p class="hero__bio">
+      I build websites and web apps — from quick marketing sites to custom applications
+      with forms, dashboards, and AI features. I'm a founder myself, so I know what
+      it means to actually ship.
+    </p>
+
+    <div class="hero__accent-line" aria-hidden="true"></div>
+  </div>
+</header>
+
+<style>
+  .hero {
+    padding-block: clamp(5rem, 12vw, 9rem) clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .hero__inner {
+    max-width: 44ch;
+  }
+
+  .hero__greeting {
+    font-size: var(--text-5xl);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__bio {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 46ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero__accent-line {
+    width: 2.5rem;
+    height: 3px;
+    background-color: var(--accent);
+    border-radius: 2px;
+  }
+</style>

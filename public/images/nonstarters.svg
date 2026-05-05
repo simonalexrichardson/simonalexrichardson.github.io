@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#1c1714"/>
+  <!-- Browser chrome -->
+  <rect width="800" height="36" fill="#140f0c"/>
+  <circle cx="22" cy="18" r="6" fill="#2e2420"/>
+  <circle cx="42" cy="18" r="6" fill="#2e2420"/>
+  <circle cx="62" cy="18" r="6" fill="#2e2420"/>
+  <rect x="86" y="10" width="500" height="16" rx="8" fill="#261e1a"/>
+  <!-- Hero section -->
+  <rect x="0" y="36" width="800" height="230" fill="#16120f"/>
+  <!-- Band name large -->
+  <rect x="140" y="100" width="520" height="36" rx="4" fill="#2e2420"/>
+  <rect x="200" y="152" width="400" height="18" rx="4" fill="#261e1a"/>
+  <!-- Record/vinyl icon -->
+  <circle cx="400" cy="310" r="70" fill="#261e1a"/>
+  <circle cx="400" cy="310" r="46" fill="#1c1714"/>
+  <circle cx="400" cy="310" r="24" fill="#2e2420"/>
+  <circle cx="400" cy="310" r="8" fill="#c0392b"/>
+  <!-- Concentric rings suggestion -->
+  <circle cx="400" cy="310" r="38" stroke="#2a1f1b" stroke-width="1" fill="none"/>
+  <circle cx="400" cy="310" r="55" stroke="#2a1f1b" stroke-width="1" fill="none"/>
+  <circle cx="400" cy="310" r="65" stroke="#2a1f1b" stroke-width="1" fill="none"/>
+  <!-- Footer content strip -->
+  <rect x="0" y="430" width="800" height="34" fill="#140f0c"/>
+  <rect x="60" y="441" width="80" height="12" rx="4" fill="#2e2420"/>
+  <rect x="360" y="441" width="80" height="12" rx="4" fill="#2e2420"/>
+  <rect x="660" y="441" width="80" height="12" rx="4" fill="#2e2420"/>
+  <!-- Site name -->
+  <text x="400" y="480" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#7a5c50" text-anchor="middle" letter-spacing="2">THE NON-STARTERS</text>
+</svg>

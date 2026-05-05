@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#1a1f2e"/>
+  <!-- Browser chrome -->
+  <rect width="800" height="36" fill="#131720"/>
+  <circle cx="22" cy="18" r="6" fill="#2a3045"/>
+  <circle cx="42" cy="18" r="6" fill="#2a3045"/>
+  <circle cx="62" cy="18" r="6" fill="#2a3045"/>
+  <rect x="86" y="10" width="500" height="16" rx="8" fill="#222840"/>
+  <!-- Hero -->
+  <rect x="0" y="36" width="800" height="220" fill="#141824"/>
+  <rect x="60" y="100" width="300" height="24" rx="4" fill="#2d3650"/>
+  <rect x="60" y="136" width="240" height="16" rx="4" fill="#232d42"/>
+  <rect x="60" y="160" width="260" height="16" rx="4" fill="#232d42"/>
+  <rect x="60" y="200" width="120" height="36" rx="6" fill="#c0392b"/>
+  <!-- Drone icon rough -->
+  <circle cx="600" cy="156" r="48" fill="#1e2535"/>
+  <circle cx="600" cy="156" r="18" fill="#2d3650"/>
+  <line x1="560" y1="120" x2="540" y2="104" stroke="#3a4560" stroke-width="3" stroke-linecap="round"/>
+  <line x1="640" y1="120" x2="660" y2="104" stroke="#3a4560" stroke-width="3" stroke-linecap="round"/>
+  <line x1="560" y1="192" x2="540" y2="208" stroke="#3a4560" stroke-width="3" stroke-linecap="round"/>
+  <line x1="640" y1="192" x2="660" y2="208" stroke="#3a4560" stroke-width="3" stroke-linecap="round"/>
+  <!-- Content rows -->
+  <rect x="60" y="280" width="680" height="70" rx="8" fill="#1e2535"/>
+  <rect x="60" y="366" width="320" height="70" rx="8" fill="#1e2535"/>
+  <rect x="420" y="366" width="320" height="70" rx="8" fill="#1e2535"/>
+  <!-- Site name -->
+  <text x="400" y="462" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#c0392b" text-anchor="middle" letter-spacing="2">REAPERDRONES.COM</text>
+</svg>
