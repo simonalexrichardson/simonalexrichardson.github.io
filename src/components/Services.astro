@@ -13,13 +13,18 @@ const services = [
   {
     num: '03',
     heading: 'AI features',
-    body: 'Email automation, AI-powered workflows, integrations with Claude and similar APIs. I use these tools in my own products, so I know where they add value and where they don\'t.',
+    body: 'Email automation, AI-powered workflows, integrations with Claude and similar APIs. I know where these tools earn their keep and where they\'re just noise.',
   },
 ];
 ---
 
 <section id="services" class="container">
   <p class="section-label">What I build</p>
+
+  <p class="services__lead">
+    I build for what you actually ship — not the polished demo, not the
+    hypothetical scale, the real thing. Three areas I work in most:
+  </p>
 
   <ul class="services-list" role="list">
     {services.map((service) => (
@@ -35,6 +40,14 @@ const services = [
 </section>
 
 <style>
+  .services__lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 56ch;
+    margin-bottom: 2.5rem;
+  }
+
   .services-list {
     list-style: none;
     display: flex;
