@@ -1,60 +1,86 @@
 ---
 const services = [
   {
+    num: '01',
     heading: 'Marketing sites',
-    body: 'Landing pages and multi-page sites that load fast and read well.',
+    body: 'Landing pages and multi-page sites that load fast and read well. Built to convert, not just to look good.',
   },
   {
+    num: '02',
     heading: 'Web applications',
-    body: 'Custom apps with forms, dashboards, payments, auth — whatever the project needs.',
+    body: 'Custom apps with forms, dashboards, payments, auth — whatever the project needs. I build for what you actually ship, not a hypothetical.',
   },
   {
+    num: '03',
     heading: 'AI features',
-    body: 'Email automation, AI-powered workflows, integrations with Claude and similar APIs.',
+    body: 'Email automation, AI-powered workflows, integrations with Claude and similar APIs. I use these tools in my own products, so I know where they add value and where they don\'t.',
   },
 ];
 ---
 
 <section id="services" class="container">
-  <h2 class="section-heading">What I build</h2>
+  <p class="section-label">What I build</p>
 
-  <ul class="services-grid" role="list">
-    {
-      services.map((service) => (
-        <li class="service">
-          <h3 class="service__heading">{service.heading}</h3>
+  <ul class="services-list" role="list">
+    {services.map((service) => (
+      <li class="service">
+        <span class="service__num" aria-hidden="true">{service.num}</span>
+        <div class="service__content">
+          <h2 class="service__heading">{service.heading}</h2>
           <p class="service__body">{service.body}</p>
-        </li>
-      ))
-    }
+        </div>
+      </li>
+    ))}
   </ul>
 </section>
 
 <style>
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem 3rem;
+  .services-list {
     list-style: none;
+    display: flex;
+    flex-direction: column;
   }
 
-  @media (max-width: 700px) {
-    .services-grid {
+  .service {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding-block: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .service:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 480px) {
+    .service {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 0.75rem;
     }
   }
 
-  .service__heading {
-    font-size: var(--text-lg);
+  .service__num {
+    font-size: var(--text-sm);
     font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
+    color: var(--accent);
+    padding-top: 0.2em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .service__heading {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
   }
 
   .service__body {
     font-size: var(--text-base);
     color: var(--text-muted);
-    line-height: 1.65;
+    line-height: 1.75;
+    max-width: 58ch;
   }
 </style>

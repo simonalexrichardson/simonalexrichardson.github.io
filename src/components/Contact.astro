@@ -1,14 +1,15 @@
 ---
-// Web3Forms key — replace before going live
 const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
 ---
 
 <section id="contact" class="container">
   <div class="contact__header">
-    <h2 class="section-heading">Want one for your project?</h2>
-    <p class="section-subheading">
-      Tell me what you have in mind. I'll come back within a couple of days with thoughts
-      and a rough quote.
+    <p class="section-label">Get in touch</p>
+    <h2 class="contact__heading">Want one for your project?</h2>
+    <p class="contact__intro">
+      Tell me what you have in mind. I'll come back within a couple of days
+      with thoughts and a rough quote. No sales pitch, no retainer — just a
+      straight answer on whether I can help and what it might cost.
     </p>
   </div>
 
@@ -19,49 +20,25 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
     method="POST"
     novalidate
   >
-    <!-- Web3Forms config -->
     <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-    <input type="hidden" name="subject" value="New project enquiry from simonalexrichardson.github.io" />
+    <input type="hidden" name="subject" value="New project enquiry — simonalexrichardson.github.io" />
     <input type="hidden" name="from_name" value="Simon Richardson site" />
-    <!-- UTM source injected by JS below -->
     <input type="hidden" name="utm_source" id="utm-source-field" value="" />
-    <!-- Honeypot -->
     <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
 
-    <div class="form-row form-row--two">
+    <div class="form-row">
       <div class="form-group">
         <label for="name" class="form-label">Name <span aria-hidden="true">*</span></label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          class="form-input"
-          required
-          autocomplete="name"
-          placeholder="Your name"
-        />
-        <span class="form-error" aria-live="polite"></span>
+        <input type="text" id="name" name="name" class="form-input" required autocomplete="name" placeholder="Your name" />
       </div>
-
       <div class="form-group">
         <label for="email" class="form-label">Email <span aria-hidden="true">*</span></label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          class="form-input"
-          required
-          autocomplete="email"
-          placeholder="you@example.com"
-        />
-        <span class="form-error" aria-live="polite"></span>
+        <input type="email" id="email" name="email" class="form-input" required autocomplete="email" placeholder="you@example.com" />
       </div>
     </div>
 
     <div class="form-group">
-      <label for="project" class="form-label">
-        What's the project? <span aria-hidden="true">*</span>
-      </label>
+      <label for="project" class="form-label">What's the project? <span aria-hidden="true">*</span></label>
       <textarea
         id="project"
         name="project"
@@ -70,12 +47,13 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
         rows="5"
         placeholder="Tell me a bit about what you're building — the problem, the audience, any constraints. No need to be precise at this stage."
       ></textarea>
-      <span class="form-error" aria-live="polite"></span>
     </div>
 
-    <div class="form-row form-row--two">
+    <div class="form-row">
       <div class="form-group">
-        <label for="budget" class="form-label">Rough budget <span class="form-label--optional">(optional)</span></label>
+        <label for="budget" class="form-label">
+          Rough budget <span class="form-label--opt">(optional)</span>
+        </label>
         <select id="budget" name="budget" class="form-input form-select">
           <option value="">Not sure yet</option>
           <option value="under-1k">Under £1k</option>
@@ -84,9 +62,10 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
           <option value="15k-plus">£15k+</option>
         </select>
       </div>
-
       <div class="form-group">
-        <label for="timeline" class="form-label">When do you need it? <span class="form-label--optional">(optional)</span></label>
+        <label for="timeline" class="form-label">
+          When do you need it? <span class="form-label--opt">(optional)</span>
+        </label>
         <select id="timeline" name="timeline" class="form-input form-select">
           <option value="">Just exploring</option>
           <option value="asap">ASAP</option>
@@ -100,91 +79,85 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
       <button type="submit" class="form-submit" id="submit-btn">
         Send enquiry
       </button>
+      <p class="form-note">I respond within a couple of days.</p>
     </div>
 
-    <!-- Success message (hidden until JS shows it) -->
     <div class="form-success" id="form-success" role="alert" aria-live="assertive" hidden>
+      <span class="form-success__icon" aria-hidden="true">✓</span>
       Thanks. I'll be in touch within a couple of days.
     </div>
   </form>
 </section>
 
 <script>
-  // Inject UTM source from URL params
   const params = new URLSearchParams(window.location.search);
   const utmField = document.getElementById('utm-source-field') as HTMLInputElement | null;
   if (utmField && params.get('utm_source')) {
     utmField.value = params.get('utm_source')!;
   }
 
-  // Handle form submission
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
   const successMsg = document.getElementById('form-success') as HTMLElement | null;
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
 
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
-    }
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
 
     try {
-      const data = new FormData(form);
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: data,
+        body: new FormData(form),
       });
-
       if (res.ok) {
         form.hidden = true;
         if (successMsg) successMsg.hidden = false;
       } else {
-        throw new Error('Submission failed');
+        throw new Error('failed');
       }
     } catch {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send enquiry';
-      }
-      // Surface the error inline without redirecting
-      const err = form.querySelector('.form-submit-error') as HTMLElement | null;
-      if (err) {
-        err.textContent = 'Something went wrong — please try again or email me directly.';
-        err.hidden = false;
-      }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send enquiry'; }
     }
   });
 </script>
 
 <style>
   .contact__header {
-    max-width: 50ch;
+    max-width: 52ch;
+    margin-bottom: 3rem;
+  }
+
+  .contact__heading {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .contact__intro {
+    font-size: var(--text-base);
+    color: var(--text-muted);
+    line-height: 1.75;
   }
 
   .contact-form {
-    max-width: 600px;
+    max-width: 620px;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.375rem;
   }
 
-  .form-row--two {
+  .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
+    gap: 1.125rem;
   }
 
-  @media (max-width: 560px) {
-    .form-row--two {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width: 540px) {
+    .form-row { grid-template-columns: 1fr; }
   }
 
   .form-group {
@@ -199,97 +172,105 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
     color: var(--text);
   }
 
-  .form-label--optional {
+  .form-label--opt {
     font-weight: 400;
-    color: var(--text-muted);
+    color: var(--text-faint);
   }
 
   .form-input {
     font-family: var(--font-sans);
     font-size: var(--text-base);
     color: var(--text);
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
     padding: 0.625rem 0.875rem;
     width: 100%;
-    transition: border-color var(--transition-base);
+    transition: border-color var(--transition), box-shadow var(--transition);
     appearance: none;
     -webkit-appearance: none;
   }
 
-  .form-input::placeholder {
-    color: var(--text-muted);
-    opacity: 0.8;
-  }
+  .form-input::placeholder { color: var(--text-faint); }
 
   .form-input:focus {
     outline: none;
     border-color: var(--accent);
-  }
-
-  .form-input:invalid:not(:placeholder-shown) {
-    border-color: #c0392b;
+    box-shadow: 0 0 0 3px var(--accent-subtle);
   }
 
   .form-textarea {
     resize: vertical;
     min-height: 120px;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
   .form-select {
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b6763' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath fill='none' stroke='%236b6860' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.875rem center;
     padding-right: 2.25rem;
-  }
-
-  .form-error {
-    font-size: var(--text-xs);
-    color: #c0392b;
-    min-height: 1rem;
   }
 
   .form-footer {
     display: flex;
     align-items: center;
     gap: 1.25rem;
+    flex-wrap: wrap;
   }
 
   .form-submit {
     font-family: var(--font-sans);
-    font-size: var(--text-base);
-    font-weight: 600;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.01em;
     color: #fff;
-    background-color: var(--accent);
+    background: var(--accent);
     border: none;
-    border-radius: 6px;
-    padding: 0.75rem 1.75rem;
+    border-radius: 999px;
+    padding: 0.75em 2em;
     cursor: pointer;
     transition:
-      background-color var(--transition-base),
-      transform var(--transition-base),
-      opacity var(--transition-base);
+      background-color var(--transition),
+      transform var(--transition),
+      opacity var(--transition);
   }
 
   .form-submit:hover:not(:disabled) {
-    background-color: color-mix(in srgb, var(--accent) 85%, #000);
+    background: var(--accent-hover);
   }
 
-  .form-submit:active:not(:disabled) {
-    transform: scale(0.98);
-  }
+  .form-submit:active:not(:disabled) { transform: scale(0.97); }
 
-  .form-submit:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  .form-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .form-note {
+    font-size: var(--text-sm);
+    color: var(--text-faint);
   }
 
   .form-success {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     font-size: var(--text-lg);
+    font-weight: 500;
     color: var(--text);
     padding: 1.5rem 0;
+  }
+
+  .form-success__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    flex-shrink: 0;
   }
 </style>

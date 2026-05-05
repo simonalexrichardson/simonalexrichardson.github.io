@@ -1,0 +1,63 @@
+---
+// No props
+---
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="container nav__inner">
+    <a href="/" class="nav__name" aria-label="Simon Richardson — home">
+      Simon Richardson
+    </a>
+    <a href="#contact" class="nav__cta">
+      Work with me
+    </a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--nav-h);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav__inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav__name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    transition: color var(--transition);
+  }
+
+  .nav__name:hover {
+    color: var(--accent);
+  }
+
+  .nav__cta {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 999px;
+    padding: 0.35em 1em;
+    transition:
+      background-color var(--transition),
+      color var(--transition);
+  }
+
+  .nav__cta:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+</style>

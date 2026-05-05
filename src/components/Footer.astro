@@ -2,19 +2,22 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer container">
-  <p class="site-footer__copy">© Simon Richardson {year}</p>
-  <p class="site-footer__contact">
-    Direct contact: <a href="mailto:simonalexrichardson@gmail.com" class="site-footer__email">
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p class="site-footer__copy">© Simon Richardson {year}</p>
+    <a href="mailto:simonalexrichardson@gmail.com" class="site-footer__email">
       simonalexrichardson@gmail.com
     </a>
-  </p>
+  </div>
 </footer>
 
 <style>
   .site-footer {
-    padding-block: 2.5rem;
     border-top: 1px solid var(--border);
+    padding-block: 2rem;
+  }
+
+  .site-footer__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,19 +27,16 @@ const year = new Date().getFullYear();
 
   .site-footer__copy {
     font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  .site-footer__contact {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
+    color: var(--text-faint);
   }
 
   .site-footer__email {
-    color: var(--text-muted);
+    font-size: var(--text-sm);
+    color: var(--text-faint);
     text-decoration: underline;
     text-decoration-color: var(--border);
-    transition: color var(--transition-base), text-decoration-color var(--transition-base);
+    text-underline-offset: 3px;
+    transition: color var(--transition), text-decoration-color var(--transition);
   }
 
   .site-footer__email:hover {
