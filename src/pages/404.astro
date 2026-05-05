@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found — Simon Richardson"
+  description="That page doesn't exist."
+>
+  <main class="not-found container">
+    <p class="eyebrow">404</p>
+    <h1 class="not-found__heading">Nothing here.</h1>
+    <p class="not-found__body">
+      The page you're after has moved, never existed, or had a typo somewhere
+      along the way.
+    </p>
+    <div class="not-found__actions">
+      <a href="/" class="not-found__btn not-found__btn--primary">
+        Back to home
+      </a>
+      <a href="/#contact" class="not-found__btn not-found__btn--ghost">
+        Get in touch
+      </a>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: calc(100vh - var(--nav-h) - 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 4rem;
+    max-width: 560px;
+  }
+
+  .not-found__heading {
+    font-size: var(--text-hero);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin-block: 1.25rem 1.5rem;
+  }
+
+  .not-found__body {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .not-found__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .not-found__btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.6em 1.4em;
+    transition:
+      background-color var(--transition),
+      color var(--transition),
+      border-color var(--transition),
+      transform var(--transition);
+  }
+
+  .not-found__btn:active { transform: scale(0.97); }
+
+  .not-found__btn--primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .not-found__btn--primary:hover {
+    background: var(--accent);
+  }
+
+  .not-found__btn--ghost {
+    color: var(--text-muted);
+    border: 1.5px solid var(--border-strong);
+  }
+
+  .not-found__btn--ghost:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+</style>

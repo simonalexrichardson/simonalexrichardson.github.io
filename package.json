@@ -12,6 +12,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.2.2"
+    "@astrojs/sitemap": "^3.7.2",
+    "@fontsource/inter": "^5.2.8",
+    "astro": "^6.2.2",
+    "simple-icons": "^16.18.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.59.1"
   }
 }
