@@ -1,7 +1,8 @@
 ---
-// Resend API key injected at build time via PUBLIC_RESEND_API_KEY env var.
-// Local dev:  create a .env file containing PUBLIC_RESEND_API_KEY=your_key
-// Production: add PUBLIC_RESEND_API_KEY to GitHub repo Settings → Secrets → Actions
+// Web3Forms — free, browser-native, no CORS issues.
+// Get your access key at https://web3forms.com (use simonalexrichardson@gmail.com).
+// Replace the value below once you have it.
+const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
 ---
 
 <section id="contact" class="container">
@@ -16,6 +17,10 @@
   </div>
 
   <form id="contact-form" class="contact-form" novalidate>
+    <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+    <input type="hidden" name="subject" value="New project enquiry — simonalexrichardson.github.io" />
+    <input type="hidden" name="from_name" value="Simon Richardson site" />
+    <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
 
     <div class="form-row">
       <div class="form-group">
@@ -86,22 +91,32 @@
 </section>
 
 <script>
-  const RESEND_KEY = import.meta.env.PUBLIC_RESEND_API_KEY as string;
-  const TO_EMAIL   = 'simonalexrichardson@gmail.com';
-
-  function esc(s: unknown): string {
-    return String(s ?? '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+  // Inject UTM source as a hidden field if present
+  const utmVal = new URLSearchParams(window.location.search).get('utm_source');
+  if (utmVal) {
+    const utmInput = document.createElement('input');
+    utmInput.type = 'hidden';
+    utmInput.name = 'utm_source';
+    utmInput.value = utmVal;
+    document.getElementById('contact-form')?.appendChild(utmInput);
   }
 
-  const utmSource = new URLSearchParams(window.location.search).get('utm_source') ?? 'direct';
-  const form      = document.getElementById('contact-form')  as HTMLFormElement   | null;
-  const btn       = document.getElementById('submit-btn')    as HTMLButtonElement  | null;
-  const successEl = document.getElementById('form-success')  as HTMLElement        | null;
-  const errorEl   = document.getElementById('form-error')    as HTMLElement        | null;
+  const form      = document.getElementById('contact-form') as HTMLFormElement  | null;
+  const btn       = document.getElementById('submit-btn')   as HTMLButtonElement | null;
+  const successEl = document.getElementById('form-success') as HTMLElement       | null;
+  const errorEl   = document.getElementById('form-error')   as HTMLElement       | null;
+
+  function showSuccess() {
+    if (form)      form.hidden      = true;
+    if (successEl) successEl.hidden = false;
+    if (errorEl)   errorEl.hidden   = true;
+  }
+
+  function showError() {
+    if (btn)       { btn.disabled = false; btn.textContent = 'Send enquiry'; }
+    if (errorEl)   errorEl.hidden   = false;
+    if (successEl) successEl.hidden = true;
+  }
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -109,75 +124,21 @@
     if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
     if (errorEl) errorEl.hidden = true;
 
-    const d        = new FormData(form);
-    const name     = d.get('name')     as string;
-    const email    = d.get('email')    as string;
-    const project  = d.get('project')  as string;
-    const budget   = (d.get('budget')   as string) || 'Not specified';
-    const timeline = (d.get('timeline') as string) || 'Not specified';
-
-    const html = `
-      <div style="font-family:sans-serif;max-width:560px;color:#1a1917">
-        <h2 style="margin:0 0 20px;font-size:20px;font-weight:700">New project enquiry</h2>
-        <table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.6">
-          <tr style="border-bottom:1px solid #e4e1da">
-            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860;white-space:nowrap;width:90px">Name</td>
-            <td style="padding:10px 0">${esc(name)}</td>
-          </tr>
-          <tr style="border-bottom:1px solid #e4e1da">
-            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860">Email</td>
-            <td style="padding:10px 0"><a href="mailto:${esc(email)}" style="color:#c85a12">${esc(email)}</a></td>
-          </tr>
-          <tr style="border-bottom:1px solid #e4e1da">
-            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860;vertical-align:top">Project</td>
-            <td style="padding:10px 0;white-space:pre-wrap">${esc(project)}</td>
-          </tr>
-          <tr style="border-bottom:1px solid #e4e1da">
-            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860">Budget</td>
-            <td style="padding:10px 0">${esc(budget)}</td>
-          </tr>
-          <tr style="border-bottom:1px solid #e4e1da">
-            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860">Timeline</td>
-            <td style="padding:10px 0">${esc(timeline)}</td>
-          </tr>
-          <tr>
-            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860">Source</td>
-            <td style="padding:10px 0">${esc(utmSource)}</td>
-          </tr>
-        </table>
-        <p style="margin:24px 0 0;font-size:13px;color:#a09d98">
-          Hit reply to respond directly to ${esc(name)}.
-        </p>
-      </div>
-    `;
-
     try {
-      const res = await fetch('https://api.resend.com/emails', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${RESEND_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: 'Simon Richardson Site <onboarding@resend.dev>',
-          to: [TO_EMAIL],
-          reply_to: email,
-          subject: `Project enquiry from ${name}`,
-          html,
-        }),
+        body: new FormData(form),
       });
-
-      if (res.ok) {
-        form.hidden = true;
-        if (successEl) successEl.hidden = false;
+      const data = await res.json().catch(() => ({ success: false }));
+      if (res.ok && data.success) {
+        showSuccess();
       } else {
-        const body = await res.json().catch(() => ({}));
-        console.error('Resend error:', body);
-        throw new Error('send failed');
+        console.error('Web3Forms error:', data);
+        showError();
       }
-    } catch {
-      if (btn)     { btn.disabled = false; btn.textContent = 'Send enquiry'; }
-      if (errorEl) { errorEl.hidden = false; }
+    } catch (err) {
+      console.error('Submit error:', err);
+      showError();
     }
   });
 </script>
