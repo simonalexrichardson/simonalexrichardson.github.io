@@ -13,7 +13,7 @@ export const projects: Project[] = [
     url: 'https://quietloon.com',
     description: 'The app that carries the mental load',
     tag: 'Web app',
-    image: '/images/quietloon.svg',
+    image: '/images/quietloon.png',
     imageAlt: 'Screenshot of the Quiet Loon web application',
   },
   {
@@ -21,7 +21,7 @@ export const projects: Project[] = [
     url: 'https://reaperdrones.com',
     description: 'Drone news, reviews and industry insights',
     tag: 'News site',
-    image: '/images/reaperdrones.svg',
+    image: '/images/reaperdrones.png',
     imageAlt: 'Screenshot of the Reaper Drones website',
   },
   {
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     url: 'https://altitudedronesurveying.vercel.app',
     description: 'Drone surveys from a chartered surveyor',
     tag: 'Marketing site',
-    image: '/images/altitude.svg',
+    image: '/images/altitude.png',
     imageAlt: 'Screenshot of the Altitude Drone Surveying website',
   },
   {
@@ -37,7 +37,7 @@ export const projects: Project[] = [
     url: 'https://thenonstarters.vercel.app',
     description: 'We never got off the ground.',
     tag: 'Band site',
-    image: '/images/nonstarters.svg',
+    image: '/images/nonstarters.png',
     imageAlt: 'Screenshot of The Non-Starters website',
   },
   {
@@ -45,7 +45,7 @@ export const projects: Project[] = [
     url: 'https://shabbyroads.vercel.app',
     description: 'The songs you love, played with soul.',
     tag: 'Band site',
-    image: '/images/shabbyroads.svg',
+    image: '/images/shabbyroads.png',
     imageAlt: 'Screenshot of the Shabby Roads website',
   },
 ];

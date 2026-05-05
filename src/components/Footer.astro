@@ -5,11 +5,21 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <p class="site-footer__copy">© Simon Richardson {year}</p>
-    <a href="mailto:simonalexrichardson@gmail.com" class="site-footer__email">
-      simonalexrichardson@gmail.com
+    <!-- Email constructed by JS — never in HTML source so scrapers can't grab it -->
+    <a href="#contact" id="footer-email" class="site-footer__email">
+      Email me directly
     </a>
   </div>
 </footer>
+
+<script>
+  const el = document.getElementById('footer-email') as HTMLAnchorElement | null;
+  if (el) {
+    const addr = 'simonalexrichardson' + '@' + 'gmail.com';
+    el.href = 'mailto:' + addr;
+    el.textContent = addr;
+  }
+</script>
 
 <style>
   .site-footer {
