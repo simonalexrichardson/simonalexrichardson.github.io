@@ -9,25 +9,25 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    name: 'Quietloon',
+    name: 'Quiet Loon',
     url: 'https://quietloon.com',
-    description: 'AI-powered email workflows for families',
+    description: 'The app that carries the mental load',
     tag: 'Web app',
     image: '/images/quietloon.svg',
-    imageAlt: 'Screenshot of the Quietloon web application',
+    imageAlt: 'Screenshot of the Quiet Loon web application',
   },
   {
     name: 'Reaper Drones',
     url: 'https://reaperdrones.com',
-    description: 'Professional drone survey and inspection services', // TODO: replace with real tagline
-    tag: 'Marketing site',
+    description: 'Drone news, reviews and industry insights',
+    tag: 'News site',
     image: '/images/reaperdrones.svg',
     imageAlt: 'Screenshot of the Reaper Drones website',
   },
   {
     name: 'Altitude Drone Surveying',
     url: 'https://altitudedronesurveying.vercel.app',
-    description: 'Professional drone survey and inspection services', // TODO: replace with real tagline
+    description: 'Drone surveys from a chartered surveyor',
     tag: 'Marketing site',
     image: '/images/altitude.svg',
     imageAlt: 'Screenshot of the Altitude Drone Surveying website',
@@ -35,16 +35,16 @@ export const projects: Project[] = [
   {
     name: 'The Non-Starters',
     url: 'https://thenonstarters.vercel.app',
-    description: 'The band with no plans and all the songs', // TODO: replace with real tagline
-    tag: 'Marketing site',
+    description: 'We never got off the ground.',
+    tag: 'Band site',
     image: '/images/nonstarters.svg',
     imageAlt: 'Screenshot of The Non-Starters website',
   },
   {
     name: 'Shabby Roads',
     url: 'https://shabbyroads.vercel.app',
-    description: 'Vintage furniture and curiosities, online', // TODO: replace with real tagline
-    tag: 'Marketing site',
+    description: 'The songs you love, played with soul.',
+    tag: 'Band site',
     image: '/images/shabbyroads.svg',
     imageAlt: 'Screenshot of the Shabby Roads website',
   },

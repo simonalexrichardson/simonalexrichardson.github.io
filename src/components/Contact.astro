@@ -1,5 +1,7 @@
 ---
-const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
+// Resend API key injected at build time via PUBLIC_RESEND_API_KEY env var.
+// Local dev:  create a .env file containing PUBLIC_RESEND_API_KEY=your_key
+// Production: add PUBLIC_RESEND_API_KEY to GitHub repo Settings → Secrets → Actions
 ---
 
 <section id="contact" class="container">
@@ -13,18 +15,7 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
     </p>
   </div>
 
-  <form
-    id="contact-form"
-    class="contact-form"
-    action="https://api.web3forms.com/submit"
-    method="POST"
-    novalidate
-  >
-    <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-    <input type="hidden" name="subject" value="New project enquiry — simonalexrichardson.github.io" />
-    <input type="hidden" name="from_name" value="Simon Richardson site" />
-    <input type="hidden" name="utm_source" id="utm-source-field" value="" />
-    <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
+  <form id="contact-form" class="contact-form" novalidate>
 
     <div class="form-row">
       <div class="form-group">
@@ -56,10 +47,10 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
         </label>
         <select id="budget" name="budget" class="form-input form-select">
           <option value="">Not sure yet</option>
-          <option value="under-1k">Under £1k</option>
-          <option value="1k-5k">£1k–£5k</option>
-          <option value="5k-15k">£5k–£15k</option>
-          <option value="15k-plus">£15k+</option>
+          <option value="Under £1k">Under £1k</option>
+          <option value="£1k–£5k">£1k–£5k</option>
+          <option value="£5k–£15k">£5k–£15k</option>
+          <option value="£15k+">£15k+</option>
         </select>
       </div>
       <div class="form-group">
@@ -68,9 +59,9 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
         </label>
         <select id="timeline" name="timeline" class="form-input form-select">
           <option value="">Just exploring</option>
-          <option value="asap">ASAP</option>
-          <option value="within-a-month">Within a month</option>
-          <option value="1-3-months">Next 1–3 months</option>
+          <option value="ASAP">ASAP</option>
+          <option value="Within a month">Within a month</option>
+          <option value="Next 1–3 months">Next 1–3 months</option>
         </select>
       </div>
     </div>
@@ -82,6 +73,11 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
       <p class="form-note">I respond within a couple of days.</p>
     </div>
 
+    <p class="form-error" id="form-error" role="alert" hidden>
+      Something went wrong — please try again or email me directly at
+      <a href="mailto:simonalexrichardson@gmail.com">simonalexrichardson@gmail.com</a>.
+    </p>
+
     <div class="form-success" id="form-success" role="alert" aria-live="assertive" hidden>
       <span class="form-success__icon" aria-hidden="true">✓</span>
       Thanks. I'll be in touch within a couple of days.
@@ -90,35 +86,98 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
 </section>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const utmField = document.getElementById('utm-source-field') as HTMLInputElement | null;
-  if (utmField && params.get('utm_source')) {
-    utmField.value = params.get('utm_source')!;
+  const RESEND_KEY = import.meta.env.PUBLIC_RESEND_API_KEY as string;
+  const TO_EMAIL   = 'simonalexrichardson@gmail.com';
+
+  function esc(s: unknown): string {
+    return String(s ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
-  const successMsg = document.getElementById('form-success') as HTMLElement | null;
+  const utmSource = new URLSearchParams(window.location.search).get('utm_source') ?? 'direct';
+  const form      = document.getElementById('contact-form')  as HTMLFormElement   | null;
+  const btn       = document.getElementById('submit-btn')    as HTMLButtonElement  | null;
+  const successEl = document.getElementById('form-success')  as HTMLElement        | null;
+  const errorEl   = document.getElementById('form-error')    as HTMLElement        | null;
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    if (errorEl) errorEl.hidden = true;
 
-    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+    const d        = new FormData(form);
+    const name     = d.get('name')     as string;
+    const email    = d.get('email')    as string;
+    const project  = d.get('project')  as string;
+    const budget   = (d.get('budget')   as string) || 'Not specified';
+    const timeline = (d.get('timeline') as string) || 'Not specified';
+
+    const html = `
+      <div style="font-family:sans-serif;max-width:560px;color:#1a1917">
+        <h2 style="margin:0 0 20px;font-size:20px;font-weight:700">New project enquiry</h2>
+        <table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.6">
+          <tr style="border-bottom:1px solid #e4e1da">
+            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860;white-space:nowrap;width:90px">Name</td>
+            <td style="padding:10px 0">${esc(name)}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #e4e1da">
+            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860">Email</td>
+            <td style="padding:10px 0"><a href="mailto:${esc(email)}" style="color:#c85a12">${esc(email)}</a></td>
+          </tr>
+          <tr style="border-bottom:1px solid #e4e1da">
+            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860;vertical-align:top">Project</td>
+            <td style="padding:10px 0;white-space:pre-wrap">${esc(project)}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #e4e1da">
+            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860">Budget</td>
+            <td style="padding:10px 0">${esc(budget)}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #e4e1da">
+            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860">Timeline</td>
+            <td style="padding:10px 0">${esc(timeline)}</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 20px 10px 0;font-weight:600;color:#6b6860">Source</td>
+            <td style="padding:10px 0">${esc(utmSource)}</td>
+          </tr>
+        </table>
+        <p style="margin:24px 0 0;font-size:13px;color:#a09d98">
+          Hit reply to respond directly to ${esc(name)}.
+        </p>
+      </div>
+    `;
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
-        body: new FormData(form),
+        headers: {
+          'Authorization': `Bearer ${RESEND_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'Simon Richardson Site <onboarding@resend.dev>',
+          to: [TO_EMAIL],
+          reply_to: email,
+          subject: `Project enquiry from ${name}`,
+          html,
+        }),
       });
+
       if (res.ok) {
         form.hidden = true;
-        if (successMsg) successMsg.hidden = false;
+        if (successEl) successEl.hidden = false;
       } else {
-        throw new Error('failed');
+        const body = await res.json().catch(() => ({}));
+        console.error('Resend error:', body);
+        throw new Error('send failed');
       }
     } catch {
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send enquiry'; }
+      if (btn)     { btn.disabled = false; btn.textContent = 'Send enquiry'; }
+      if (errorEl) { errorEl.hidden = false; }
     }
   });
 </script>
@@ -231,23 +290,27 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY_HERE';
     border-radius: 999px;
     padding: 0.75em 2em;
     cursor: pointer;
-    transition:
-      background-color var(--transition),
-      transform var(--transition),
-      opacity var(--transition);
+    transition: background-color var(--transition), transform var(--transition), opacity var(--transition);
   }
 
-  .form-submit:hover:not(:disabled) {
-    background: var(--accent-hover);
-  }
-
+  .form-submit:hover:not(:disabled) { background: var(--accent-hover); }
   .form-submit:active:not(:disabled) { transform: scale(0.97); }
-
   .form-submit:disabled { opacity: 0.55; cursor: not-allowed; }
 
   .form-note {
     font-size: var(--text-sm);
     color: var(--text-faint);
+  }
+
+  .form-error {
+    font-size: var(--text-sm);
+    color: #c0392b;
+    line-height: 1.6;
+  }
+
+  .form-error a {
+    color: inherit;
+    text-decoration: underline;
   }
 
   .form-success {
