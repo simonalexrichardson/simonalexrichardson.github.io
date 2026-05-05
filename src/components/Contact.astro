@@ -16,6 +16,13 @@ const WEB3FORMS_KEY = 'ea75af34-c638-42ad-9960-49e1af1404c4';
     </p>
   </div>
 
+  <noscript>
+    <p class="form-noscript">
+      This form needs JavaScript to submit. If you can't enable it, scroll to
+      the footer and use the email link instead.
+    </p>
+  </noscript>
+
   <form id="contact-form" class="contact-form" novalidate>
     <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
     <input type="hidden" name="subject" value="New project enquiry — simonalexrichardson.github.io" />
@@ -266,6 +273,18 @@ const WEB3FORMS_KEY = 'ea75af34-c638-42ad-9960-49e1af1404c4';
   .form-note {
     font-size: var(--text-sm);
     color: var(--text-faint);
+  }
+
+  .form-noscript {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding: 0.75rem 1rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.5rem;
+    max-width: 620px;
   }
 
   .form-error {

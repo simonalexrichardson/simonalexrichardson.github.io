@@ -21,6 +21,23 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(ogImage, Astro.site);
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Simon Richardson',
+  url: 'https://simonalexrichardson.github.io/',
+  jobTitle: 'Web designer & developer',
+  description: 'Builds websites and web apps — marketing sites, custom applications, AI features.',
+  image: ogImageURL.toString(),
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'GB',
+  },
+  sameAs: [
+    'https://github.com/simonalexrichardson',
+  ],
+};
 ---
 
 <!doctype html>
@@ -57,6 +74,9 @@ const ogImageURL = new URL(ogImage, Astro.site);
 
     <!-- Indexing: allowed -->
     <meta name="robots" content="index, follow" />
+
+    <!-- Structured data: Person schema for rich results -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
 
     <!--
       Analytics — uncomment after signing up at plausible.io and adding the domain.

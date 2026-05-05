@@ -30,9 +30,10 @@ import { projects } from '../data/projects.ts';
       -->
       <p class="hero__bio">
         I build websites and web apps for people who want them to actually
-        work — from quick marketing sites to custom applications. I run my own
-        products too, so I know the difference between something that demos
-        well and something that ships.
+        work — marketing sites, custom applications, AI features. I'm currently
+        shipping my own founder product, <a href="https://quietloon.com" target="_blank" rel="noopener noreferrer" class="hero__bio-link">Quiet Loon</a>
+        — about to go live — so I know the difference between something that
+        demos well and something that ships.
       </p>
 
       <div class="hero__actions">
@@ -109,6 +110,19 @@ import { projects } from '../data/projects.ts';
     line-height: 1.75;
     max-width: 46ch;
     margin-bottom: 2.5rem;
+  }
+
+  .hero__bio-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 3px;
+    transition: color var(--transition), text-decoration-color var(--transition);
+  }
+
+  .hero__bio-link:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
   }
 
   .hero__actions {
