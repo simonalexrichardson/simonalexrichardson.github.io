@@ -1,10 +1,78 @@
 ---
+import { siX, siWhatsapp } from 'simple-icons';
+
 const year = new Date().getFullYear();
+
+// Inline icon paths (LinkedIn was removed from simple-icons; mail/link are generic).
+const linkedinPath = 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z';
+const mailPath = 'M1.5 4h21A1.5 1.5 0 0 1 24 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-21A1.5 1.5 0 0 1 0 18.5v-13A1.5 1.5 0 0 1 1.5 4zm.5 3.04V18h20V7.04l-10 6.5-10-6.5zM2.36 6l9.64 6.27L21.64 6H2.36z';
+const linkPath = 'M9.172 14.828a4 4 0 0 1 0-5.656l3-3a4 4 0 1 1 5.656 5.656l-1.43 1.43a1 1 0 1 1-1.414-1.414l1.43-1.43a2 2 0 1 0-2.828-2.828l-3 3a2 2 0 0 0 0 2.828 1 1 0 1 1-1.414 1.414zm5.656-5.656a4 4 0 0 1 0 5.656l-3 3a4 4 0 1 1-5.656-5.656l1.43-1.43a1 1 0 1 1 1.414 1.414l-1.43 1.43a2 2 0 1 0 2.828 2.828l3-3a2 2 0 0 0 0-2.828 1 1 0 1 1 1.414-1.414z';
+
+const siteUrl = 'https://simonalexrichardson.github.io/';
+const shareText = 'Simon Richardson — web design & development';
+
+const shares = [
+  {
+    name: 'Share on X',
+    href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(siteUrl)}&text=${encodeURIComponent(shareText)}`,
+    path: siX.path,
+  },
+  {
+    name: 'Share on LinkedIn',
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(siteUrl)}`,
+    path: linkedinPath,
+  },
+  {
+    name: 'Share on WhatsApp',
+    href: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${siteUrl}`)}`,
+    path: siWhatsapp.path,
+  },
+  {
+    name: 'Share via email',
+    href: `mailto:?subject=${encodeURIComponent(shareText)}&body=${encodeURIComponent(siteUrl)}`,
+    path: mailPath,
+  },
+];
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <p class="site-footer__copy">© Simon Richardson {year}</p>
+
+    <div class="site-footer__share">
+      <span class="site-footer__share-label">Share</span>
+      <ul class="site-footer__share-list" role="list">
+        {shares.map((s) => (
+          <li>
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="site-footer__share-btn"
+              aria-label={s.name}
+            >
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
+                <path d={s.path} />
+              </svg>
+            </a>
+          </li>
+        ))}
+        <li>
+          <button
+            type="button"
+            id="copy-link"
+            class="site-footer__share-btn"
+            aria-label="Copy link"
+            data-copied-label="Copied"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
+              <path d={linkPath} />
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+
     <!-- Email constructed by JS — never in HTML source so scrapers can't grab it -->
     <a href="#contact" id="footer-email" class="site-footer__email">
       Email me directly
@@ -13,11 +81,26 @@ const year = new Date().getFullYear();
 </footer>
 
 <script>
+  // Reveal email
   const el = document.getElementById('footer-email') as HTMLAnchorElement | null;
   if (el) {
     const addr = 'simonalexrichardson' + '@' + 'gmail.com';
     el.href = 'mailto:' + addr;
     el.textContent = addr;
+  }
+
+  // Copy current URL to clipboard
+  const copyBtn = document.getElementById('copy-link') as HTMLButtonElement | null;
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        copyBtn.classList.add('is-copied');
+        setTimeout(() => copyBtn.classList.remove('is-copied'), 1600);
+      } catch {
+        /* clipboard API unavailable — silently fail */
+      }
+    });
   }
 </script>
 
@@ -31,13 +114,64 @@ const year = new Date().getFullYear();
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 1rem 1.5rem;
     flex-wrap: wrap;
   }
 
   .site-footer__copy {
     font-size: var(--text-sm);
     color: var(--text-faint);
+  }
+
+  .site-footer__share {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .site-footer__share-label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .site-footer__share-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .site-footer__share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 999px;
+    color: var(--text-faint);
+    cursor: pointer;
+    padding: 0;
+    transition: color var(--transition), background-color var(--transition);
+  }
+
+  .site-footer__share-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .site-footer__share-btn:hover {
+    color: var(--accent);
+    background: var(--accent-subtle);
+  }
+
+  .site-footer__share-btn.is-copied {
+    color: var(--green);
+    background: rgba(22, 163, 74, 0.1);
   }
 
   .site-footer__email {
