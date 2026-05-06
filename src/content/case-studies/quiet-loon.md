@@ -9,7 +9,7 @@ image: '/images/quietloon.jpg'
 imageAlt: 'Screenshot of the Quiet Loon web app'
 publishedAt: 2026-05-06
 order: 1
-draft: true
+draft: false
 ---
 
 ## The problem
