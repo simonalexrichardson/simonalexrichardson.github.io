@@ -10,28 +10,62 @@ interface Props {
 }
 
 const {
-  title = 'Simon Richardson — Web design & development',
-  description = 'I build websites and web apps — from marketing sites to custom applications with AI features. Based in the UK.',
+  title = 'Simon Richardson — Freelance web designer & developer (UK)',
+  description = 'Simon Richardson is a UK-based freelance web developer. I build marketing sites, custom web apps, and AI features for clients who want them to actually work.',
   ogImage = '/images/og-image.png',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(ogImage, Astro.site);
 
-const personJsonLd = {
+const SITE_URL = 'https://simonrichardson.dev/';
+const PERSON_ID = `${SITE_URL}#person`;
+const WEBSITE_ID = `${SITE_URL}#website`;
+const BUSINESS_ID = `${SITE_URL}#business`;
+
+const seoJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Simon Richardson',
-  url: 'https://simonrichardson.dev/',
-  jobTitle: 'Web designer & developer',
-  description: 'Builds websites and web apps — marketing sites, custom applications, AI features.',
-  image: ogImageURL.toString(),
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'GB',
-  },
-  sameAs: [
-    'https://github.com/simonalexrichardson',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': PERSON_ID,
+      name: 'Simon Richardson',
+      url: SITE_URL,
+      jobTitle: 'Freelance web designer & developer',
+      description: 'UK-based freelance developer building marketing sites, custom web apps, and AI features.',
+      image: ogImageURL.toString(),
+      address: { '@type': 'PostalAddress', addressCountry: 'GB' },
+      sameAs: ['https://github.com/simonalexrichardson'],
+      worksFor: { '@id': BUSINESS_ID },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': WEBSITE_ID,
+      name: 'Simon Richardson',
+      url: SITE_URL,
+      publisher: { '@id': PERSON_ID },
+      inLanguage: 'en-GB',
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': BUSINESS_ID,
+      name: 'Simon Richardson — Web design & development',
+      url: SITE_URL,
+      image: ogImageURL.toString(),
+      description: 'Freelance web design and development from the UK — marketing sites, custom web apps, AI features.',
+      areaServed: { '@type': 'Country', name: 'United Kingdom' },
+      provider: { '@id': PERSON_ID },
+      priceRange: '££',
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Services',
+        itemListElement: [
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Marketing site design & build', description: 'Landing pages and multi-page sites that load fast and convert.' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom web applications', description: 'Forms, dashboards, payments, auth — bespoke web apps.' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI features and integrations', description: 'Claude API, email automation, AI-powered workflows.' } },
+        ],
+      },
+    },
   ],
 };
 ---
@@ -42,6 +76,7 @@ const personJsonLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#c85a12" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -51,9 +86,13 @@ const personJsonLd = {
     <!-- Sitemap -->
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <!-- IndieWeb verification (Mastodon, Bridgy etc. read rel=me) -->
+    <link rel="me" href="https://github.com/simonalexrichardson" />
+
     <!-- Primary meta -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Simon Richardson" />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
@@ -62,20 +101,22 @@ const personJsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
-    <meta property="og:image:alt" content="Simon Richardson — web design & development" />
+    <meta property="og:image:alt" content="Simon Richardson — freelance web designer & developer (UK)" />
+    <meta property="og:site_name" content="Simon Richardson" />
+    <meta property="og:locale" content="en_GB" />
 
     <!-- Twitter/X card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
-    <meta name="twitter:image:alt" content="Simon Richardson — web design & development" />
+    <meta name="twitter:image:alt" content="Simon Richardson — freelance web designer & developer (UK)" />
 
     <!-- Indexing: allowed -->
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
-    <!-- Structured data: Person schema for rich results -->
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+    <!-- Structured data: Person + WebSite + ProfessionalService graph -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(seoJsonLd)} />
   </head>
   <body>
     <a href="#main" class="sr-only sr-only-focusable">Skip to main content</a>
