@@ -111,8 +111,13 @@ const articleJsonLd = {
 </BaseLayout>
 
 <style>
+  /* Narrower reading column than the rest of the site (760 vs 960). */
+  .case-study .container {
+    max-width: 760px;
+  }
+
   .case-study {
-    padding-block: clamp(2rem, 5vw, 3.5rem) clamp(2.5rem, 6vw, 4.5rem);
+    padding-block: clamp(2rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem);
   }
 
   .case-study__back {
@@ -124,36 +129,35 @@ const articleJsonLd = {
     color: var(--accent);
   }
 
+  /* ── Header ───────────────────────────────────────────────── */
+
   .case-study__header {
-    max-width: 60ch;
-    margin-bottom: 2.5rem;
+    margin-block: 1.25rem 0;
   }
 
   .case-study__heading {
-    font-size: var(--text-4xl);
+    font-size: clamp(2rem, 4.5vw, 2.875rem);
     font-weight: 800;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.035em;
     line-height: 1.1;
-    margin-block: 0.75rem 1rem;
+    margin-block: 0.875rem 1.25rem;
+    text-wrap: balance;
   }
 
   .case-study__summary {
     font-size: var(--text-lg);
     color: var(--text-muted);
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    line-height: 1.65;
+    margin-bottom: 2.25rem;
+    max-width: 60ch;
   }
 
   .case-study__meta {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    gap: 1.5rem 2.25rem;
-    padding-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2.5rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--border);
-  }
-
-  @media (max-width: 540px) {
-    .case-study__meta { grid-template-columns: repeat(2, 1fr); }
   }
 
   .case-study__meta dt {
@@ -162,7 +166,7 @@ const articleJsonLd = {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-faint);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.375rem;
   }
 
   .case-study__meta dd {
@@ -170,12 +174,26 @@ const articleJsonLd = {
     font-weight: 600;
   }
 
+  .case-study__meta a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-subtle);
+    text-underline-offset: 3px;
+  }
+
+  .case-study__meta a:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  /* ── Hero image ───────────────────────────────────────────── */
+
   .case-study__hero {
-    margin-block: 2.5rem 3rem;
+    margin-block: 3rem 3.5rem;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--bg-subtle);
+    box-shadow: var(--shadow-card);
   }
 
   .case-study__hero img {
@@ -184,8 +202,16 @@ const articleJsonLd = {
     display: block;
   }
 
+  /* ── Prose body ───────────────────────────────────────────── */
+
   .case-study__body {
-    max-width: 65ch;
+    font-size: 1.0625rem;
+    color: var(--text);
+  }
+
+  /* Lobotomised-owl flow spacing — every direct child gets top breathing room. */
+  .prose > * + * {
+    margin-top: 1.4rem;
   }
 
   .prose h2 {
@@ -193,35 +219,68 @@ const articleJsonLd = {
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.25;
-    margin-block: 2.5rem 0.875rem;
+    margin-top: 3.5rem !important;
+    margin-bottom: 1rem;
+    padding-top: 2.25rem;
+    border-top: 1px solid var(--border);
+    text-wrap: balance;
+  }
+
+  .prose > h2:first-child {
+    margin-top: 0 !important;
+    padding-top: 0;
+    border-top: none;
   }
 
   .prose h3 {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin-block: 1.75rem 0.625rem;
+    line-height: 1.35;
+    margin-top: 2.25rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Tighten heading-to-paragraph gap (overrides the > * + * rule) */
+  .prose h2 + p,
+  .prose h3 + p {
+    margin-top: 0;
   }
 
   .prose p {
-    font-size: var(--text-base);
-    color: var(--text);
+    margin: 0;
+    font-size: 1.0625rem;
     line-height: 1.75;
-    margin-bottom: 1.125rem;
   }
 
   .prose ul, .prose ol {
-    padding-left: 1.25rem;
-    margin-bottom: 1.125rem;
+    padding-left: 1.5rem;
+    margin: 1.4rem 0 0;
   }
 
   .prose li {
-    font-size: var(--text-base);
+    font-size: 1.0625rem;
     line-height: 1.75;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.625rem;
   }
 
-  .prose strong { font-weight: 700; }
+  .prose li:last-child { margin-bottom: 0; }
+
+  .prose li::marker {
+    color: var(--accent);
+  }
+
+  .prose strong { font-weight: 700; color: var(--text); }
+
+  .prose blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.25rem;
+    margin: 2rem 0 0;
+    font-size: var(--text-lg);
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
 
   .prose a {
     color: var(--accent);
@@ -235,23 +294,24 @@ const articleJsonLd = {
 
   .prose hr {
     border: none;
-    border-top: 1px solid var(--border);
-    margin-block: 2.5rem;
+    height: 1px;
+    background: var(--border);
+    margin: 3rem 0 0;
   }
+
+  /* ── Tags + CTA ───────────────────────────────────────────── */
 
   .case-study__tags {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    max-width: 65ch;
-    margin-block: 2.5rem;
+    margin-top: 2.5rem;
   }
 
   .case-study__cta {
-    max-width: 65ch;
-    margin-top: 2.5rem;
-    padding-top: 2rem;
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
     border-top: 1px solid var(--border);
   }
 
@@ -265,8 +325,9 @@ const articleJsonLd = {
     background: var(--text);
     border-radius: 999px;
     padding: 0.65em 1.4em;
-    transition: background-color var(--transition);
+    transition: background-color var(--transition), transform var(--transition);
   }
 
   .case-study__btn:hover { background: var(--accent); }
+  .case-study__btn:active { transform: scale(0.97); }
 </style>
