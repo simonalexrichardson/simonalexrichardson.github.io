@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/inter';
+import '@fontsource-variable/inter/index.css';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 
@@ -114,6 +114,9 @@ const seoJsonLd = {
 
     <!-- Indexing: allowed -->
     <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <!-- Search engine verification -->
+    <meta name="google-site-verification" content="TSrW0pwokdxbeA5lXZ58PN4xG87p4t7NIZuZDp7zmpY" />
 
     <!-- Structured data: Person + WebSite + ProfessionalService graph -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(seoJsonLd)} />
