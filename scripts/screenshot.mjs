@@ -26,7 +26,9 @@ for (const site of sites) {
   }
   await page.waitForTimeout(1500);
   await page.screenshot({
-    path: `${outDir}/${site.name}.png`,
+    path: `${outDir}/${site.name}.jpg`,
+    type: 'jpeg',
+    quality: 82,
     clip: { x: 0, y: 0, width: 1280, height: 800 },
   });
   console.log(`✓  ${site.name}`);

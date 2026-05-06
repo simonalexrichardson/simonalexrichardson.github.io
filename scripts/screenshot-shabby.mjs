@@ -13,7 +13,9 @@ try {
 } catch { /* page loaded, ignore open connections */ }
 await page.waitForTimeout(1500);
 await page.screenshot({
-  path: `${outDir}/shabbyroads.png`,
+  path: `${outDir}/shabbyroads.jpg`,
+  type: 'jpeg',
+  quality: 82,
   clip: { x: 0, y: 0, width: 1280, height: 800 },
 });
 console.log('✓ shabbyroads (gigs page)');

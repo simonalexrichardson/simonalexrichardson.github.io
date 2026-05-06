@@ -4,7 +4,8 @@
 // so the page doesn't break — but the section reads better with a real photo.
 ---
 
-<section id="about" class="container">
+<section id="about" class="container" aria-labelledby="about-heading">
+  <h2 id="about-heading" class="sr-only">About Simon</h2>
   <div class="about">
     <div class="about__photo-wrap">
       <img
@@ -20,7 +21,7 @@
     </div>
 
     <div class="about__body">
-      <p class="section-label">About</p>
+      <p class="section-label" aria-hidden="true">About</p>
       <p class="about__text">
         I'm Simon — based in the UK, building for clients and for myself. I
         care about shipping things that actually do the job, not just look

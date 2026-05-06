@@ -29,18 +29,18 @@ Before the site is ready to share, replace the following:
 
 3. **The Non-Starters URL** — same file, replace the `https://example.com` for The Non-Starters.
 
-4. **Shabby Roads URL** — same file, replace the `https://example.com` for Shabby Roads.
+4. **Shabby Road URL** — same file, replace the `https://example.com` for Shabby Road.
 
-5. **Client site taglines** — in `src/components/Work.astro`, update the `description` fields for Altitude, The Non-Starters, and Shabby Roads with the real one-line descriptions.
+5. **Client site taglines** — in `src/components/Work.astro`, update the `description` fields for Altitude, The Non-Starters, and Shabby Road with the real one-line descriptions.
 
 6. **Screenshot images** — add the following to `public/images/`:
-   - `quietloom.png`
-   - `altitude.png`
-   - `nonstarters.png`
-   - `shabbyroads.png`
+   - `quietloon.jpg`
+   - `altitude.jpg`
+   - `nonstarters.jpg`
+   - `shabbyroads.jpg`
    Cards display a neutral placeholder background gracefully until images are added.
 
-7. **OG image** — add `public/images/og-image.png` (recommended: 1200×630px). Used as the social sharing image.
+7. **OG image** — add `public/images/og-image.jpg` (recommended: 1200×630px). Used as the social sharing image.
 
 8. **Favicon** — replace `public/favicon.svg` and `public/favicon.ico` with your own.
 

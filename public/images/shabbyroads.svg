@@ -33,5 +33,5 @@
   <circle cx="396" cy="380" r="5" fill="#d8cfc0"/>
   <circle cx="416" cy="380" r="5" fill="#d8cfc0"/>
   <!-- Site name -->
-  <text x="400" y="458" font-family="Georgia, serif" font-size="15" font-weight="400" fill="#9a8a78" text-anchor="middle" letter-spacing="3">SHABBY ROADS</text>
+  <text x="400" y="458" font-family="Georgia, serif" font-size="15" font-weight="400" fill="#9a8a78" text-anchor="middle" letter-spacing="3">SHABBY ROAD</text>
 </svg>

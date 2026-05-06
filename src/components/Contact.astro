@@ -42,6 +42,7 @@ const WEB3FORMS_KEY = 'ea75af34-c638-42ad-9960-49e1af1404c4';
 
     <div class="form-group">
       <label for="project" class="form-label">What's the project? <span aria-hidden="true">*</span></label>
+      <p id="project-hint" class="form-hint">A sentence or two is plenty.</p>
       <textarea
         id="project"
         name="project"
@@ -49,6 +50,7 @@ const WEB3FORMS_KEY = 'ea75af34-c638-42ad-9960-49e1af1404c4';
         required
         minlength="20"
         rows="5"
+        aria-describedby="project-hint"
         placeholder="Tell me a bit about what you're building — the problem, the audience, any constraints. No need to be precise at this stage."
       ></textarea>
     </div>
@@ -273,6 +275,13 @@ const WEB3FORMS_KEY = 'ea75af34-c638-42ad-9960-49e1af1404c4';
   .form-note {
     font-size: var(--text-sm);
     color: var(--text-faint);
+  }
+
+  .form-hint {
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+    line-height: 1.5;
+    margin-top: -0.125rem;
   }
 
   .form-noscript {
