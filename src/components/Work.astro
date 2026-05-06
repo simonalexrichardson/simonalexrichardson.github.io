@@ -4,9 +4,12 @@ import { projects } from '../data/projects.ts';
 
 const [featured, ...rest] = projects;
 
-// Only treat caseStudy as live if a non-draft entry exists in the collection.
+// Only treat caseStudy as live if a non-draft entry exists (drafts shown in dev).
 const liveCaseStudies = new Set(
-  (await getCollection('case-studies', ({ data }) => !data.draft)).map((cs) => `/case-studies/${cs.id}`),
+  (await getCollection(
+    'case-studies',
+    ({ data }) => import.meta.env.PROD ? !data.draft : true,
+  )).map((cs) => `/case-studies/${cs.id}`),
 );
 
 const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.caseStudy)
