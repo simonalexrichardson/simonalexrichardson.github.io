@@ -209,9 +209,11 @@ const articleJsonLd = {
     color: var(--text);
   }
 
-  /* Lobotomised-owl flow spacing — every direct child gets top breathing room. */
-  .prose > * + * {
-    margin-top: 1.4rem;
+  /* Lobotomised-owl flow spacing — every direct child gets top breathing room.
+     Higher specificity than .prose p / .prose ul rules below so it wins. */
+  .prose > * + *,
+  .case-study__body > * + * {
+    margin-top: 1.6rem;
   }
 
   .prose h2 {
@@ -248,14 +250,12 @@ const articleJsonLd = {
   }
 
   .prose p {
-    margin: 0;
     font-size: 1.0625rem;
     line-height: 1.75;
   }
 
   .prose ul, .prose ol {
     padding-left: 1.5rem;
-    margin: 1.4rem 0 0;
   }
 
   .prose li {
