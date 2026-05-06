@@ -85,7 +85,7 @@ const html = `
   <div class="mark">sar</div>
   <h1>Simon Richardson</h1>
   <p>Web design &amp; development — marketing sites, custom apps, AI features.</p>
-  <div class="url">simonalexrichardson.github.io</div>
+  <div class="url">simonrichardson.dev</div>
   <div class="pulse"><span class="dot"></span> Available</div>
 </body>
 </html>

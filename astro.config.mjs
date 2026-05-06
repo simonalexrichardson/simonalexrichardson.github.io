@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://simonalexrichardson.github.io',
+  site: 'https://simonrichardson.dev',
   base: '/',
   integrations: [sitemap()],
 });

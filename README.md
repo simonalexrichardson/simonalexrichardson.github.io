@@ -1,4 +1,4 @@
-# simonalexrichardson.github.io
+# simonrichardson.dev
 
 Personal site for Simon Richardson — web design and development. Built with [Astro](https://astro.build) and deployed to GitHub Pages. Linked from "Built by Simon" footer credits on client sites.
 
