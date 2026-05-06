@@ -5,6 +5,7 @@ export interface Project {
   tag: string;
   image: string;
   imageAlt: string;
+  caseStudy?: string;
 }
 
 export const projects: Project[] = [
@@ -15,6 +16,7 @@ export const projects: Project[] = [
     tag: 'Web app',
     image: '/images/quietloon.jpg',
     imageAlt: 'Screenshot of the Quiet Loon web application',
+    caseStudy: '/case-studies/quiet-loon',
   },
   {
     name: 'Reaper Drones',

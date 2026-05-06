@@ -1,7 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import { projects } from '../data/projects.ts';
 
 const [featured, ...rest] = projects;
+
+// Only treat caseStudy as live if a non-draft entry exists in the collection.
+const liveCaseStudies = new Set(
+  (await getCollection('case-studies', ({ data }) => !data.draft)).map((cs) => `/case-studies/${cs.id}`),
+);
+
+const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.caseStudy)
+  ? featured.caseStudy
+  : null;
 ---
 
 <section id="work" class="container">
@@ -9,11 +19,11 @@ const [featured, ...rest] = projects;
 
   <!-- Featured card -->
   <a
-    href={featured.url}
+    href={featuredCaseStudy ?? featured.url}
     class="work-featured"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label={`Visit ${featured.name} (opens in new tab)`}
+    target={featuredCaseStudy ? undefined : '_blank'}
+    rel={featuredCaseStudy ? undefined : 'noopener noreferrer'}
+    aria-label={featuredCaseStudy ? `Read the ${featured.name} case study` : `Visit ${featured.name} (opens in new tab)`}
   >
     <div class="work-featured__image-wrap">
       <img
@@ -26,7 +36,7 @@ const [featured, ...rest] = projects;
         decoding="async"
       />
       <div class="work-featured__overlay" aria-hidden="true">
-        <span class="work-featured__visit">Visit site ↗</span>
+        <span class="work-featured__visit">{featuredCaseStudy ? 'Read case study →' : 'Visit site ↗'}</span>
       </div>
     </div>
     <div class="work-featured__body">
