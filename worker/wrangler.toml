@@ -5,7 +5,7 @@ workers_dev = true
 
 [vars]
 TO_EMAIL = "simonalexrichardson@gmail.com"
-FROM_EMAIL = "Simon Richardson <enquiries@simonrichardson.dev>"
+FROM_EMAIL = "simonrichardson.dev contact form <onboarding@resend.dev>"
 ALLOWED_ORIGIN = "https://simonrichardson.dev"
 
 # RESEND_API_KEY is set as a secret, not in this file:

@@ -6,11 +6,10 @@ Cloudflare Worker that accepts contact-form POSTs from `simonrichardson.dev` and
 
 ### 1. Resend
 
-1. Sign up at [resend.com](https://resend.com)
-2. **Domains → Add domain** → `simonrichardson.dev`
-3. Resend shows DNS records (a few `TXT` for SPF + DKIM, optionally a `MX`). Add each in Cloudflare DNS for `simonrichardson.dev`. Set proxy to **DNS only** (grey cloud) for these records.
-4. Wait for Resend to mark the domain "Verified" (usually a few minutes)
-5. **API Keys → Create API Key**, scope: **Sending access**, domain: `simonrichardson.dev`. Copy the key — you'll only see it once.
+1. Sign up at [resend.com](https://resend.com) using `simonalexrichardson@gmail.com`.
+2. **API Keys → Create API Key** with **Sending access**. Copy the key — only shown once.
+
+The Worker sends `from: onboarding@resend.dev` (Resend's shared address that works without domain verification) to the account's own email, which Resend allows in this restricted form. If you ever want emails to come from `enquiries@simonrichardson.dev` instead, you'll need to add and verify the domain in Resend (a few `TXT` records into Cloudflare DNS) and update `FROM_EMAIL` in `wrangler.toml`.
 
 ### 2. Worker deploy
 
