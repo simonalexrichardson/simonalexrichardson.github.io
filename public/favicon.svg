@@ -1,13 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#c85a12"/>
-  <text
-    x="32"
-    y="50"
-    font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-    font-size="56"
-    font-weight="800"
-    text-anchor="middle"
-    fill="#f8f7f4"
-    letter-spacing="-2.5"
-  >S</text>
+  <rect width="64" height="64" fill="#c85a12"/>
+  <path d="M 23 21 L 13 32 L 23 43" stroke="#f8f7f4" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 41 21 L 51 32 L 41 43" stroke="#f8f7f4" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

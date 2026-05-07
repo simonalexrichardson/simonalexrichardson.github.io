@@ -44,7 +44,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Shabby Road',
-    url: 'https://shabbyroads.vercel.app',
+    url: 'https://www.shabbyroadband.co.uk',
     description: 'The songs you love, played with soul.',
     tag: 'Band site',
     image: '/images/shabbyroads.jpg',

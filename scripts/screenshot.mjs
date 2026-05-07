@@ -11,13 +11,14 @@ const sites = [
   { name: 'reaperdrones', url: 'https://reaperdrones.com' },
   { name: 'altitude',     url: 'https://altitudedronesurveying.vercel.app' },
   { name: 'nonstarters',  url: 'https://thenonstarters.vercel.app' },
-  { name: 'shabbyroads',  url: 'https://shabbyroads.vercel.app' },
+  { name: 'shabbyroads',  url: 'https://www.shabbyroadband.co.uk' },
 ];
 
 const browser = await chromium.launch();
+const context = await browser.newContext({ ignoreHTTPSErrors: true });
 
 for (const site of sites) {
-  const page = await browser.newPage();
+  const page = await context.newPage();
   await page.setViewportSize({ width: 1280, height: 800 });
   try {
     await page.goto(site.url, { waitUntil: 'networkidle', timeout: 20000 });
