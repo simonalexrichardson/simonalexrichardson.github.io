@@ -1,8 +1,8 @@
 ---
-// Web3Forms — free, browser-native, no CORS issues.
-// Get your access key at https://web3forms.com (use simonalexrichardson@gmail.com).
-// Replace the value below once you have it.
-const WEB3FORMS_KEY = 'ea75af34-c638-42ad-9960-49e1af1404c4';
+// Contact form posts to a Cloudflare Worker that validates the payload
+// and forwards it via Resend. See worker/ for the Worker source + deploy
+// runbook. Update this URL if the Worker is later bound to a custom domain.
+const CONTACT_ENDPOINT = 'https://simonrichardson-contact.simonalexrichardson.workers.dev/';
 ---
 
 <section id="contact" class="container">
@@ -23,10 +23,7 @@ const WEB3FORMS_KEY = 'ea75af34-c638-42ad-9960-49e1af1404c4';
     </p>
   </noscript>
 
-  <form id="contact-form" class="contact-form" novalidate>
-    <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-    <input type="hidden" name="subject" value="New project enquiry — simonrichardson.dev" />
-    <input type="hidden" name="from_name" value="Simon Richardson site" />
+  <form id="contact-form" class="contact-form" novalidate data-endpoint={CONTACT_ENDPOINT}>
     <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
 
     <div class="form-row">
@@ -139,7 +136,9 @@ const WEB3FORMS_KEY = 'ea75af34-c638-42ad-9960-49e1af1404c4';
     if (errorEl) errorEl.hidden = true;
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) throw new Error('Missing form endpoint');
+      const res = await fetch(endpoint, {
         method: 'POST',
         body: new FormData(form),
       });
@@ -147,7 +146,7 @@ const WEB3FORMS_KEY = 'ea75af34-c638-42ad-9960-49e1af1404c4';
       if (res.ok && data.success) {
         showSuccess();
       } else {
-        console.error('Web3Forms error:', data);
+        console.error('Contact form error:', data);
         showError();
       }
     } catch (err) {

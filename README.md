@@ -23,7 +23,7 @@ Pushes to `main` trigger the GitHub Actions workflow at `.github/workflows/deplo
 
 Before the site is ready to share, replace the following:
 
-1. **Web3Forms access key** — in `src/components/Contact.astro`, replace `YOUR_WEB3FORMS_KEY_HERE` with your key from [web3forms.com](https://web3forms.com).
+1. **Contact form Worker** — see [worker/README.md](worker/README.md) for the Resend + Cloudflare Worker setup. Update `CONTACT_ENDPOINT` in `src/components/Contact.astro` to point at your deployed Worker.
 
 2. **Altitude Drone Surveying URL** — in `src/components/Work.astro`, replace the `https://example.com` placeholder with the live URL.
 
