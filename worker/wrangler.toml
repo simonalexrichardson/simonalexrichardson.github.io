@@ -3,6 +3,10 @@ main = "src/index.ts"
 compatibility_date = "2026-05-01"
 workers_dev = true
 
+routes = [
+  { pattern = "contact.simonrichardson.dev", custom_domain = true }
+]
+
 [vars]
 TO_EMAIL = "simonalexrichardson@gmail.com"
 FROM_EMAIL = "simonrichardson.dev contact form <onboarding@resend.dev>"
