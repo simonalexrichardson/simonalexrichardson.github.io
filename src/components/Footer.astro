@@ -37,7 +37,11 @@ const shares = [
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
-    <p class="site-footer__copy">© Simon Richardson {year}</p>
+    <p class="site-footer__copy">
+      © Simon Richardson {year}
+      <span class="site-footer__sep" aria-hidden="true">·</span>
+      <a href="/uses" class="site-footer__nav-link">/uses</a>
+    </p>
 
     <div class="site-footer__share">
       <span class="site-footer__share-label">Share</span>
@@ -122,6 +126,18 @@ const shares = [
     font-size: var(--text-sm);
     color: var(--text-faint);
   }
+
+  .site-footer__sep {
+    margin-inline: 0.4em;
+    color: var(--text-faint);
+  }
+
+  .site-footer__nav-link {
+    color: var(--text-faint);
+    transition: color var(--transition);
+  }
+
+  .site-footer__nav-link:hover { color: var(--accent); }
 
   .site-footer__share {
     display: flex;
