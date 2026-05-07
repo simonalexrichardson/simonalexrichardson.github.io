@@ -9,9 +9,10 @@ interface Props {
   publishedAt: Date;
   updatedAt?: Date;
   slug: string;
+  readingMinutes: number;
 }
 
-const { title, summary, tags, publishedAt, updatedAt, slug } = Astro.props;
+const { title, summary, tags, publishedAt, updatedAt, slug, readingMinutes } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const fmtDate = (d: Date) =>
@@ -46,6 +47,8 @@ const articleJsonLd = {
         <p class="writing__summary">{summary}</p>
         <p class="writing__date">
           <time datetime={new Date(publishedAt).toISOString()}>{fmtDate(publishedAt)}</time>
+          <span aria-hidden="true"> · </span>
+          <span>{readingMinutes} min read</span>
           {updatedAt && (
             <>
               <span aria-hidden="true"> · </span>
