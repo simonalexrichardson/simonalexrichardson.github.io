@@ -9,7 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "og": "node scripts/generate-og.mjs && node scripts/generate-og-case-studies.mjs",
+    "screenshots": "node scripts/screenshot.mjs",
+    "favicons": "node scripts/generate-favicon-ico.mjs && node scripts/generate-apple-touch-icon.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",

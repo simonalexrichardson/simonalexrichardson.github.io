@@ -27,17 +27,13 @@ const html = `
   .mark {
     width: 128px;
     height: 128px;
-    border-radius: 28px;
     background: #c85a12;
-    color: #f8f7f4;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 800;
-    font-size: 56px;
-    letter-spacing: -3px;
     margin-bottom: 56px;
   }
+  .mark svg { width: 80px; height: 80px; }
   h1 {
     font-size: 88px;
     font-weight: 800;
@@ -82,7 +78,10 @@ const html = `
 </style>
 </head>
 <body>
-  <div class="mark">sar</div>
+  <div class="mark"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 23 21 L 13 32 L 23 43" stroke="#f8f7f4" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 41 21 L 51 32 L 41 43" stroke="#f8f7f4" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg></div>
   <h1>Simon Richardson</h1>
   <p>Web design &amp; development — marketing sites, custom apps, AI features.</p>
   <div class="url">simonrichardson.dev</div>

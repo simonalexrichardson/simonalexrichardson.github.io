@@ -17,6 +17,6 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<CaseStudyLayout {...entry.data}>
+<CaseStudyLayout {...entry.data} slug={entry.id}>
   <Content />
 </CaseStudyLayout>
