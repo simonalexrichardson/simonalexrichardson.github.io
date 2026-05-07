@@ -1,7 +1,7 @@
 ---
 title: 'Quiet Loon — building a web app to carry the mental load'
 project: 'Quiet Loon'
-role: 'Founder, designer & developer'
+role: 'Co-founder, designer & developer'
 summary: 'A web app for couples and households to share the running list of small things — the bin nights, the appointments, the half-finished thoughts — without one person having to remember it all.'
 tags: ['Next.js', 'TypeScript', 'Postgres', 'Supabase', 'Stripe', 'Claude API', 'Vercel']
 liveUrl: 'https://quietloon.com'
@@ -20,9 +20,9 @@ There are plenty of tools for this. None of them quite work. Generic todo apps t
 
 I wanted a tool that made the load visible without turning life admin into another app to maintain.
 
-## What I built
+## What we built
 
-A small, deliberate web app — not a feature-bloated planner. The brief I set myself:
+A small, deliberate web app — not a feature-bloated planner. The brief we set ourselves:
 
 - **Capture in seconds.** If logging something takes longer than just doing it, no one sticks with it. The capture surface is one input.
 - **Shared by default.** Two people, one list. No invite flows, no role hierarchies, no permission settings.
@@ -51,7 +51,7 @@ This sounds wrong; everyone says you need notifications. But the pitch is "you d
 
 ### LLM where it pays, not LLM-everywhere
 
-Claude is doing two specific jobs: parsing free-text input into structured items, and writing the weekly digest. Both are bounded, both cacheable, both have clear value. I avoided putting a chat surface anywhere — it's a list app, not a chatbot, and the cost economics of "AI that responds to anything" don't work at consumer subscription pricing.
+Claude is doing two specific jobs: parsing free-text input into structured items, and writing the weekly digest. Both are bounded, both cacheable, both have clear value. We avoided putting a chat surface anywhere — it's a list app, not a chatbot, and the cost economics of "AI that responds to anything" don't work at consumer subscription pricing.
 
 ## Outcome
 
@@ -61,7 +61,7 @@ Next, in priority order: a calmer mobile experience (PWA install + offline captu
 
 ## What I'd do differently
 
-I spent too long on the marketing site before launch. The landing page went through three rewrites trying to explain "mental load" to people who recognise it instantly if they have the problem, and won't be convinced by clever copy if they don't. Better to ship a thinner page sooner and let the audience self-identify.
+We spent too long on the marketing site before launch. The landing page went through three rewrites trying to explain "mental load" to people who recognise it instantly if they have the problem, and won't be convinced by clever copy if they don't. Better to ship a thinner page sooner and let the audience self-identify.
 
 ---
 
