@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+
+const updated = new Date('2026-05-07');
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { year: 'numeric', month: 'long' });
+---
+
+<BaseLayout
+  title="Uses — Simon Richardson"
+  description="Tools, stack, and services I use day to day for client work and my own products."
+>
+  <main id="main" class="uses">
+    <article class="container">
+      <p class="eyebrow"><a href="/" class="uses__back">← Home</a></p>
+
+      <header class="uses__header">
+        <p class="section-label">/uses</p>
+        <h1 class="uses__heading">What I use day to day</h1>
+        <p class="uses__intro">
+          Tools, stack, and services I build with — for client work and my own
+          products. Updated occasionally as things change. Inspired by
+          <a href="https://uses.tech" target="_blank" rel="noopener noreferrer">uses.tech</a>.
+        </p>
+        <p class="uses__updated">Last updated {fmt(updated)}</p>
+      </header>
+
+      <div class="uses__body prose">
+        <h2>Stack</h2>
+        <p>What I reach for, and roughly when each earns its keep.</p>
+        <ul>
+          <li><strong><a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a></strong> — for marketing sites, content-heavy pages, and anything that wants to ship as static HTML. Painless content collections, almost no client JS by default, easy to drop in islands when needed. This site runs on it.</li>
+          <li><strong><a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">Next.js</a></strong> — for stateful web apps where Astro stops paying off. Server components, route handlers, edge runtime when latency matters.</li>
+          <li><strong><a href="https://react.dev" target="_blank" rel="noopener noreferrer">React</a></strong> — default for any non-trivial interactive UI.</li>
+          <li><strong><a href="https://www.typescriptlang.org" target="_blank" rel="noopener noreferrer">TypeScript</a></strong> — non-negotiable. End to end, in scripts, in worker code, everywhere.</li>
+          <li><strong><a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">Tailwind</a></strong> — when I'm shipping fast on a client project. For my own sites I sometimes prefer plain CSS with design tokens.</li>
+        </ul>
+
+        <h2>Data and backend</h2>
+        <ul>
+          <li><strong><a href="https://www.postgresql.org" target="_blank" rel="noopener noreferrer">Postgres</a></strong> — boring is good. Default database for everything.</li>
+          <li><strong><a href="https://supabase.com" target="_blank" rel="noopener noreferrer">Supabase</a></strong> — managed Postgres + auth + storage. The fastest path from "I need a database" to "I'm shipping" without giving up SQL.</li>
+          <li><strong><a href="https://stripe.com" target="_blank" rel="noopener noreferrer">Stripe</a></strong> — for any product that takes money. Checkout for one-off payments, Billing for subscriptions.</li>
+        </ul>
+
+        <h2>AI</h2>
+        <ul>
+          <li><strong><a href="https://www.anthropic.com" target="_blank" rel="noopener noreferrer">Anthropic Claude</a></strong> — primary LLM for AI features in client work and my own projects. Used where it earns its keep (parsing, summarising, structured extraction); avoided where it doesn't (generic chat surfaces, anywhere a plain rule would do).</li>
+        </ul>
+
+        <h2>Hosting and infrastructure</h2>
+        <ul>
+          <li><strong><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel</a></strong> — default host for Next.js apps. Preview deploys, edge functions, no-fuss DX.</li>
+          <li><strong><a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a></strong> — for static sites where I don't need server-side anything. This one runs on it.</li>
+          <li><strong><a href="https://www.cloudflare.com" target="_blank" rel="noopener noreferrer">Cloudflare</a></strong> — DNS, and Workers for anything serverless that needs to live next to the static site (the contact form on this site, for example, is a Worker that forwards to Resend).</li>
+        </ul>
+
+        <h2>APIs and services</h2>
+        <ul>
+          <li><strong><a href="https://resend.com" target="_blank" rel="noopener noreferrer">Resend</a></strong> — transactional email. Clean API, sane pricing, doesn't pretend to be a marketing platform.</li>
+          <li><strong><a href="https://web3forms.com" target="_blank" rel="noopener noreferrer">Web3Forms</a></strong> — when a static site just needs a contact form and the email payload doesn't need shaping. Free tier covers most projects.</li>
+        </ul>
+
+        <h2>Editor and dev environment</h2>
+        <ul>
+          <li><strong><a href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer">VS Code</a></strong> — primary editor.</li>
+          <li><strong><a href="https://claude.com/claude-code" target="_blank" rel="noopener noreferrer">Claude Code</a></strong> — pair-programming agent inside the editor and the terminal. Most of the boring scaffolding work happens through it now.</li>
+          <li><strong><a href="https://git-scm.com" target="_blank" rel="noopener noreferrer">Git</a></strong> + <strong><a href="https://cli.github.com" target="_blank" rel="noopener noreferrer">GitHub CLI</a></strong> — for everything version-controlled.</li>
+          <li><strong>PowerShell</strong> — daily-driver shell on Windows. Bash via Git Bash when a script needs POSIX.</li>
+        </ul>
+      </div>
+
+      <div class="uses__cta">
+        <a href="/#contact" class="uses__btn">Start a project →</a>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* Re-use editorial reading column from case study layout */
+  .uses .container {
+    max-width: 760px;
+  }
+
+  .uses {
+    padding-block: clamp(2rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem);
+  }
+
+  .uses__back {
+    color: var(--text-faint);
+    transition: color var(--transition);
+  }
+
+  .uses__back:hover { color: var(--accent); }
+
+  .uses__header {
+    margin-block: 1.25rem 0;
+  }
+
+  .uses__heading {
+    font-size: clamp(2rem, 4.5vw, 2.875rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    margin-block: 0.875rem 1.25rem;
+    text-wrap: balance;
+  }
+
+  .uses__intro {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.65;
+    max-width: 60ch;
+  }
+
+  .uses__intro a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-subtle);
+    text-underline-offset: 3px;
+  }
+
+  .uses__intro a:hover { text-decoration-color: var(--accent); }
+
+  .uses__updated {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .uses__body {
+    margin-top: 3rem;
+    font-size: 1.0625rem;
+    color: var(--text);
+  }
+
+  .uses__body > * + * {
+    margin-top: 1.6rem;
+  }
+
+  .uses__body h2 {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    margin-top: 3.5rem !important;
+    margin-bottom: 1rem;
+    padding-top: 2.25rem;
+    border-top: 1px solid var(--border);
+    text-wrap: balance;
+  }
+
+  .uses__body > h2:first-child {
+    margin-top: 0 !important;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .uses__body h2 + p,
+  .uses__body h2 + ul {
+    margin-top: 0;
+  }
+
+  .uses__body p {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 65ch;
+  }
+
+  .uses__body ul {
+    padding-left: 1.5rem;
+    list-style: disc;
+  }
+
+  .uses__body li {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    margin-bottom: 0.875rem;
+  }
+
+  .uses__body li:last-child { margin-bottom: 0; }
+
+  .uses__body li::marker { color: var(--accent); }
+
+  .uses__body strong { font-weight: 700; color: var(--text); }
+
+  .uses__body a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 3px;
+    transition: color var(--transition), text-decoration-color var(--transition);
+  }
+
+  .uses__body a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  .uses__cta {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .uses__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--text);
+    border-radius: 999px;
+    padding: 0.65em 1.4em;
+    transition: background-color var(--transition), transform var(--transition);
+  }
+
+  .uses__btn:hover { background: var(--accent); }
+  .uses__btn:active { transform: scale(0.97); }
+</style>
