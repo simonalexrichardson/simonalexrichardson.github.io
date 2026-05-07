@@ -1,0 +1,12 @@
+name = "simonrichardson-contact"
+main = "src/index.ts"
+compatibility_date = "2026-05-01"
+workers_dev = true
+
+[vars]
+TO_EMAIL = "simonalexrichardson@gmail.com"
+FROM_EMAIL = "Simon Richardson <enquiries@simonrichardson.dev>"
+ALLOWED_ORIGIN = "https://simonrichardson.dev"
+
+# RESEND_API_KEY is set as a secret, not in this file:
+#   cd worker && npx wrangler secret put RESEND_API_KEY
