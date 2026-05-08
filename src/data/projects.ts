@@ -11,7 +11,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     name: 'Quiet Loon',
-    url: 'https://quietloon.com',
+    url: 'https://www.quietloon.com',
     description: 'The app that carries the mental load',
     tag: 'Web app',
     image: '/images/quietloon.jpg',

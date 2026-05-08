@@ -4,7 +4,7 @@ project: 'Quiet Loon'
 role: 'Co-founder, designer & developer'
 summary: 'A web app for couples and households to share the running list of small things — the bin nights, the appointments, the half-finished thoughts — without one person having to remember it all.'
 tags: ['Next.js', 'TypeScript', 'Postgres', 'Supabase', 'Stripe', 'Claude API', 'Vercel']
-liveUrl: 'https://quietloon.com'
+liveUrl: 'https://www.quietloon.com'
 image: '/images/quietloon.jpg'
 imageAlt: 'Screenshot of the Quiet Loon web app'
 publishedAt: 2026-05-06
@@ -65,4 +65,4 @@ We spent too long on the marketing site before launch. The landing page went thr
 
 ---
 
-**[Visit Quiet Loon →](https://quietloon.com)**
+**[Visit Quiet Loon →](https://www.quietloon.com)**
