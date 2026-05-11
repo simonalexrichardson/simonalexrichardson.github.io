@@ -12,6 +12,11 @@ const sites = [
   { name: 'altitude',     url: 'https://altitudedronesurveying.vercel.app' },
   { name: 'nonstarters',  url: 'https://thenonstarters.vercel.app' },
   { name: 'shabbyroads',  url: 'https://www.shabbyroadband.co.uk' },
+  { name: 'voltline',     url: 'https://voltline-electrical.vercel.app' },
+  { name: 'wildmoor',     url: 'https://wildmoor-gardens.vercel.app' },
+  { name: 'northbridge',  url: 'https://northbridge-plumbing.vercel.app' },
+  { name: 'beechwood',    url: 'https://beechwood-care.vercel.app' },
+  { name: 'tideway',      url: 'https://tideway-swim-academy.vercel.app' },
 ];
 
 const browser = await chromium.launch();
