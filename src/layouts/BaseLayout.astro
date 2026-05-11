@@ -10,7 +10,7 @@ interface Props {
 }
 
 const {
-  title = 'Simon Richardson — Freelance web designer & developer (UK)',
+  title = 'Simon Richardson · Freelance web designer & developer (UK)',
   description = 'Simon Richardson is a UK-based freelance web developer. I build marketing sites, custom web apps, and AI features for clients who want them to actually work.',
   ogImage = '/images/og-image.png',
 } = Astro.props;
@@ -49,10 +49,10 @@ const seoJsonLd = {
     {
       '@type': 'ProfessionalService',
       '@id': BUSINESS_ID,
-      name: 'Simon Richardson — Web design & development',
+      name: 'Simon Richardson · Web design & development',
       url: SITE_URL,
       image: ogImageURL.toString(),
-      description: 'Freelance web design and development from the UK — marketing sites, custom web apps, AI features.',
+      description: 'Freelance web design and development from the UK: marketing sites, custom web apps, AI features.',
       areaServed: { '@type': 'Country', name: 'United Kingdom' },
       provider: { '@id': PERSON_ID },
       priceRange: '££',
@@ -61,7 +61,7 @@ const seoJsonLd = {
         name: 'Services',
         itemListElement: [
           { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Marketing site design & build', description: 'Landing pages and multi-page sites that load fast and convert.' } },
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom web applications', description: 'Forms, dashboards, payments, auth — bespoke web apps.' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom web applications', description: 'Forms, dashboards, payments, auth. Bespoke web apps.' } },
           { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI features and integrations', description: 'Claude API, email automation, AI-powered workflows.' } },
         ],
       },
@@ -87,7 +87,7 @@ const seoJsonLd = {
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- RSS feed for /writing -->
-    <link rel="alternate" type="application/rss+xml" title="Simon Richardson — Writing" href="/writing/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Simon Richardson · Writing" href="/writing/rss.xml" />
 
     <!-- IndieWeb verification (Mastodon, Bridgy etc. read rel=me) -->
     <link rel="me" href="https://github.com/simonalexrichardson" />
@@ -104,7 +104,7 @@ const seoJsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
-    <meta property="og:image:alt" content="Simon Richardson — freelance web designer & developer (UK)" />
+    <meta property="og:image:alt" content="Simon Richardson · freelance web designer & developer (UK)" />
     <meta property="og:site_name" content="Simon Richardson" />
     <meta property="og:locale" content="en_GB" />
 
@@ -113,7 +113,7 @@ const seoJsonLd = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
-    <meta name="twitter:image:alt" content="Simon Richardson — freelance web designer & developer (UK)" />
+    <meta name="twitter:image:alt" content="Simon Richardson · freelance web designer & developer (UK)" />
 
     <!-- Indexing: allowed -->
     <meta name="robots" content="index, follow, max-image-preview:large" />

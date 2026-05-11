@@ -13,8 +13,8 @@ const fmtDate = (d: Date) =>
 ---
 
 <BaseLayout
-  title="Writing — Simon Richardson"
-  description="Notes, posts, and longer pieces by Simon Richardson — UK-based freelance web developer."
+  title="Writing · Simon Richardson"
+  description="Notes, posts, and longer pieces by Simon Richardson, UK-based freelance web developer."
 >
   <main id="main" class="writing-index">
     <article class="container">
@@ -30,7 +30,7 @@ const fmtDate = (d: Date) =>
       </header>
 
       {posts.length === 0 ? (
-        <p class="writing-index__empty">Nothing published yet — check back soon.</p>
+        <p class="writing-index__empty">Nothing published yet. Check back soon.</p>
       ) : (
         <ul class="writing-index__list" role="list">
           {posts.map((post) => (

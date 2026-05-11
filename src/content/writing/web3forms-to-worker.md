@@ -11,12 +11,12 @@ Then I needed the same access key on another project. Rather than juggle a share
 
 The replacement is a Cloudflare Worker. About 30 lines of TypeScript that:
 
-1. Validate the payload — required fields, length caps, email shape
-2. Run a honeypot check — if the bot field is filled, silently return success so the bot doesn't retry
+1. Validate the payload, required fields, length caps, email shape
+2. Run a honeypot check, if the bot field is filled, silently return success so the bot doesn't retry
 3. Forward the email to my inbox via the Resend API
 4. Return `{ success: true }`, so the existing form JS doesn't need to change
 
-The Resend API key lives as a Cloudflare Worker secret — never in source, never in the bundle. CORS is locked to my origin. The Worker is bound to `contact.simonrichardson.dev` so the form posts to a clean URL, not a `*.workers.dev` one.
+The Resend API key lives as a Cloudflare Worker secret, never in source, never in the bundle. CORS is locked to my origin. The Worker is bound to `contact.simonrichardson.dev` so the form posts to a clean URL, not a `*.workers.dev` one.
 
 Total cost: £0. The free tiers cover 100k Worker requests a day and 3,000 Resend emails a month. I will not be exceeding either.
 

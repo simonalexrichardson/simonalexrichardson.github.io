@@ -7,8 +7,8 @@ export async function GET(context: APIContext) {
     .sort((a, b) => +new Date(b.data.publishedAt) - +new Date(a.data.publishedAt));
 
   return rss({
-    title: 'Simon Richardson — Writing',
-    description: 'Notes, posts and longer pieces by Simon Richardson — UK-based freelance web developer.',
+    title: 'Simon Richardson · Writing',
+    description: 'Notes, posts and longer pieces by Simon Richardson, UK-based freelance web developer.',
     site: context.site ?? 'https://simonrichardson.dev',
     items: posts.map((post) => ({
       title: post.data.title,

@@ -5,7 +5,7 @@ tags: ['GitHub Pages', 'Cloudflare', 'DNS']
 publishedAt: 2026-05-05
 ---
 
-Moving this site from `simonalexrichardson.github.io` to `simonrichardson.dev` was supposed to take five minutes. It took ten — because I read the docs once and that was enough. Here's the version with no fluff.
+Moving this site from `simonalexrichardson.github.io` to `simonrichardson.dev` was supposed to take five minutes. It took ten, because I read the docs once and that was enough. Here's the version with no fluff.
 
 ## Cloudflare DNS records
 
@@ -23,7 +23,7 @@ The proxy mode matters. Set them to **DNS only** (grey cloud), not Proxied (oran
 
 ## SSL/TLS mode
 
-In Cloudflare's SSL/TLS settings, set encryption mode to **Full** — not Flexible. Flexible breaks GitHub's internal HTTPS redirects and leaves you in a redirect loop.
+In Cloudflare's SSL/TLS settings, set encryption mode to **Full**, not Flexible. Flexible breaks GitHub's internal HTTPS redirects and leaves you in a redirect loop.
 
 ## CNAME file in the repo
 
@@ -65,6 +65,6 @@ Anywhere the old `*.github.io` domain is hardcoded:
 - `robots.txt` sitemap line
 - `README.md`
 
-GitHub auto-301s the old URL to the new one, so things keep working — but using the canonical URL directly avoids the redirect hop and stops bleeding link equity.
+GitHub auto-301s the old URL to the new one, so things keep working, but using the canonical URL directly avoids the redirect hop and stops bleeding link equity.
 
 That's it. Once HTTPS is enforced, hit URL Inspection in Search Console and request indexing of the new homepage. Old URLs continue to redirect.

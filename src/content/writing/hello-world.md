@@ -6,7 +6,7 @@ publishedAt: 2026-05-08
 draft: true
 ---
 
-This is the placeholder for my first post. Replace this content with whatever you want to publish — markdown is fully supported, including:
+This is the placeholder for my first post. Replace this content with whatever you want to publish, markdown is fully supported, including:
 
 - Headings (`##`, `###`)
 - **Bold** and *italic*
@@ -22,7 +22,7 @@ A small place for notes on what I'm building, why I picked the tools I did, and 
 ## How to publish
 
 1. Drop a markdown file in `src/content/writing/` (filename becomes the URL slug)
-2. Set frontmatter — at least `title`, `summary`, `publishedAt`
+2. Set frontmatter, at least `title`, `summary`, `publishedAt`
 3. Flip `draft: true` → `draft: false` when ready
 4. Push
 
