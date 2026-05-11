@@ -23,8 +23,8 @@
   --border-strong: #ccc9c1;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, serif;
-  --font-hand: 'Caveat', 'Bradley Hand', cursive;
+  --font-display: 'Fraunces Variable', 'Fraunces Fallback', Georgia, serif;
+  --font-hand: 'Caveat', 'Caveat Fallback', 'Bradley Hand', cursive;
 
   --text-xs:   0.6875rem;
   --text-sm:   0.875rem;
@@ -74,6 +74,30 @@
     --shadow-card: 0 1px 3px rgba(0,0,0,0.3);
     --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.5);
   }
+}
+
+/* ============================================================
+   Font-metric fallbacks (minimise FOUT layout shift)
+   ============================================================ */
+
+/* Georgia-derived fallback sized to match Fraunces metrics */
+@font-face {
+  font-family: 'Fraunces Fallback';
+  src: local('Georgia');
+  size-adjust: 105%;
+  ascent-override: 92%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* System cursive fallback sized close to Caveat */
+@font-face {
+  font-family: 'Caveat Fallback';
+  src: local('Bradley Hand'), local('Comic Sans MS'), local('Segoe Script');
+  size-adjust: 110%;
+  ascent-override: 90%;
+  descent-override: 30%;
+  line-gap-override: 0%;
 }
 
 /* ============================================================

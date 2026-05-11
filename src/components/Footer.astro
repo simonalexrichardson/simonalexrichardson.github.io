@@ -36,6 +36,7 @@ const shares = [
 ---
 
 <div class="container site-footer__signoff" aria-hidden="true">
+  <img class="site-footer__signoff-mark-logo" src="/favicon.svg" alt="" width="72" height="72" />
   <span class="site-footer__signoff-text">You scrolled all the way down. Bold of you.</span>
   <span class="site-footer__signoff-mark">— Simon</span>
 </div>
@@ -119,6 +120,20 @@ const shares = [
     text-align: center;
     padding-block: 3rem 1.25rem;
     border-top: 1px dashed var(--border);
+  }
+
+  .site-footer__signoff-mark-logo {
+    display: block;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    transform: rotate(-8deg);
+    transition: transform var(--transition-slow);
+  }
+
+  .site-footer__signoff-mark-logo:hover {
+    transform: rotate(12deg) scale(1.08);
   }
 
   .site-footer__signoff-text {

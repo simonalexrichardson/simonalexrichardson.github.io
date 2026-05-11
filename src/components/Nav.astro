@@ -6,7 +6,8 @@ const isWriting = path === '/writing' || path.startsWith('/writing/');
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="container nav__inner">
     <a href="/" class="nav__name" aria-label="Simon Richardson, home">
-      Simon Richardson
+      <img class="nav__logo" src="/favicon.svg" alt="" aria-hidden="true" width="28" height="28" />
+      <span>Simon Richardson</span>
     </a>
     <div class="nav__right">
       <a
@@ -44,11 +45,26 @@ const isWriting = path === '/writing' || path.startsWith('/writing/');
   }
 
   .nav__name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     font-size: var(--text-sm);
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--text);
     transition: color var(--transition);
+  }
+
+  .nav__logo {
+    width: 28px;
+    height: 28px;
+    display: block;
+    border-radius: 50%;
+    transition: transform var(--transition);
+  }
+
+  .nav__name:hover .nav__logo {
+    transform: rotate(-12deg) scale(1.05);
   }
 
   .nav__name:hover {

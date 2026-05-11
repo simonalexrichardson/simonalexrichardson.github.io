@@ -5,6 +5,11 @@ import '@fontsource-variable/fraunces/full-italic.css';
 import '@fontsource/caveat/400.css';
 import '@fontsource/caveat/600.css';
 import '../styles/global.css';
+
+// Critical font URLs for preload (Vite resolves to hashed asset paths at build)
+import frauncesLatin from '@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2?url';
+import frauncesLatinItalic from '@fontsource-variable/fraunces/files/fraunces-latin-full-italic.woff2?url';
+import caveatLatin from '@fontsource/caveat/files/caveat-latin-400-normal.woff2?url';
 import Nav from '../components/Nav.astro';
 
 interface Props {
@@ -86,6 +91,11 @@ const seoJsonLd = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Preload critical fonts so the hero/headings don't pop in -->
+    <link rel="preload" href={frauncesLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={frauncesLatinItalic} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={caveatLatin} as="font" type="font/woff2" crossorigin />
 
     <!-- Sitemap -->
     <link rel="sitemap" href="/sitemap-index.xml" />
