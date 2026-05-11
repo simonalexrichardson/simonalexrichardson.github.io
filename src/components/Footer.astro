@@ -35,6 +35,10 @@ const shares = [
 ];
 ---
 
+<div class="container site-footer__signoff" aria-hidden="true">
+  <span class="site-footer__signoff-text">You scrolled all the way down. Bold of you.</span>
+  <span class="site-footer__signoff-mark">— Simon</span>
+</div>
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <p class="site-footer__copy">
@@ -111,8 +115,31 @@ const shares = [
 </script>
 
 <style>
+  .site-footer__signoff {
+    text-align: center;
+    padding-block: 3rem 1.25rem;
+    border-top: 1px dashed var(--border);
+  }
+
+  .site-footer__signoff-text {
+    display: block;
+    font-family: var(--font-hand);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    line-height: 1.2;
+    color: var(--accent);
+    transform: rotate(-1.2deg);
+    margin-bottom: 0.4rem;
+  }
+
+  .site-footer__signoff-mark {
+    display: inline-block;
+    font-family: var(--font-hand);
+    font-size: 1.35rem;
+    color: var(--text-muted);
+    transform: rotate(1.5deg);
+  }
+
   .site-footer {
-    border-top: 1px solid var(--border);
     padding-block: 2rem;
   }
 
