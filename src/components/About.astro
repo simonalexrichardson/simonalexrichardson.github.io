@@ -22,6 +22,12 @@
 
     <div class="about__body">
       <p class="section-label" aria-hidden="true">About</p>
+      <p class="about__credibility">
+        <strong>Day job:</strong> Head of Infrastructure &amp; Platform at Abcam,
+        leading a global team across cloud and platform.
+        <span class="about__credibility-sep" aria-hidden="true">·</span>
+        <strong>Freelance:</strong> I build the things I wish more sites did.
+      </p>
       <p class="about__text">
         I'm Simon, a UK-based freelance web designer and developer,
         working with clients here and remote. I care about shipping
@@ -86,6 +92,27 @@
 
   .about__body {
     max-width: 56ch;
+  }
+
+  .about__credibility {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.65;
+    padding: 0.875rem 1rem;
+    background: var(--bg-subtle);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .about__credibility strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .about__credibility-sep {
+    margin: 0 0.4em;
+    color: var(--text-faint);
   }
 
   .about__text {
