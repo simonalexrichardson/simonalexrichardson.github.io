@@ -1,0 +1,58 @@
+---
+const markers = [
+  { stat: '20 years', label: 'in tech' },
+  { stat: '3 products', label: 'of my own, live' },
+  { stat: '2 days', label: 'reply time, always' },
+];
+---
+
+<section class="container trust" aria-label="Trust markers">
+  <ul class="trust__list" role="list">
+    {markers.map((m) => (
+      <li class="trust__item">
+        <span class="trust__stat">{m.stat}</span>
+        <span class="trust__label">{m.label}</span>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .trust {
+    padding-block: 1.5rem;
+  }
+
+  .trust__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem 2rem;
+  }
+
+  @media (max-width: 560px) {
+    .trust__list { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  .trust__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent);
+  }
+
+  .trust__stat {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .trust__label {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+</style>
