@@ -20,6 +20,13 @@ const quotes = [
 
 <section id="testimonial" class="container" aria-labelledby="testimonial-heading">
   <h2 id="testimonial-heading" class="sr-only">Client testimonials</h2>
+  <p class="testimonials__lead-in" aria-hidden="true">
+    <span class="h-note">Real clients</span>
+    <svg viewBox="0 0 60 38" aria-hidden="true">
+      <path d="M5 8 Q 20 20 50 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M44 22 L 50 28 L 44 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </p>
   <ul class="testimonials" role="list">
     {quotes.map((q) => (
       <li>
@@ -40,6 +47,20 @@ const quotes = [
 </section>
 
 <style>
+  .testimonials__lead-in {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    transform: rotate(-2deg);
+  }
+
+  .testimonials__lead-in svg {
+    width: 40px;
+    height: 24px;
+  }
+
   .testimonials {
     list-style: none;
     display: grid;
