@@ -8,9 +8,9 @@ const outDir = resolve(__dirname, '../public/images');
 
 const sites = [
   { name: 'quietloon',    url: 'https://www.quietloon.com' },
-  { name: 'reaperdrones', url: 'https://reaperdrones.com' },
+  { name: 'reaperdrones', url: 'https://www.reaperdrones.com' },
   { name: 'altitude',     url: 'https://altitudedronesurveying.vercel.app' },
-  { name: 'nonstarters',  url: 'https://thenonstarters.vercel.app' },
+  { name: 'nonstarters',  url: 'https://www.thenonstarters.com' },
   { name: 'shabbyroads',  url: 'https://www.shabbyroadband.co.uk' },
   { name: 'voltline',     url: 'https://voltline-electrical.vercel.app' },
   { name: 'wildmoor',     url: 'https://wildmoor-gardens.vercel.app' },

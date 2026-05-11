@@ -20,7 +20,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Reaper Drones',
-    url: 'https://reaperdrones.com',
+    url: 'https://www.reaperdrones.com',
     description: 'CAA risk assessments for UK drone operators.',
     tag: 'Web app',
     image: '/images/reaperdrones.jpg',
@@ -36,7 +36,7 @@ export const projects: Project[] = [
   },
   {
     name: 'The Non-Starters',
-    url: 'https://thenonstarters.vercel.app',
+    url: 'https://www.thenonstarters.com',
     description: 'We never got off the ground.',
     tag: 'Band site',
     image: '/images/nonstarters.jpg',
