@@ -33,6 +33,7 @@ export const projects: Project[] = [
     tag: 'Marketing site',
     image: '/images/altitude.jpg',
     imageAlt: 'Screenshot of the Altitude Drone Surveying website',
+    caseStudy: '/case-studies/altitude-drone-surveying',
   },
   {
     name: 'The Non-Starters',

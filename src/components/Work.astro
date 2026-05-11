@@ -55,14 +55,18 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
   <!-- Remaining cards -->
   <ul class="work-grid" role="list">
     {
-      rest.map((project) => (
+      rest.map((project) => {
+        const cs = project.caseStudy && liveCaseStudies.has(project.caseStudy)
+          ? project.caseStudy
+          : null;
+        return (
         <li class="work-card">
           <a
-            href={project.url}
+            href={cs ?? project.url}
             class="work-card__link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Visit ${project.name} (opens in new tab)`}
+            target={cs ? undefined : '_blank'}
+            rel={cs ? undefined : 'noopener noreferrer'}
+            aria-label={cs ? `Read the ${project.name} case study` : `Visit ${project.name} (opens in new tab)`}
           >
             <div class="work-card__image-wrap">
               <img
@@ -88,7 +92,8 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
             </div>
           </a>
         </li>
-      ))
+        );
+      })
     }
   </ul>
 
