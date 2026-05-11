@@ -1,71 +1,33 @@
 ---
-import { projects } from '../data/projects.ts';
 ---
 
 <header class="hero">
-  <div class="container hero__container">
+  <div class="container">
+    <p class="eyebrow hero__availability">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      Available for new projects
+    </p>
 
-    <div class="hero__left">
-      <p class="eyebrow hero__availability">
-        <span class="pulse-dot" aria-hidden="true"></span>
-        Available for new projects
-      </p>
+    <h1 class="hero__heading">
+      Hi, I'm Simon.
+    </h1>
 
-      <h1 class="hero__heading">
-        Hi, I'm Simon.
-      </h1>
+    <p class="hero__bio">
+      I build websites and web apps for people who want them to actually
+      work: marketing sites, custom applications, AI features. I
+      co-founded <a href="https://www.quietloon.com" target="_blank" rel="noopener noreferrer" class="hero__bio-link">Quiet Loon</a>, now live, so I know the difference
+      between something that demos well and something that ships.
+    </p>
 
-      <!--
-        Option B: "Websites and web apps, built properly. Simple landing pages
-        to full applications with AI features and custom integrations. I've built
-        for my own projects too, so I understand what shipping under real
-        constraints looks like."
-
-        Option C: "Most of what I build falls somewhere between 'we just need a
-        site' and 'we need something custom.' I work across that whole range —
-        and because I build my own products too, I understand the difference
-        between building something and actually using it."
-
-        Chosen — Option A:
-      -->
-      <p class="hero__bio">
-        I build websites and web apps for people who want them to actually
-        work: marketing sites, custom applications, AI features. I
-        co-founded <a href="https://www.quietloon.com" target="_blank" rel="noopener noreferrer" class="hero__bio-link">Quiet Loon</a>, now live, so I know the difference
-        between something that demos well and something that ships.
-      </p>
-
-      <div class="hero__actions">
-        <a href="#work" class="hero__btn hero__btn--primary">
-          See my work
-          <span aria-hidden="true">↓</span>
-        </a>
-        <a href="#contact" class="hero__btn hero__btn--ghost">
-          Get in touch
-        </a>
-      </div>
+    <div class="hero__actions">
+      <a href="#work" class="hero__btn hero__btn--primary">
+        See my work
+        <span aria-hidden="true">↓</span>
+      </a>
+      <a href="#contact" class="hero__btn hero__btn--ghost">
+        Get in touch
+      </a>
     </div>
-
-    <aside class="hero__right" aria-label="Recent projects">
-      <p class="section-label">Recent work</p>
-      <ul class="hero__project-list" role="list">
-        {projects.map((project) => (
-          <li class="hero__project-item">
-            <a
-              href={project.url}
-              class="hero__project-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="hero__project-name">{project.name}</span>
-              <span class="hero__project-tag">{project.tag}</span>
-              <span class="hero__project-arrow" aria-hidden="true">↗</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </aside>
-
   </div>
 </header>
 
@@ -74,22 +36,6 @@ import { projects } from '../data/projects.ts';
     padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 3.5rem);
     border-bottom: 1px solid var(--border);
   }
-
-  .hero__container {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  @media (max-width: 720px) {
-    .hero__container {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-  }
-
-  /* ── Left column ── */
 
   .hero__availability {
     margin-bottom: 1.75rem;
@@ -107,7 +53,7 @@ import { projects } from '../data/projects.ts';
     font-size: var(--text-lg);
     color: var(--text-muted);
     line-height: 1.75;
-    max-width: 46ch;
+    max-width: 52ch;
     margin-bottom: 2.5rem;
   }
 
@@ -138,7 +84,7 @@ import { projects } from '../data/projects.ts';
     font-size: var(--text-sm);
     font-weight: 600;
     border-radius: 999px;
-    padding: 0.6em 1.4em;
+    padding: 0.7em 1.5em;
     transition:
       background-color var(--transition),
       color var(--transition),
@@ -165,63 +111,5 @@ import { projects } from '../data/projects.ts';
   .hero__btn--ghost:hover {
     border-color: var(--text);
     color: var(--text);
-  }
-
-  /* ── Right column: project list ── */
-
-  .hero__right {
-    padding-top: 0.25rem;
-  }
-
-  .hero__project-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .hero__project-item {
-    border-top: 1px solid var(--border);
-  }
-
-  .hero__project-item:last-child {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero__project-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding-block: 0.875rem;
-    padding-inline: 0.25rem;
-    margin-inline: -0.25rem;
-    transition: color var(--transition);
-  }
-
-  .hero__project-link:hover {
-    color: var(--accent);
-  }
-
-  .hero__project-link:hover .hero__project-arrow {
-    color: var(--accent);
-    transform: translate(2px, -2px);
-  }
-
-  .hero__project-name {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    flex: 1;
-  }
-
-  .hero__project-tag {
-    font-size: var(--text-xs);
-    color: var(--text-faint);
-    flex-shrink: 0;
-  }
-
-  .hero__project-arrow {
-    font-size: var(--text-xs);
-    color: var(--text-faint);
-    flex-shrink: 0;
-    transition: color var(--transition), transform var(--transition);
   }
 </style>
