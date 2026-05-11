@@ -177,6 +177,11 @@ section + section {
   border-radius: 4px;
 }
 
+.tag--muted {
+  color: var(--text-muted);
+  background: var(--bg-subtle);
+}
+
 /* ============================================================
    Visually-hidden utility (for accessible-but-invisible headings)
    ============================================================ */
