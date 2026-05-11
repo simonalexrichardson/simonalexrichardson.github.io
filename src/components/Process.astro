@@ -25,11 +25,14 @@ const steps = [
 ---
 
 <section id="process" class="container" aria-labelledby="process-heading">
-  <h2 id="process-heading" class="section-label">How this works</h2>
+  <div class="process__head">
+    <h2 id="process-heading" class="section-label">How this works</h2>
+    <span class="process__quip" aria-hidden="true">no calls, promise.</span>
+  </div>
 
   <ol class="process-list" role="list">
     {steps.map((step, i) => (
-      <li class="process-step">
+      <li class={`process-step process-step--lean-${i}`}>
         <div class="process-step__top">
           <div class="process-step__icon" aria-hidden="true" set:html={step.icon} />
           <span class="process-step__num" aria-hidden="true">{step.num}</span>
@@ -58,6 +61,22 @@ const steps = [
     .process-list { grid-template-columns: 1fr; gap: 1rem; }
   }
 
+  .process__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0;
+  }
+
+  .process__quip {
+    font-family: var(--font-hand);
+    font-size: 1.15rem;
+    color: var(--accent);
+    transform: rotate(-3deg);
+    line-height: 1;
+    margin-bottom: 2rem;
+  }
+
   .process-step {
     position: relative;
     background: var(--bg-surface);
@@ -70,10 +89,22 @@ const steps = [
       box-shadow var(--transition);
   }
 
+  /* Tiny varying tilts so the 3 steps don't read as identical */
+  .process-step--lean-0 { transform: rotate(-0.4deg); }
+  .process-step--lean-1 { transform: translateY(0.5rem) rotate(0.3deg); }
+  .process-step--lean-2 { transform: rotate(0.5deg); }
+
   .process-step:hover {
     border-color: var(--border-strong);
-    transform: translateY(-2px);
+    transform: translateY(-3px) rotate(0deg);
     box-shadow: var(--shadow-card);
+    z-index: 2;
+  }
+
+  @media (max-width: 720px) {
+    .process-step--lean-0,
+    .process-step--lean-1,
+    .process-step--lean-2 { transform: none; }
   }
 
   .process-step__top {
