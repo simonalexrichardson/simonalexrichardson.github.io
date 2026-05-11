@@ -104,8 +104,9 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
         <p class="work-concepts__intro">Built these to show range across industries. Pick one that's close to your thing, I'll make yours.</p>
       </div>
       <ul class="concept-grid" role="list">
-        {concepts.map((concept) => (
-          <li class="concept-card">
+        {concepts.map((concept, i) => (
+          <li class={`concept-card concept-card--lean-${i % 3}`}>
+            <span class="concept-card__sticker" aria-hidden="true">concept</span>
             <a
               href={concept.url}
               class="concept-card__image-link"
@@ -362,12 +363,13 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
   }
 
   .concept-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     background: var(--bg-surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    overflow: hidden;
+    overflow: visible;
     box-shadow: var(--shadow-card);
     transition:
       box-shadow var(--transition-slow),
@@ -375,11 +377,40 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
       transform var(--transition-slow);
   }
 
+  /* Tiny varying idle tilt so the grid feels hand-arranged */
+  .concept-card--lean-0 { transform: rotate(-0.6deg); }
+  .concept-card--lean-1 { transform: rotate(0.5deg); }
+  .concept-card--lean-2 { transform: rotate(-0.3deg); }
+
   .concept-card:hover,
   .concept-card:focus-within {
     box-shadow: var(--shadow-card-hover);
     border-color: var(--border-strong);
-    transform: translateY(-2px);
+    transform: translateY(-3px) rotate(0deg);
+    z-index: 2;
+  }
+
+  /* Handwritten 'concept' sticker badge — slightly off-axis */
+  .concept-card__sticker {
+    position: absolute;
+    top: -0.7rem;
+    right: 0.75rem;
+    z-index: 3;
+    font-family: var(--font-hand);
+    font-size: 1.05rem;
+    line-height: 1;
+    color: #fff;
+    background: var(--accent);
+    padding: 0.25em 0.7em 0.3em;
+    border-radius: 6px;
+    transform: rotate(4deg);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    transition: transform var(--transition);
+  }
+
+  .concept-card:hover .concept-card__sticker {
+    transform: rotate(-3deg) scale(1.05);
   }
 
   .concept-card__image-link {
@@ -392,6 +423,8 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     aspect-ratio: 16 / 10;
     background: var(--bg-subtle);
     overflow: hidden;
+    border-top-left-radius: var(--radius-md);
+    border-top-right-radius: var(--radius-md);
   }
 
   .concept-card__image {
