@@ -13,11 +13,11 @@ const sites = [
   { name: 'nonstarters',  url: 'https://www.thenonstarters.com' },
   { name: 'shabbyroads',  url: 'https://www.shabbyroadband.co.uk' },
   { name: 'voltline',     url: 'https://voltline-electrical.vercel.app' },
-  { name: 'wildmoor',     url: 'https://wildmoor-gardens.vercel.app' },
+  { name: 'hartley',      url: 'https://wildmoor-gardens.vercel.app' },
   { name: 'northbridge',  url: 'https://northbridge-plumbing.vercel.app' },
   { name: 'beechwood',    url: 'https://beechwood-care.vercel.app' },
   { name: 'tideway',      url: 'https://tideway-swim-academy.vercel.app' },
-  { name: 'aerospace',    url: 'https://aero-mandate-radar.vercel.app' },
+  { name: 'cobalt',       url: 'https://aero-mandate-radar.vercel.app' },
 ];
 
 // Vercel Firewall fingerprints headless Chromium beyond UA. Use real Chrome +
