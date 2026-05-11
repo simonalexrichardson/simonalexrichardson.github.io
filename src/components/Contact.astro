@@ -1,18 +1,18 @@
 ---
-// Contact form posts to a Cloudflare Worker that validates the payload
-// and forwards it via Resend. See worker/ for the Worker source + deploy
-// runbook. Update this URL if the Worker is later bound to a custom domain.
 const CONTACT_ENDPOINT = 'https://contact.simonrichardson.dev/';
 ---
 
 <section id="contact" class="container">
   <div class="contact__header">
     <p class="section-label">Get in touch</p>
-    <h2 class="contact__heading">Want one for your project?</h2>
+    <h2 class="contact__heading">
+      Want one
+      <span class="contact__heading-emph">for your</span>
+      project?
+    </h2>
     <p class="contact__intro">
-      Tell me what you have in mind. I'll come back within a couple of days
-      with thoughts and a rough quote. No sales pitch, no retainer. Just a
-      straight answer on whether I can help and what it might cost.
+      Two minutes. Fill in the blanks. I'll come back within a couple of days
+      with thoughts and a rough quote. No sales pitch, no retainer.
     </p>
   </div>
 
@@ -26,70 +26,101 @@ const CONTACT_ENDPOINT = 'https://contact.simonrichardson.dev/';
   <form id="contact-form" class="contact-form" novalidate data-endpoint={CONTACT_ENDPOINT}>
     <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
 
-    <div class="form-row">
-      <div class="form-group">
-        <label for="name" class="form-label">Name <span aria-hidden="true">*</span></label>
-        <input type="text" id="name" name="name" class="form-input" required autocomplete="name" placeholder="Your name" />
-      </div>
-      <div class="form-group">
-        <label for="email" class="form-label">Email <span aria-hidden="true">*</span></label>
-        <input type="email" id="email" name="email" class="form-input" required autocomplete="email" placeholder="you@example.com" />
-      </div>
-    </div>
+    <!-- Conversational opening sentence -->
+    <p class="cf-sentence">
+      <span class="cf-line">
+        Hey Simon, I'm
+        <label class="cf-blank cf-blank--name">
+          <span class="sr-only">Name</span>
+          <input
+            type="text"
+            name="name"
+            required
+            autocomplete="name"
+            placeholder="your name"
+            aria-required="true"
+          />
+        </label>
+      </span>
+      <span class="cf-line">
+        and you can reach me at
+        <label class="cf-blank cf-blank--email">
+          <span class="sr-only">Email</span>
+          <input
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="you@example.com"
+            aria-required="true"
+          />
+        </label>
+        .
+      </span>
+    </p>
 
-    <div class="form-group">
-      <label for="project" class="form-label">What's the project? <span aria-hidden="true">*</span></label>
-      <p id="project-hint" class="form-hint">A sentence or two is plenty.</p>
+    <!-- Project description: bigger, still labelled but presented as a blank notepad -->
+    <label class="cf-note" for="cf-project">
+      <span class="cf-note__heading">I'd like to talk about<span class="cf-required" aria-hidden="true">*</span></span>
+      <span class="cf-note__hint" id="cf-project-hint">A sentence or two is plenty. Problem, audience, anything that's bugging you.</span>
       <textarea
-        id="project"
+        id="cf-project"
         name="project"
-        class="form-input form-textarea"
         required
         minlength="20"
         rows="5"
-        aria-describedby="project-hint"
-        placeholder="Tell me a bit about what you're building: the problem, the audience, any constraints. No need to be precise at this stage."
+        aria-describedby="cf-project-hint"
+        placeholder="What you're building, who it's for, what's already been tried…"
       ></textarea>
-    </div>
+    </label>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label for="budget" class="form-label">
-          Rough budget <span class="form-label--opt">(optional)</span>
-        </label>
-        <select id="budget" name="budget" class="form-input form-select">
-          <option value="">Not sure yet</option>
-          <option value="Under £1k">Under £1k</option>
-          <option value="£1k–£5k">£1k–£5k</option>
-          <option value="£5k–£15k">£5k–£15k</option>
-          <option value="£15k+">£15k+</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="timeline" class="form-label">
-          When do you need it? <span class="form-label--opt">(optional)</span>
-        </label>
-        <select id="timeline" name="timeline" class="form-input form-select">
-          <option value="">Just exploring</option>
-          <option value="ASAP">ASAP</option>
-          <option value="Within a month">Within a month</option>
-          <option value="Next 1–3 months">Next 1–3 months</option>
-        </select>
-      </div>
-    </div>
+    <!-- Pills for optional context -->
+    <fieldset class="cf-pills">
+      <legend class="cf-pills__legend">A bit of context <span aria-hidden="true">(optional, helpful)</span></legend>
 
-    <div class="form-footer">
-      <button type="submit" class="form-submit" id="submit-btn">
-        Send enquiry
+      <div class="cf-pill-group">
+        <span class="cf-pill-group__label">Rough budget</span>
+        <div class="cf-pill-row" role="radiogroup" aria-label="Rough budget">
+          {['Not sure yet', 'Under £1k', '£1k–£5k', '£5k–£15k', '£15k+'].map((v, i) => (
+            <label class="cf-pill">
+              <input type="radio" name="budget" value={v === 'Not sure yet' ? '' : v} checked={i === 0} />
+              <span>{v}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div class="cf-pill-group">
+        <span class="cf-pill-group__label">When?</span>
+        <div class="cf-pill-row" role="radiogroup" aria-label="Timeline">
+          {['Just exploring', 'ASAP', 'Within a month', 'Next 1–3 months'].map((v, i) => (
+            <label class="cf-pill">
+              <input type="radio" name="timeline" value={v === 'Just exploring' ? '' : v} checked={i === 0} />
+              <span>{v}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="cf-footer">
+      <button type="submit" class="cf-send" id="submit-btn">
+        Send it
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/>
+          <path d="m13 6 6 6-6 6"/>
+        </svg>
       </button>
-      <p class="form-note">I respond within a couple of days.</p>
+      <p class="cf-note-foot">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Two days, tops.
+      </p>
     </div>
 
     <p class="form-error" id="form-error" role="alert" hidden>
       Something went wrong. Please try again or email me directly at
       <a href="mailto:simonalexrichardson@gmail.com">simonalexrichardson@gmail.com</a>.
     </p>
-
   </form>
 
   <div class="form-success" id="form-success" role="alert" aria-live="assertive" hidden>
@@ -102,7 +133,6 @@ const CONTACT_ENDPOINT = 'https://contact.simonrichardson.dev/';
 </section>
 
 <script>
-  // Inject UTM source as a hidden field if present
   const utmVal = new URLSearchParams(window.location.search).get('utm_source');
   if (utmVal) {
     const utmInput = document.createElement('input');
@@ -122,9 +152,8 @@ const CONTACT_ENDPOINT = 'https://contact.simonrichardson.dev/';
     if (successEl) successEl.hidden = false;
     if (errorEl)   errorEl.hidden   = true;
   }
-
   function showError() {
-    if (btn)       { btn.disabled = false; btn.textContent = 'Send enquiry'; }
+    if (btn)       { btn.disabled = false; btn.textContent = 'Send it'; }
     if (errorEl)   errorEl.hidden   = false;
     if (successEl) successEl.hidden = true;
   }
@@ -138,28 +167,31 @@ const CONTACT_ENDPOINT = 'https://contact.simonrichardson.dev/';
     try {
       const endpoint = form.dataset.endpoint;
       if (!endpoint) throw new Error('Missing form endpoint');
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        body: new FormData(form),
-      });
+      const res = await fetch(endpoint, { method: 'POST', body: new FormData(form) });
       const data = await res.json().catch(() => ({ success: false }));
-      if (res.ok && data.success) {
-        showSuccess();
-      } else {
-        console.error('Contact form error:', data);
-        showError();
-      }
+      if (res.ok && data.success) showSuccess();
+      else { console.error('Contact form error:', data); showError(); }
     } catch (err) {
       console.error('Submit error:', err);
       showError();
     }
   });
+
+  /* Auto-size inline blank inputs to their content + placeholder length */
+  document.querySelectorAll<HTMLInputElement>('.cf-blank input').forEach((el) => {
+    const resize = () => {
+      const text = el.value || el.placeholder;
+      el.style.width = Math.max(4, text.length + 1) + 'ch';
+    };
+    el.addEventListener('input', resize);
+    resize();
+  });
 </script>
 
 <style>
   .contact__header {
-    max-width: 52ch;
-    margin-bottom: 3rem;
+    max-width: 56ch;
+    margin-bottom: 2.5rem;
   }
 
   .contact__heading {
@@ -172,119 +204,272 @@ const CONTACT_ENDPOINT = 'https://contact.simonrichardson.dev/';
     font-variation-settings: "opsz" 144, "SOFT" 40;
   }
 
+  .contact__heading-emph {
+    font-style: italic;
+    color: var(--accent);
+  }
+
   .contact__intro {
     font-size: var(--text-base);
     color: var(--text-muted);
-    line-height: 1.75;
+    line-height: 1.7;
   }
 
+  /* ── Conversational sentence ── */
   .contact-form {
-    max-width: 620px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.375rem;
+    max-width: 760px;
   }
 
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.125rem;
+  .cf-sentence {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.5vw, 2.125rem);
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
   }
 
-  @media (max-width: 540px) {
-    .form-row { grid-template-columns: 1fr; }
+  .cf-line {
+    display: inline;
   }
 
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
+  .cf-blank {
+    display: inline-flex;
+    align-items: baseline;
+    cursor: text;
   }
 
-  .form-label {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .form-label--opt {
-    font-weight: 400;
-    color: var(--text-faint);
-  }
-
-  .form-input {
-    font-family: var(--font-sans);
-    font-size: var(--text-base);
-    color: var(--text);
-    background: var(--bg-surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 0.625rem 0.875rem;
-    width: 100%;
-    transition: border-color var(--transition), box-shadow var(--transition);
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  .form-input::placeholder { color: var(--text-faint); }
-
-  .form-input:focus {
+  .cf-blank input {
+    font: inherit;
+    font-family: var(--font-hand);
+    font-size: 1.05em;
+    color: var(--accent);
+    background: transparent;
+    border: none;
+    border-bottom: 2px dashed var(--border-strong);
+    padding: 0 0.15em 0.05em;
+    margin: 0 0.1em;
     outline: none;
+    width: 6ch;
+    min-width: 4ch;
+    transition: border-color var(--transition), background var(--transition);
+  }
+
+  .cf-blank input::placeholder {
+    color: var(--text-faint);
+    font-style: italic;
+  }
+
+  .cf-blank input:focus {
+    border-bottom-color: var(--accent);
+    border-bottom-style: solid;
+    background: var(--accent-subtle);
+  }
+
+  .cf-blank input:invalid:not(:placeholder-shown) {
+    border-bottom-color: #c0392b;
+  }
+
+  /* ── Note block (project description) ── */
+  .cf-note {
+    display: block;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.25rem 1rem;
+    margin-bottom: 1.75rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+
+  .cf-note:focus-within {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent-subtle);
   }
 
-  .form-textarea {
-    resize: vertical;
-    min-height: 120px;
+  .cf-note__heading {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+  }
+
+  .cf-required {
+    color: var(--accent);
+    margin-left: 0.2em;
+  }
+
+  .cf-note__hint {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-faint);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .cf-note textarea {
+    width: 100%;
+    min-height: 140px;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
     line-height: 1.65;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: vertical;
+    padding: 0;
   }
 
-  .form-select {
+  .cf-note textarea::placeholder {
+    color: var(--text-faint);
+  }
+
+  /* ── Pills (budget + timeline) ── */
+  .cf-pills {
+    border: none;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+
+  .cf-pills__legend {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .cf-pills__legend span {
+    color: var(--text-faint);
+  }
+
+  .cf-pill-group {
+    margin-bottom: 1rem;
+  }
+
+  .cf-pill-group__label {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.5rem;
+  }
+
+  .cf-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .cf-pill {
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath fill='none' stroke='%236b6860' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.875rem center;
-    padding-right: 2.25rem;
   }
 
-  .form-footer {
+  .cf-pill input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    clip: rect(0,0,0,0);
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .cf-pill span {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    border-radius: 999px;
+    padding: 0.4em 0.95em;
+    transition:
+      border-color var(--transition),
+      background var(--transition),
+      color var(--transition);
+  }
+
+  .cf-pill:hover span {
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  .cf-pill input:checked + span {
+    border-color: var(--accent);
+    background: var(--accent-subtle);
+    color: var(--accent);
+  }
+
+  .cf-pill input:focus-visible + span {
+    box-shadow: 0 0 0 3px var(--accent-subtle);
+  }
+
+  /* ── Footer (submit + reply note) ── */
+  .cf-footer {
     display: flex;
     align-items: center;
     gap: 1.25rem;
     flex-wrap: wrap;
   }
 
-  .form-submit {
+  .cf-send {
     font-family: var(--font-sans);
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
     font-weight: 700;
-    letter-spacing: 0.01em;
     color: #fff;
     background: var(--accent);
     border: none;
     border-radius: 999px;
-    padding: 0.75em 2em;
+    padding: 0.85em 1.6em;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
     transition: background-color var(--transition), transform var(--transition), opacity var(--transition);
   }
 
-  .form-submit:hover:not(:disabled) { background: var(--accent-hover); }
-  .form-submit:active:not(:disabled) { transform: scale(0.97); }
-  .form-submit:disabled { opacity: 0.55; cursor: not-allowed; }
-
-  .form-note {
-    font-size: var(--text-sm);
-    color: var(--text-faint);
+  .cf-send svg {
+    width: 18px;
+    height: 18px;
   }
 
-  .form-hint {
-    font-size: var(--text-xs);
-    color: var(--text-faint);
-    line-height: 1.5;
-    margin-top: -0.125rem;
+  .cf-send:hover:not(:disabled) {
+    background: var(--accent-hover);
+    transform: translate(2px, -1px);
   }
 
+  .cf-send:active:not(:disabled) {
+    transform: translate(2px, 0) scale(0.98);
+  }
+
+  .cf-send:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .cf-note-foot {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-hand);
+    font-size: 1.25rem;
+    color: var(--accent);
+    transform: rotate(-2deg);
+  }
+
+  .cf-note-foot svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ── Error / success / noscript ── */
   .form-noscript {
     font-size: var(--text-sm);
     color: var(--text-muted);
@@ -301,6 +486,7 @@ const CONTACT_ENDPOINT = 'https://contact.simonrichardson.dev/';
     font-size: var(--text-sm);
     color: #c0392b;
     line-height: 1.6;
+    margin-top: 1rem;
   }
 
   .form-error a {
@@ -335,8 +521,9 @@ const CONTACT_ENDPOINT = 'https://contact.simonrichardson.dev/';
   }
 
   .form-success__heading {
+    font-family: var(--font-display);
     font-size: var(--text-xl);
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.02em;
     margin-bottom: 0.25rem;
   }
