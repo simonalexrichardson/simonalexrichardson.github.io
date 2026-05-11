@@ -7,3 +7,9 @@ dist/
 .DS_Store
 *.code-workspace
 tmp-favicons/
+
+# Local review artefacts (Playwright snaps + ad-hoc scripts)
+_review-*.png
+_mobile/
+scripts/_snap-*.mjs
+scripts/_*.mjs
