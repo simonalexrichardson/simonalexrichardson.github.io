@@ -9,9 +9,15 @@
   --text: #18170f;
   --text-muted: #6b6860;
   --text-faint: #a09d98;
-  --accent: #c85a12;
-  --accent-hover: #a84810;
-  --accent-subtle: rgba(200, 90, 18, 0.08);
+  /* Dark red — deep wine, properly red (not pink) */
+  --accent: #6e1423;          /* primary brand dark red */
+  --accent-bright: #94182f;   /* slightly brighter for stickers + decoration */
+  --accent-hover: #4f0d18;    /* hover/active deeper */
+  --accent-subtle: rgba(110, 20, 35, 0.10);
+  --accent-on: #ffffff;       /* white on dark red has excellent contrast */
+  /* Orange demoted to a secondary accent */
+  --accent-2: #c85a12;
+  --accent-2-subtle: rgba(200, 90, 18, 0.10);
   --green: #16a34a;
   --border: #e4e1da;
   --border-strong: #ccc9c1;
@@ -54,9 +60,14 @@
     --text: #edeae3;
     --text-muted: #908d86;
     --text-faint: #5a5750;
-    --accent: #e06b25;
-    --accent-hover: #f07c38;
-    --accent-subtle: rgba(224, 107, 37, 0.10);
+    /* Dark red on dark mode: shift toward a vivid wine-red that pops on near-black */
+    --accent: #d23146;
+    --accent-bright: #e85066;
+    --accent-hover: #b8202e;
+    --accent-subtle: rgba(210, 49, 70, 0.16);
+    --accent-on: #ffffff;
+    --accent-2: #e06b25;
+    --accent-2-subtle: rgba(224, 107, 37, 0.12);
     --green: #22c55e;
     --border: #2a2824;
     --border-strong: #3a3830;
