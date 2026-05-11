@@ -38,9 +38,9 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
         loading="eager"
         decoding="async"
       />
-      <div class="work-featured__overlay" aria-hidden="true">
-        <span class="work-featured__visit">{featuredCaseStudy ? 'Read case study →' : 'Visit site ↗'}</span>
-      </div>
+      <span class="card-arrow card-arrow--lg" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </span>
     </div>
     <div class="work-featured__body">
       <div class="work-featured__meta">
@@ -74,9 +74,9 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
                 loading="lazy"
                 decoding="async"
               />
-              <div class="work-card__overlay" aria-hidden="true">
-                <span>Visit site ↗</span>
-              </div>
+              <span class="card-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+              </span>
             </div>
             <div class="work-card__body">
               <div class="work-card__meta">
@@ -118,9 +118,9 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
                   loading="lazy"
                   decoding="async"
                 />
-                <div class="concept-card__overlay" aria-hidden="true">
-                  <span>View concept ↗</span>
-                </div>
+                <span class="card-arrow card-arrow--sm" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+                </span>
               </div>
             </a>
             <div class="concept-card__body">
@@ -178,35 +178,6 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
 
   .work-featured:hover .work-featured__image {
     transform: scale(1.02);
-  }
-
-  .work-featured__overlay {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4em;
-    background: rgba(24, 23, 15, 0.85);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    color: #fff;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    padding: 0.45em 0.9em;
-    border-radius: 999px;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity var(--transition), transform var(--transition);
-  }
-
-  .work-featured:hover .work-featured__overlay {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .work-featured__visit {
-    letter-spacing: -0.01em;
   }
 
   .work-featured__body {
@@ -308,30 +279,6 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     transform: scale(1.03);
   }
 
-  .work-card__overlay {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    display: inline-flex;
-    align-items: center;
-    background: rgba(24, 23, 15, 0.85);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    color: #fff;
-    font-size: var(--text-xs);
-    font-weight: 600;
-    padding: 0.4em 0.75em;
-    border-radius: 999px;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity var(--transition), transform var(--transition);
-  }
-
-  .work-card__link:hover .work-card__overlay {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   .work-card__body {
     padding: 1.125rem 1.25rem 1.375rem;
   }
@@ -394,10 +341,12 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
   @media (max-width: 880px) {
     .concept-grid {
       grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
     }
   }
 
-  @media (max-width: 480px) {
+  /* Stay 2-col down to phones; only collapse on the very narrowest screens. */
+  @media (max-width: 360px) {
     .concept-grid {
       grid-template-columns: 1fr;
     }
@@ -447,31 +396,6 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     transform: scale(1.03);
   }
 
-  .concept-card__overlay {
-    position: absolute;
-    top: 0.625rem;
-    right: 0.625rem;
-    display: inline-flex;
-    align-items: center;
-    background: rgba(24, 23, 15, 0.85);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    color: #fff;
-    font-size: var(--text-xs);
-    font-weight: 600;
-    padding: 0.35em 0.7em;
-    border-radius: 999px;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity var(--transition), transform var(--transition);
-  }
-
-  .concept-card__image-link:hover .concept-card__overlay,
-  .concept-card__image-link:focus-visible .concept-card__overlay {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   .concept-card__body {
     padding: 0.875rem 1rem 1rem;
     display: flex;
@@ -493,8 +417,12 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
 
   .concept-card__cta {
     margin-top: auto;
-    padding-top: 0.625rem;
+    /* Generous tap target on mobile while keeping visual flush via negative outer margin. */
+    padding: 0.625rem 0.5rem;
+    margin-inline: -0.5rem;
+    margin-bottom: -0.25rem;
     display: inline-flex;
+    align-self: flex-start;
     align-items: center;
     gap: 0.3em;
     font-size: var(--text-sm);
@@ -511,5 +439,62 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
   .concept-card__cta:hover span,
   .concept-card__cta:focus-visible span {
     transform: translateX(3px);
+  }
+
+  /* ── Persistent corner arrow (replaces hover-only overlays) ── */
+
+  .card-arrow {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(24, 23, 15, 0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #fff;
+    pointer-events: none;
+    transition: transform var(--transition), background var(--transition);
+  }
+
+  .card-arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .card-arrow--lg {
+    top: 0.875rem;
+    right: 0.875rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .card-arrow--lg svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .card-arrow--sm {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 28px;
+    height: 28px;
+  }
+
+  .card-arrow--sm svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .work-featured:hover .card-arrow,
+  .work-card__link:hover .card-arrow,
+  .concept-card__image-link:hover .card-arrow,
+  .concept-card__image-link:focus-visible .card-arrow {
+    transform: translate(2px, -2px);
+    background: rgba(24, 23, 15, 0.92);
   }
 </style>
