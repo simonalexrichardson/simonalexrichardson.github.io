@@ -103,7 +103,7 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
           <li class="concept-card">
             <a
               href={concept.url}
-              class="concept-card__link"
+              class="concept-card__image-link"
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`View the ${concept.name} concept (opens in new tab)`}
@@ -122,13 +122,16 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
                   <span>View concept ↗</span>
                 </div>
               </div>
-              <div class="concept-card__body">
-                <div class="concept-card__meta">
-                  <span class="tag tag--muted">{concept.tag}</span>
-                </div>
-                <h3 class="concept-card__name">{concept.name}</h3>
-              </div>
             </a>
+            <div class="concept-card__body">
+              <div class="concept-card__meta">
+                <span class="tag tag--muted">{concept.tag}</span>
+              </div>
+              <h3 class="concept-card__name">{concept.name}</h3>
+              <a href="#contact" class="concept-card__cta">
+                Want one like this? <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </li>
         ))}
       </ul>
@@ -400,9 +403,9 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     }
   }
 
-  .concept-card__link {
-    display: block;
-    height: 100%;
+  .concept-card {
+    display: flex;
+    flex-direction: column;
     background: var(--bg-surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
@@ -414,11 +417,16 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
       transform var(--transition-slow);
   }
 
-  .concept-card__link:hover {
+  .concept-card:hover,
+  .concept-card:focus-within {
     box-shadow: var(--shadow-card-hover);
     border-color: var(--border-strong);
     transform: translateY(-2px);
-    outline: none;
+  }
+
+  .concept-card__image-link {
+    display: block;
+    text-decoration: none;
   }
 
   .concept-card__image-wrap {
@@ -435,7 +443,7 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     transition: transform var(--transition-slow);
   }
 
-  .concept-card__link:hover .concept-card__image {
+  .concept-card:hover .concept-card__image {
     transform: scale(1.03);
   }
 
@@ -458,17 +466,22 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     transition: opacity var(--transition), transform var(--transition);
   }
 
-  .concept-card__link:hover .concept-card__overlay {
+  .concept-card__image-link:hover .concept-card__overlay,
+  .concept-card__image-link:focus-visible .concept-card__overlay {
     opacity: 1;
     transform: translateY(0);
   }
 
   .concept-card__body {
     padding: 0.875rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
   }
 
   .concept-card__meta {
-    margin-bottom: 0.3rem;
+    margin: 0;
   }
 
   .concept-card__name {
@@ -476,5 +489,27 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     font-weight: 600;
     letter-spacing: -0.015em;
     line-height: 1.25;
+  }
+
+  .concept-card__cta {
+    margin-top: auto;
+    padding-top: 0.625rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .concept-card__cta span {
+    transition: transform var(--transition);
+  }
+
+  .concept-card__cta:hover span,
+  .concept-card__cta:focus-visible span {
+    transform: translateX(3px);
   }
 </style>
