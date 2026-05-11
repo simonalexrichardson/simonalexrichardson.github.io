@@ -20,12 +20,13 @@
     </p>
 
     <div class="hero__actions">
-      <a href="#work" class="hero__btn hero__btn--primary">
+      <a href="#contact" class="hero__btn hero__btn--primary">
+        Get in touch
+        <span aria-hidden="true">→</span>
+      </a>
+      <a href="#work" class="hero__btn hero__btn--ghost">
         See my work
         <span aria-hidden="true">↓</span>
-      </a>
-      <a href="#contact" class="hero__btn hero__btn--ghost">
-        Get in touch
       </a>
     </div>
   </div>
@@ -95,12 +96,12 @@
   .hero__btn:active { transform: scale(0.97); }
 
   .hero__btn--primary {
-    background: var(--text);
-    color: var(--bg);
+    background: var(--accent);
+    color: #fff;
   }
 
   .hero__btn--primary:hover {
-    background: var(--accent);
+    background: var(--accent-hover);
   }
 
   .hero__btn--ghost {
