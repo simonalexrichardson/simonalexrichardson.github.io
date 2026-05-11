@@ -35,6 +35,15 @@ const services = [
     hypothetical scale. The real thing. Three areas I work in most:
   </p>
 
+  <aside class="services__ai-callout" aria-label="AI experience">
+    <span class="services__ai-eyebrow" aria-hidden="true">✦ Shipped, not theoretical</span>
+    <p>
+      I've shipped a live AI product. <a href="https://www.quietloon.com" target="_blank" rel="noopener noreferrer">Quiet Loon</a> is in
+      production handling real users. I know where AI tools earn their keep,
+      and where they're just noise.
+    </p>
+  </aside>
+
   <ul class="services-grid" role="list">
     {services.map((service) => (
       <li class="service">
@@ -58,7 +67,45 @@ const services = [
     color: var(--text-muted);
     line-height: 1.7;
     max-width: 56ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .services__ai-callout {
+    background: var(--accent-subtle);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
     margin-bottom: 2.5rem;
+    max-width: 64ch;
+  }
+
+  .services__ai-eyebrow {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .services__ai-callout p {
+    font-size: var(--text-sm);
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  .services__ai-callout a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-subtle);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--transition);
+  }
+
+  .services__ai-callout a:hover {
+    text-decoration-color: var(--accent);
   }
 
   .services-grid {
