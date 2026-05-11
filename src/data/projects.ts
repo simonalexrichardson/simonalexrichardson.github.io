@@ -93,4 +93,12 @@ export const concepts: Project[] = [
     image: '/images/tideway.jpg',
     imageAlt: 'Concept marketing site for a swim school',
   },
+  {
+    name: '365 Aerospace',
+    url: 'https://aero-mandate-radar.vercel.app',
+    description: 'Aircraft mods, certified properly. On time, every type.',
+    tag: 'Aerospace',
+    image: '/images/aerospace.jpg',
+    imageAlt: 'Concept marketing site for an aerospace engineering firm',
+  },
 ];
