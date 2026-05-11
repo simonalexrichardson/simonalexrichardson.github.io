@@ -17,6 +17,8 @@
   --border-strong: #ccc9c1;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  --font-hand: 'Caveat', 'Bradley Hand', cursive;
 
   --text-xs:   0.6875rem;
   --text-sm:   0.875rem;

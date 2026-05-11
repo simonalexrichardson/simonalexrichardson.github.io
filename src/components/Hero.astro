@@ -9,7 +9,13 @@
     </p>
 
     <h1 class="hero__heading">
-      Hi, I'm Simon.
+      Hi, I'm
+      <span class="hero__name">
+        Simon
+        <svg class="hero__underline" viewBox="0 0 220 18" aria-hidden="true" preserveAspectRatio="none">
+          <path d="M3 12 Q 30 4, 60 11 T 120 10 T 180 11 T 215 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </span>.
     </h1>
 
     <p class="hero__bio">
@@ -28,6 +34,13 @@
         See my work
         <span aria-hidden="true">↓</span>
       </a>
+      <span class="hero__quip" aria-hidden="true">
+        <svg class="hero__quip-arrow" viewBox="0 0 60 60">
+          <path d="M5 8 Q 22 6 40 28 T 50 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M44 44 L 50 50 L 44 54" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="hero__quip-text">start here</span>
+      </span>
     </div>
   </div>
 </header>
@@ -43,11 +56,44 @@
   }
 
   .hero__heading {
+    font-family: var(--font-display);
+    font-weight: 600;
     font-size: var(--text-hero);
-    font-weight: 800;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
     line-height: 1.05;
     margin-bottom: 1.5rem;
+    font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
+  }
+
+  .hero__name {
+    position: relative;
+    display: inline-block;
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero__underline {
+    position: absolute;
+    left: 0;
+    right: -0.05em;
+    bottom: -0.18em;
+    width: 100%;
+    height: 0.32em;
+    color: var(--accent);
+    stroke-dasharray: 420;
+    stroke-dashoffset: 420;
+    animation: hero-underline 1.4s 0.4s cubic-bezier(.65,0,.35,1) forwards;
+  }
+
+  @keyframes hero-underline {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__underline {
+      stroke-dashoffset: 0;
+      animation: none;
+    }
   }
 
   .hero__bio {
@@ -76,6 +122,7 @@
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
+    position: relative;
   }
 
   .hero__btn {
@@ -85,7 +132,7 @@
     font-size: var(--text-sm);
     font-weight: 600;
     border-radius: 999px;
-    padding: 0.7em 1.5em;
+    padding: 0.75em 1.6em;
     transition:
       background-color var(--transition),
       color var(--transition),
@@ -102,6 +149,7 @@
 
   .hero__btn--primary:hover {
     background: var(--accent-hover);
+    transform: translateY(-1px);
   }
 
   .hero__btn--ghost {
@@ -112,5 +160,33 @@
   .hero__btn--ghost:hover {
     border-color: var(--text);
     color: var(--text);
+  }
+
+  /* Hand-written 'start here' annotation pointing at the primary CTA */
+  .hero__quip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: var(--accent);
+    font-family: var(--font-hand);
+    font-size: 1.5rem;
+    line-height: 1;
+    transform: translateY(0.4rem) rotate(-4deg);
+    margin-left: -0.5rem;
+    pointer-events: none;
+  }
+
+  .hero__quip-arrow {
+    width: 38px;
+    height: 38px;
+    transform: scaleX(-1) rotate(140deg);
+  }
+
+  .hero__quip-text {
+    transform: translate(-0.35rem, -0.2rem);
+  }
+
+  @media (max-width: 560px) {
+    .hero__quip { display: none; }
   }
 </style>
