@@ -21,10 +21,10 @@ export const projects: Project[] = [
   {
     name: 'Reaper Drones',
     url: 'https://reaperdrones.com',
-    description: 'Drone news, reviews and industry insights',
-    tag: 'News site',
+    description: 'CAA risk assessments for UK drone operators.',
+    tag: 'Web app',
     image: '/images/reaperdrones.jpg',
-    imageAlt: 'Screenshot of the Reaper Drones website',
+    imageAlt: 'Screenshot of the Reaper Drones web app',
   },
   {
     name: 'Altitude Drone Surveying',
