@@ -13,3 +13,6 @@ _review-*.png
 _mobile/
 scripts/_snap-*.mjs
 scripts/_*.mjs
+
+# Local Claude Code config (per-machine, not for the public repo)
+.claude/
