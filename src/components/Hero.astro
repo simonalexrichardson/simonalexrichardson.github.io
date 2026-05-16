@@ -41,15 +41,6 @@
         See my work
         <span aria-hidden="true">↓</span>
       </a>
-      <span class="hero__quip" aria-hidden="true">
-        <span class="hero__quip-text">start here</span>
-        <svg class="hero__quip-arrow" viewBox="0 0 80 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <!-- Sweep from below 'start here' down-left to the primary CTA -->
-          <path d="M68 8 Q 55 38 14 30"/>
-          <!-- Arrowhead pointing up-left at the curve's endpoint -->
-          <path d="M22 22 L 14 30 L 22 36"/>
-        </svg>
-      </span>
     </div>
   </div>
 </header>
@@ -210,27 +201,4 @@
     color: var(--text);
   }
 
-  /* Hand-written 'start here' annotation pointing at the primary CTA */
-  .hero__quip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.1rem;
-    color: var(--accent);
-    font-family: var(--font-hand);
-    font-size: 1.5rem;
-    line-height: 1;
-    transform: translateY(0.35rem) rotate(-3deg);
-    margin-left: -0.25rem;
-    pointer-events: none;
-  }
-
-  .hero__quip-arrow {
-    width: 58px;
-    height: 38px;
-    transform: translateY(0.4rem);
-  }
-
-  @media (max-width: 560px) {
-    .hero__quip { display: none; }
-  }
 </style>
