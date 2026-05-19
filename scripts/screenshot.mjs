@@ -7,7 +7,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = resolve(__dirname, '../public/images');
 
 const sites = [
-  { name: 'quietloon',    url: 'https://www.quietloon.com' },
   { name: 'reaperdrones', url: 'https://www.reaperdrones.com' },
   { name: 'altitude',     url: 'https://altitudedronesurveying.vercel.app' },
   { name: 'nonstarters',  url: 'https://www.thenonstarters.com' },

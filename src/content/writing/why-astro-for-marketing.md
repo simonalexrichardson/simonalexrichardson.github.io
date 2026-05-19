@@ -23,7 +23,7 @@ When something looks wrong, View Source shows you the actual rendered markup. No
 
 ## Where Astro stops paying off
 
-Stateful apps. The moment you need a real session, server actions, route handlers that actually do work, or a component tree that re-renders based on user input, Astro's strengths become irrelevant and Next.js's start to matter. Quiet Loon, the product I co-founded, runs on Next.js for exactly that reason.
+Stateful apps. The moment you need a real session, server actions, route handlers that actually do work, or a component tree that re-renders based on user input, Astro's strengths become irrelevant and Next.js's start to matter. The product side of my work runs on Next.js for exactly that reason.
 
 The rule of thumb I use:
 

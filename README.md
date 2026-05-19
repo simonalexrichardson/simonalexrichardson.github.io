@@ -34,7 +34,6 @@ Before the site is ready to share, replace the following:
 5. **Client site taglines** — in `src/components/Work.astro`, update the `description` fields for Altitude, The Non-Starters, and Shabby Road with the real one-line descriptions.
 
 6. **Screenshot images** — add the following to `public/images/`:
-   - `quietloon.jpg`
    - `altitude.jpg`
    - `nonstarters.jpg`
    - `shabbyroads.jpg`

@@ -25,6 +25,6 @@ After a year of shipping Claude integrations into client work and my own product
 
 The cost economics are usually the deciding factor. If you can't run the call inside a budget that fits your unit economics, it doesn't matter how good the output is. For consumer subscription products especially, "LLM responds to anything" doesn't pencil out.
 
-On Quiet Loon, Claude is doing two specific things, parsing free-text input into structured items, and writing the weekly digest. Both are bounded, both cacheable, both have clear value. We deliberately avoided putting a chat surface anywhere; it's a list app, not a chatbot, and the unit economics don't work at consumer subscription pricing.
+In the apps I've shipped, Claude tends to do two specific things, parsing free-text input into structured items, and writing summary digests. Both are bounded, both cacheable, both have clear value. I deliberately avoid putting a chat surface anywhere; for most products it's not a chatbot people want, and the unit economics of "LLM that responds to anything" don't work at consumer subscription pricing.
 
 The version of this advice that matters: figure out what the model is uniquely good at, language, ambiguity, transformation, and use it for *that*. Skip the chat box.

@@ -10,15 +10,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    name: 'Quiet Loon',
-    url: 'https://www.quietloon.com',
-    description: 'The app that carries the mental load',
-    tag: 'Web app',
-    image: '/images/quietloon.jpg',
-    imageAlt: 'Screenshot of the Quiet Loon web application',
-    caseStudy: '/case-studies/quiet-loon',
-  },
-  {
     name: 'Reaper Drones',
     url: 'https://www.reaperdrones.com',
     description: 'CAA risk assessments for UK drone operators.',
