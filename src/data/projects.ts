@@ -32,12 +32,15 @@ export const projects: Project[] = [
     imageAlt: 'Screenshot of the Guild Raven web app',
   },
   {
-    name: 'Quiet Loon',
+    // Intentionally unbranded in the visible text + alt for SEO containment.
+    // The screenshot still shows the product mark; Google reads no brand
+    // keyword in the page text, alt, or schema.
+    name: 'A family productivity app',
     url: '',
-    description: 'The app that carries the mental load.',
+    description: 'Carries the mental load so the household doesn\'t have to remember it all.',
     tag: 'Web app',
-    image: '/images/quietloon.jpg',
-    imageAlt: 'Screenshot of the Quiet Loon web app',
+    image: '/images/family-productivity-app.jpg',
+    imageAlt: 'Screenshot of a family productivity web app',
     noLink: true,
   },
   {
