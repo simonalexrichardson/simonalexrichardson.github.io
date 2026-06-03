@@ -18,6 +18,14 @@ export const projects: Project[] = [
     imageAlt: 'Screenshot of the Reaper Drones web app',
   },
   {
+    name: 'Guild Raven',
+    url: 'https://www.guildraven.com',
+    description: 'Your guild, all in one place.',
+    tag: 'Web app',
+    image: '/images/guildraven.jpg',
+    imageAlt: 'Screenshot of the Guild Raven web app',
+  },
+  {
     name: 'Altitude Drone Surveying',
     url: 'https://altitudedronesurveying.vercel.app',
     description: 'Drone surveys from a chartered surveyor',
