@@ -9,6 +9,7 @@ const outDir = resolve(__dirname, '../public/images');
 const sites = [
   { name: 'reaperdrones', url: 'https://www.reaperdrones.com' },
   { name: 'guildraven',   url: 'https://www.guildraven.com' },
+  { name: 'quietloon',    url: 'https://www.quietloon.com' },
   { name: 'altitude',     url: 'https://altitudedronesurveying.vercel.app' },
   { name: 'nonstarters',  url: 'https://www.thenonstarters.com' },
   { name: 'shabbyroads',  url: 'https://www.shabbyroadband.co.uk' },

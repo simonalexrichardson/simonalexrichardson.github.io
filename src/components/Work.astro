@@ -59,15 +59,8 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
         const cs = project.caseStudy && liveCaseStudies.has(project.caseStudy)
           ? project.caseStudy
           : null;
-        return (
-        <li class="work-card">
-          <a
-            href={cs ?? project.url}
-            class="work-card__link"
-            target={cs ? undefined : '_blank'}
-            rel={cs ? undefined : 'noopener noreferrer'}
-            aria-label={cs ? `Read the ${project.name} case study` : `Visit ${project.name} (opens in new tab)`}
-          >
+        const cardBody = (
+          <>
             <div class="work-card__image-wrap">
               <img
                 src={project.image}
@@ -78,20 +71,42 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
                 loading="lazy"
                 decoding="async"
               />
-              <span class="card-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
-              </span>
+              {!project.noLink && (
+                <span class="card-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+                </span>
+              )}
             </div>
             <div class="work-card__body">
               <div class="work-card__meta">
                 <span class="tag">{project.tag}</span>
-                <span class="work-card__url">{new URL(project.url).hostname}</span>
+                {!project.noLink && project.url && (
+                  <span class="work-card__url">{new URL(project.url).hostname}</span>
+                )}
               </div>
               <h3 class="work-card__name">{project.name}</h3>
               <p class="work-card__desc">{project.description}</p>
             </div>
-          </a>
-        </li>
+          </>
+        );
+        return (
+          <li class="work-card">
+            {project.noLink ? (
+              <div class="work-card__link work-card__link--static">
+                {cardBody}
+              </div>
+            ) : (
+              <a
+                href={cs ?? project.url}
+                class="work-card__link"
+                target={cs ? undefined : '_blank'}
+                rel={cs ? undefined : 'noopener noreferrer'}
+                aria-label={cs ? `Read the ${project.name} case study` : `Visit ${project.name} (opens in new tab)`}
+              >
+                {cardBody}
+              </a>
+            )}
+          </li>
         );
       })
     }
@@ -267,6 +282,21 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     border-color: var(--border-strong);
     transform: translateY(-3px);
     outline: none;
+  }
+
+  /* Static showcase variant: shown but not interactive. */
+  .work-card__link--static {
+    cursor: default;
+  }
+
+  .work-card__link--static:hover {
+    box-shadow: var(--shadow-card);
+    border-color: var(--border);
+    transform: none;
+  }
+
+  .work-card__link--static:hover .work-card__image {
+    transform: none;
   }
 
   .work-card__image-wrap {

@@ -6,6 +6,12 @@ export interface Project {
   image: string;
   imageAlt: string;
   caseStudy?: string;
+  /**
+   * Render the card as a static showcase (no anchor, no outbound link).
+   * Used when the project has its own SEO presence and a link/case study
+   * from this site would cannibalise its branded search ranking.
+   */
+  noLink?: boolean;
 }
 
 export const projects: Project[] = [
@@ -24,6 +30,15 @@ export const projects: Project[] = [
     tag: 'Web app',
     image: '/images/guildraven.jpg',
     imageAlt: 'Screenshot of the Guild Raven web app',
+  },
+  {
+    name: 'Quiet Loon',
+    url: '',
+    description: 'The app that carries the mental load.',
+    tag: 'Web app',
+    image: '/images/quietloon.jpg',
+    imageAlt: 'Screenshot of the Quiet Loon web app',
+    noLink: true,
   },
   {
     name: 'Altitude Drone Surveying',
