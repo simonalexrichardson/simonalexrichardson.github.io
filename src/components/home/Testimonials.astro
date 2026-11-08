@@ -1,4 +1,6 @@
 ---
+import CtaPair from '../CtaPair.astro';
+
 const quotes = [
   {
     body: "Simon got our site live in days, not months. He pushed back where it mattered, asked questions I hadn't thought of, and made the right calls. No hand-holding required.",
@@ -18,7 +20,7 @@ const quotes = [
 ];
 ---
 
-<section id="testimonial" aria-labelledby="testimonial-heading">
+<section id="testimonial" class="quotes" aria-labelledby="testimonial-heading">
   <div class="container">
   <h2 id="testimonial-heading" class="sr-only">Client testimonials</h2>
   <p class="testimonials__lead-in" aria-hidden="true">
@@ -45,10 +47,14 @@ const quotes = [
       </li>
     ))}
   </ul>
+  <div class="testimonials__cta"><CtaPair /></div>
   </div>
 </section>
 
 <style>
+  .quotes { background: var(--bg-subtle); }
+  .testimonials__cta { margin-top: 2.5rem; }
+
   .testimonials__lead-in {
     display: inline-flex;
     align-items: center;

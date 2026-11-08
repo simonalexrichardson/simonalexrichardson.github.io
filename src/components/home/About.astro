@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import simon from '../../assets/simon.jpg';
 ---
 
-<section id="about">
+<section id="about" class="about-section">
   <div class="container about">
     <Image
       src={simon}
@@ -27,14 +27,16 @@ import simon from '../../assets/simon.jpg';
         At weekends you'll usually find me behind a drum kit at a gig.
       </p>
       <p>
-        When you work with me, you deal with me. Same person from the first chat to the small change
-        you need two years later.
+        When you work with me, you deal with me. Message me and you'll hear back the same day. Same
+        person from the first chat to the small change you need two years later.
       </p>
     </div>
   </div>
 </section>
 
 <style>
+  .about-section { background: var(--bg-subtle); }
+
   .about { display: grid; gap: 2rem; }
 
   @media (min-width: 760px) {

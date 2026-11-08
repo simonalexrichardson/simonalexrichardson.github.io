@@ -14,18 +14,22 @@ const liveCaseStudies = new Set(
     ({ data }) => import.meta.env.PROD ? !data.draft : true,
   )).map((cs) => `/case-studies/${cs.id}`),
 );
+
+const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.caseStudy)
+  ? featured.caseStudy
+  : null;
 ---
 
-<section id="work" class="work">
+<section id="work">
   <div class="container">
   <p class="section-label">Work</p>
   <h2 class="m-heading work__heading">Things I've built. Have a click around.</h2>
   <a
-    href={featured.url}
+    href={featuredCaseStudy ?? featured.url}
     class="work-featured"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label={`Visit ${featured.name} (opens in new tab)`}
+    target={featuredCaseStudy ? undefined : '_blank'}
+    rel={featuredCaseStudy ? undefined : 'noopener noreferrer'}
+    aria-label={featuredCaseStudy ? `Read the ${featured.name} case study` : `Visit ${featured.name} (opens in new tab)`}
   >
     <div class="work-featured__image-wrap">
       <Image
@@ -163,7 +167,6 @@ const liveCaseStudies = new Set(
 </section>
 
 <style>
-  .work { background: var(--bg-subtle); }
   .work__heading { margin-bottom: 2.5rem; }
 
   .work-featured {

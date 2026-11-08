@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
 import LeadForm from '../components/LeadForm.astro';
-import { site, whatsappHref } from '../config/site';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { site } from '../config/site';
 ---
 
 <BaseLayout
@@ -22,7 +23,7 @@ import { site, whatsappHref } from '../config/site';
         <aside class="contact__other" aria-label="Other ways to get in touch">
           <h2>Prefer WhatsApp?</h2>
           {site.whatsapp ? (
-            <a class="btn btn--primary" href={whatsappHref} target="_blank" rel="noopener noreferrer">WhatsApp me<span class="sr-only"> (opens in a new tab)</span></a>
+            <WhatsAppButton />
           ) : (
             <p class="placeholder"><strong>PLACEHOLDER:</strong> WhatsApp button appears once the number is in src/config/site.ts</p>
           )}
@@ -34,7 +35,7 @@ import { site, whatsappHref } from '../config/site';
         <LeadForm
           submitLabel="Send message"
           successTitle="Thanks, that's with me."
-          successBody="I'll get back to you by email soon."
+          successBody="You'll hear back from me by email the same day."
           fields={[
             { name: 'name', label: 'Your name', required: true, autocomplete: 'name' },
             { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },

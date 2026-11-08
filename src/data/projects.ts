@@ -15,24 +15,16 @@ export interface Project {
 }
 
 export const featured: Project = {
-  name: 'Bandhamster',
-  url: 'https://bandhamster.com',
-  description: 'One home for musicians, music lovers and promoters. Band websites, a musician board and a gig guide, all live and growing.',
-  tag: 'Platform',
-  image: 'bandhamster.jpg',
-  imageAlt: 'Screenshot of the Bandhamster homepage',
+  name: 'Altitude Drone Surveying',
+  url: 'https://altitudedronesurveying.vercel.app',
+  description: 'Drone surveys from a chartered surveyor',
+  tag: 'Marketing site',
+  image: 'altitude.jpg',
+  imageAlt: 'Screenshot of the Altitude Drone Surveying website',
+  caseStudy: '/case-studies/altitude-drone-surveying',
 };
 
 export const projects: Project[] = [
-  {
-    name: 'Altitude Drone Surveying',
-    url: 'https://altitudedronesurveying.vercel.app',
-    description: 'Drone surveys from a chartered surveyor',
-    tag: 'Marketing site',
-    image: 'altitude.jpg',
-    imageAlt: 'Screenshot of the Altitude Drone Surveying website',
-    caseStudy: '/case-studies/altitude-drone-surveying',
-  },
   {
     name: 'The Non-Starters',
     url: 'https://www.thenonstarters.com',
@@ -48,6 +40,14 @@ export const projects: Project[] = [
     tag: 'Band site',
     image: 'shabbyroads.jpg',
     imageAlt: 'Screenshot of the Shabby Road website',
+  },
+  {
+    name: 'Bandhamster',
+    url: 'https://bandhamster.com',
+    description: 'One home for musicians, music lovers and promoters. Band websites, a musician board and a gig guide, all live and growing.',
+    tag: 'Platform',
+    image: 'bandhamster.jpg',
+    imageAlt: 'Screenshot of the Bandhamster homepage',
   },
   {
     name: 'Guild Raven',

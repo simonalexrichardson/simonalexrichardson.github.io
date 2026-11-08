@@ -386,6 +386,10 @@ section + section {
 .btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 .btn--secondary { background: transparent; color: var(--accent-text); border-color: var(--accent-text); }
 .btn--secondary:hover { background: var(--accent-subtle); }
+/* WhatsApp's own green, so it's recognised at a glance. Dark text keeps it AA in both themes. */
+.btn--whatsapp { gap: 0.5em; background: #25d366; border-color: #25d366; color: #06281a; }
+.btn--whatsapp:hover { background: #1fbe5b; border-color: #1fbe5b; }
+.btn--whatsapp svg { width: 1.2em; height: 1.2em; flex-shrink: 0; fill: currentColor; }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* Anything that still needs real content. Deliberately loud so it can't ship by accident. */

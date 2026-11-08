@@ -1,8 +1,8 @@
 ---
-import { whatsappHref } from '../config/site';
+import WhatsAppButton from './WhatsAppButton.astro';
 ---
 
 <div class="cta-pair">
-  <a href={whatsappHref} class="btn btn--primary" target="_blank" rel="noopener noreferrer">WhatsApp me<span class="sr-only"> (opens in a new tab)</span></a>
+  <WhatsAppButton />
   <a href="/contact" class="btn btn--secondary">Send me a message</a>
 </div>

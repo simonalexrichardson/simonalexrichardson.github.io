@@ -1,4 +1,5 @@
 ---
+import CtaPair from '../CtaPair.astro';
 import { site } from '../../config/site';
 const { build, care, note } = site.pricing;
 const plans = [build, care];
@@ -7,7 +8,7 @@ const plans = [build, care];
 <section id="pricing">
   <div class="container">
     <p class="section-label">Pricing</p>
-    <h2 class="m-heading">Fixed prices, written down where you can see them.</h2>
+    <h2 class="m-heading">Small-business prices, written down where you can see them.</h2>
     <div class="plans">
       {plans.map((p) => (
         <article class="plan">
@@ -21,6 +22,7 @@ const plans = [build, care];
       ))}
     </div>
     <p class="plans__note">{note}</p>
+    <div class="plans__cta"><CtaPair /></div>
   </div>
 </section>
 
@@ -62,4 +64,5 @@ const plans = [build, care];
   li:last-child { border-bottom: 0; padding-bottom: 0; }
 
   .plans__note { margin-top: 1.5rem; font-weight: 600; }
+  .plans__cta { margin-top: 1.75rem; }
 </style>

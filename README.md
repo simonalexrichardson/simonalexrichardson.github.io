@@ -28,7 +28,9 @@ cd worker && npx wrangler deploy
 Everything below is in `src/config/site.ts` unless it says otherwise.
 
 - [ ] **Second photo:** the About section reuses the same image. Point `src/components/home/About.astro` at a different one, ideally behind the kit.
-- [ ] **Prices:** confirm `pricing`.
+- [ ] **Email:** in Cloudflare, Email > Email Routing, enable it for simonrichardson.dev and forward `hello@` to Gmail. Do this before going live, or mail to the address on the site will bounce.
+- [ ] **Analytics:** add the site in Cloudflare Web Analytics and paste the token into `cloudflareAnalyticsToken`.
+- [ ] **Prices:** `buildFrom` and `carePerMonth` at the top of the config set every price on the site.
 
 ## Environment variables and secrets
 
@@ -64,6 +66,6 @@ Re-run it after adding real photos, because images are the most likely thing to 
 - `src/data/projects.ts` and `src/assets/work/`: the projects and concept sites on the homepage
 - `src/components/home/Testimonials.astro`: client quotes. Never add one that isn't real
 - `src/pages/contact.astro`, `privacy.astro`: the other pages
-- `src/pages/writing/`: posts, linked from the footer only
+- `src/pages/writing/` and `uses.astro`: still online, but no longer linked from anywhere
 - `src/content/`: blog posts and case studies
 - `scripts/generate-og.mjs`: regenerates the social sharing image
