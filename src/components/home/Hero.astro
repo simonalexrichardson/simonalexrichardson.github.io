@@ -15,6 +15,11 @@ import { site, serviceAreaText } from '../../config/site';
         never have to think about it.
       </p>
       <CtaPair />
+      <p class="hero__live" aria-hidden="true">
+        <span>You've been here <strong data-live-time>0:00</strong>.</span>
+        <span data-live-load hidden>This page loaded in <strong data-live-speed></strong> on your device.</span>
+      </p>
+      <p class="hero__quip h-note" aria-hidden="true" data-live-quip></p>
     </div>
     <figure class="hero__photo">
       <Image
@@ -32,7 +37,63 @@ import { site, serviceAreaText } from '../../config/site';
   </div>
 </section>
 
+<script>
+  const time = document.querySelector<HTMLElement>('[data-live-time]')!;
+  const quip = document.querySelector<HTMLElement>('[data-live-quip]')!;
+  const load = document.querySelector<HTMLElement>('[data-live-load]')!;
+  const speed = document.querySelector<HTMLElement>('[data-live-speed]')!;
+
+  const quips: Record<number, string> = {
+    15: 'Still here? Good sign.',
+    30: "Half a minute. That's a website doing its job.",
+    60: 'A whole minute. Imagine this was your site.',
+    120: 'Two minutes. We should probably talk.',
+    300: 'Five minutes. Stick the kettle on and message me.',
+    600: "Ten minutes. At this point we're friends.",
+  };
+
+  let seconds = 0;
+  setInterval(() => {
+    if (document.hidden) return;
+    seconds += 1;
+    time.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+    if (quips[seconds]) quip.textContent = quips[seconds];
+  }, 1000);
+
+  // A real measurement from their own browser. Stays quiet if a bad connection made it slow.
+  const showLoadTime = () => {
+    const [nav] = performance.getEntriesByType('navigation') as PerformanceNavigationTiming[];
+    if (!nav || nav.loadEventEnd <= 0 || nav.loadEventEnd >= 3000) return;
+    speed.textContent = `${(nav.loadEventEnd / 1000).toFixed(2)}s`;
+    load.hidden = false;
+  };
+  if (document.readyState === 'complete') setTimeout(showLoadTime);
+  else addEventListener('load', () => setTimeout(showLoadTime));
+</script>
+
 <style>
+  .hero__live {
+    min-height: 1.7em;
+    margin-top: 1.25rem;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero__live strong { color: var(--text); }
+
+  /* Space is held for these lines so nothing jumps when they fill in. */
+  .hero__quip {
+    min-height: 1.6em;
+    margin-top: 0.25rem;
+    font-size: 1.5rem;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 640px) {
+    .hero__live { min-height: 3.4em; }
+  }
+
   .hero { padding-block: clamp(2.5rem, 7vw, 5.5rem); }
 
   .hero__inner {

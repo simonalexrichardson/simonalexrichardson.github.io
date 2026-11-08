@@ -26,8 +26,37 @@ const points = [
         </li>
       ))}
     </ul>
+
+    <div class="stats">
+      <p class="stats__label h-note">Completely real statistics*</p>
+      <dl class="stats__grid">
+        <div>
+          <dt data-gave-up>0</dt>
+          <dd>customers have given up on a bad website since you opened this page</dd>
+        </div>
+        <div>
+          <dt>1 in 4</dt>
+          <dd>small business sites were built by someone's nephew, who has since moved to Australia</dd>
+        </div>
+        <div>
+          <dt>73%</dt>
+          <dd>of homepages still open with "Welcome to our website"</dd>
+        </div>
+      </dl>
+      <p class="stats__small">*I made these up. The prices further down are real, though.</p>
+    </div>
   </div>
 </section>
+
+<script>
+  const counter = document.querySelector<HTMLElement>('[data-gave-up]')!;
+  let gaveUp = 0;
+  setInterval(() => {
+    if (document.hidden) return;
+    gaveUp += 1 + Math.floor(Math.random() * 2);
+    counter.textContent = gaveUp.toLocaleString('en-GB');
+  }, 600);
+</script>
 
 <style>
   .problem { background: var(--bg-subtle); }
@@ -57,4 +86,27 @@ const points = [
   }
 
   p:not(.section-label) { color: var(--text-muted); }
+
+  .stats { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border-strong); }
+  .stats .stats__label { font-size: 1.625rem; color: var(--accent-text); }
+
+  .stats__grid { display: grid; gap: 1.75rem; margin-top: 1.25rem; }
+
+  @media (min-width: 760px) {
+    .stats__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3rem; }
+  }
+
+  dt {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 7vw, 3.25rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    font-variant-numeric: lining-nums tabular-nums;
+    font-variation-settings: 'opsz' 144, 'SOFT' 40;
+  }
+
+  dd { color: var(--text-muted); margin-top: 0.35rem; }
+
+  .stats .stats__small { margin-top: 1.5rem; font-size: var(--text-sm); }
 </style>
