@@ -392,6 +392,13 @@ section + section {
 .btn--whatsapp svg { width: 1.2em; height: 1.2em; flex-shrink: 0; fill: currentColor; }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
+/* Phones read centred. Forms, the FAQ rows and the privacy text opt back out where they're defined. */
+@media (max-width: 640px) {
+  .marketing { text-align: center; }
+  .marketing .m-lede { margin-inline: auto; }
+  .marketing .cta-pair { justify-content: center; }
+}
+
 /* Anything that still needs real content. Deliberately loud so it can't ship by accident. */
 .placeholder {
   border: 2px dashed var(--accent-text);

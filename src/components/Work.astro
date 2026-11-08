@@ -217,6 +217,12 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
 
   .work-featured__desc { color: var(--text-muted); max-width: 60ch; }
 
+  @media (max-width: 640px) {
+    .work-card__meta { justify-content: center; }
+    .work-concepts__head { margin-inline: auto; }
+    .concept-card__cta { align-self: center; }
+  }
+
   /* Whole cards are links, so they skip the underlined link style used in body copy. */
   .work-featured,
   .work-card__link,

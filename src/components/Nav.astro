@@ -14,9 +14,43 @@ const links = [
     <div class="nav__right">
       {links.map((l) => <a href={l.href} class="nav__link nav__link--wide">{l.label}</a>)}
       <a href="/contact" class="nav__cta">Get in touch</a>
+      <button type="button" class="nav__toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true">
+          <path class="nav__icon-open" d="M4 7h16M4 12h16M4 17h16"/>
+          <path class="nav__icon-close" d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
     </div>
   </div>
+  <div id="nav-menu" class="nav__menu" data-nav-menu hidden>
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </div>
 </nav>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]')!;
+  const menu = document.querySelector<HTMLElement>('[data-nav-menu]')!;
+
+  const setOpen = (open: boolean) => {
+    menu.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+  };
+
+  toggle.addEventListener('click', () => setOpen(!!menu.hidden));
+  menu.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) setOpen(false);
+  });
+  document.addEventListener('click', (e) => {
+    if (!menu.hidden && !(e.target as HTMLElement).closest('.nav')) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu.hidden) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+</script>
 
 <style>
   .nav {
@@ -81,7 +115,61 @@ const links = [
 
   .nav__cta:hover { background: var(--accent-hover); }
 
+  .nav__toggle,
+  .nav__menu { display: none; }
+
   @media (max-width: 760px) {
     .nav__link--wide { display: none; }
+    .nav__right { gap: 0.5rem; }
+
+    .nav__toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      color: var(--text);
+      background: none;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .nav__toggle svg { width: 24px; height: 24px; }
+    .nav__icon-close { display: none; }
+    .nav__toggle[aria-expanded='true'] .nav__icon-open { display: none; }
+    .nav__toggle[aria-expanded='true'] .nav__icon-close { display: inline; }
+
+    .nav__menu {
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding-block: 0.5rem;
+      text-align: center;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .nav__menu a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .nav__inner { gap: 0.5rem; }
+    .nav__name { font-size: 1.125rem; }
+  }
+
+  @media (max-width: 350px) {
+    .nav__name { font-size: 1rem; }
+    .nav__cta { padding: 0 0.75em; font-size: 0.875rem; }
   }
 </style>

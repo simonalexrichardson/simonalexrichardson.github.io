@@ -112,6 +112,10 @@ const quotes = [
     pointer-events: none;
   }
 
+  @media (max-width: 640px) {
+    .testimonial__mark { left: 50%; transform: translateX(-50%); }
+  }
+
   .testimonial__quote {
     font-size: var(--text-base);
     font-weight: 500;

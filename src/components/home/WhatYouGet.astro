@@ -50,4 +50,8 @@ const items = [
     margin-block: 0.4rem 0.6rem;
   }
   dd { color: var(--text-muted); }
+
+  @media (max-width: 640px) {
+    dt::after { margin-inline: auto; }
+  }
 </style>

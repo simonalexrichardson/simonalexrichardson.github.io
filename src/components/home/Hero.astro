@@ -64,6 +64,10 @@ import { site, serviceAreaText } from '../../config/site';
 
   .hero__title em { color: var(--accent-text); }
 
+  @media (max-width: 640px) {
+    .hero__sub { margin-inline: auto; }
+  }
+
   .hero__sub {
     font-size: var(--text-lg);
     color: var(--text-muted);
