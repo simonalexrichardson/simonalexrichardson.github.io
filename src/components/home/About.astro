@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+// TODO: use a different photo from the hero, ideally one behind the kit.
+import simon from '../../assets/simon.jpg';
+---
+
+<section id="about">
+  <div class="container about">
+    <Image
+      src={simon}
+      alt="Simon Richardson"
+      width={360}
+      height={360}
+      format="webp"
+      quality={75}
+      class="about__photo"
+    />
+    <div>
+      <p class="section-label">About me</p>
+      <h2 class="m-heading">A real person, just up the road.</h2>
+      <p>
+        I'm Simon. I live in Hitchin with my two kids, and I build websites for local businesses,
+        trades, bands and clubs.
+      </p>
+      <p>
+        I have a day job in enterprise IT, so keeping things running reliably is what I do all week.
+        At weekends you'll usually find me behind a drum kit at a gig.
+      </p>
+      <p>
+        When you work with me, you deal with me. Same person from the first chat to the small change
+        you need two years later.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { display: grid; gap: 2rem; }
+
+  @media (min-width: 760px) {
+    .about { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 4rem; align-items: center; }
+  }
+
+  .about :global(.about__photo) {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: 58% 25%;
+    border-radius: 50%;
+  }
+
+  p:not(.section-label) { color: var(--text-muted); margin-top: 1rem; max-width: 58ch; }
+</style>

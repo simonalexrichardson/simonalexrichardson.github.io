@@ -1,0 +1,83 @@
+---
+import { site } from '../../config/site';
+---
+
+<section id="work" class="work">
+  <div class="container">
+    <p class="section-label">Work</p>
+    <h2 class="m-heading">Before, after, and what changed.</h2>
+    <ul class="cases" role="list">
+      {site.caseStudies.map((c) => (
+        <li class:list={['case', { 'case--placeholder': c.placeholder }]}>
+          {c.placeholder && <p class="case__flag">PLACEHOLDER</p>}
+          <div class="case__shots">
+            <div class="case__shot">{c.before}</div>
+            <div class="case__shot">{c.after}</div>
+          </div>
+          <h3>{c.name}</h3>
+          <p class="case__trade">{c.trade}</p>
+          <p class="case__result">{c.result}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .work { background: var(--bg-subtle); }
+
+  .cases {
+    list-style: none;
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 820px) {
+    .cases { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  .case {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    overflow-wrap: anywhere;
+  }
+
+  .case--placeholder { border: 2px dashed var(--accent-text); }
+
+  .case__flag {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--accent-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .case__shots {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .case__shot {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    background: var(--bg-subtle);
+    border-radius: var(--radius-sm);
+  }
+
+  h3 { font-size: var(--text-base); font-weight: 700; line-height: 1.35; }
+  .case__trade { color: var(--text-muted); font-size: var(--text-sm); margin-block: 0.2rem 0.6rem; }
+  .case__result { font-size: var(--text-sm); }
+</style>

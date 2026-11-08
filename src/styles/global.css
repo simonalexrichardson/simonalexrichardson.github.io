@@ -299,3 +299,78 @@ section + section {
 
   .pulse-dot { animation: none; }
 }
+
+
+/* ============================================================
+   Services site: shared marketing styles
+   ============================================================ */
+
+:root { --accent-text: #6e1423; }
+@media (prefers-color-scheme: dark) {
+  :root { --accent-text: #e85066; }
+}
+
+/* 18px body on every marketing page, by raising the type tokens in this scope only,
+   so the /writing and case study pages keep their existing scale. */
+.marketing {
+  --text-base: 1.125rem;
+  --text-sm: 1rem;
+  --text-lg: 1.25rem;
+  --section-gap: clamp(3.5rem, 8vw, 6rem);
+  --container-max: 1080px;
+  font-size: var(--text-base);
+}
+
+.marketing .section-label { color: var(--text-muted); font-size: 0.8125rem; margin-bottom: 1rem; }
+
+.m-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  font-variation-settings: 'opsz' 144, 'SOFT' 40;
+  text-wrap: balance;
+}
+
+.m-lede { color: var(--text-muted); max-width: 58ch; margin-top: 1rem; }
+
+.m-page { padding-block: clamp(2.5rem, 7vw, 5rem) var(--section-gap); }
+.m-page > .container > .m-lede { margin-bottom: 2.5rem; }
+
+.marketing a:not(.btn) { color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
+
+.cta-pair { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.65em 1.4em;
+  border-radius: 999px;
+  border: 2px solid var(--accent);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 650;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+}
+.btn--primary { background: var(--accent); color: var(--accent-on); }
+.btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn--secondary { background: transparent; color: var(--accent-text); border-color: var(--accent-text); }
+.btn--secondary:hover { background: var(--accent-subtle); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Anything that still needs real content. Deliberately loud so it can't ship by accident. */
+.placeholder {
+  border: 2px dashed var(--accent-text);
+  border-radius: var(--radius-sm);
+  background: var(--accent-subtle);
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  font-size: var(--text-sm);
+}
+.placeholder strong { color: var(--accent-text); letter-spacing: 0.04em; }

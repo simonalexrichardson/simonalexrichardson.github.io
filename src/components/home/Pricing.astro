@@ -1,0 +1,65 @@
+---
+import { site } from '../../config/site';
+const { build, care, note } = site.pricing;
+const plans = [build, care];
+---
+
+<section id="pricing">
+  <div class="container">
+    <p class="section-label">Pricing</p>
+    <h2 class="m-heading">Fixed prices, written down where you can see them.</h2>
+    <div class="plans">
+      {plans.map((p) => (
+        <article class="plan">
+          <h3>{p.name}</h3>
+          <p class="plan__price">{p.price}</p>
+          <p class="plan__summary">{p.summary}</p>
+          <ul role="list">
+            {p.includes.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+    <p class="plans__note">{note}</p>
+  </div>
+</section>
+
+<style>
+  .plans {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 720px) {
+    .plans { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .plan {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 4vw, 2.25rem);
+    box-shadow: var(--shadow-card);
+  }
+
+  h3 { font-size: var(--text-base); font-weight: 700; }
+
+  .plan__price {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 6vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--accent-text);
+    font-variant-numeric: lining-nums;
+  }
+
+  .plan__summary { color: var(--text-muted); margin-block: 0.5rem 1.25rem; }
+
+  ul { list-style: none; border-top: 1px solid var(--border); }
+  li { padding-block: 0.6rem; border-bottom: 1px solid var(--border); }
+  li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+  .plans__note { margin-top: 1.5rem; font-weight: 600; }
+</style>

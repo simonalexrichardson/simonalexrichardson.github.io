@@ -1,0 +1,72 @@
+---
+const faqs = [
+  {
+    q: 'Do I own my site?',
+    a: 'Yes. The domain is in your name, and the words, photos and design are yours.',
+  },
+  {
+    q: 'What if I already have a domain?',
+    a: "Keep it. I'll point it at the new site when it's ready, and your web address stays the same.",
+  },
+  {
+    q: 'Can I update it myself?',
+    a: "Most people just send me the change, and up to 30 minutes a month is included in the care plan. If there's something you want to edit yourself all the time, like a menu or a list of dates, tell me and we'll talk about setting that up.",
+  },
+  {
+    q: 'What happens if you get hit by a bus?',
+    a: "You get the code and the logins. It's your site, so another developer could pick it up and carry on.",
+  },
+];
+---
+
+<section class="faq">
+  <div class="container">
+    <p class="section-label">Questions</p>
+    <h2 class="m-heading">The ones people actually ask.</h2>
+    <div class="faq__list">
+      {faqs.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq { background: var(--bg-subtle); }
+
+  .faq__list { margin-top: 2rem; max-width: 760px; }
+
+  details { border-top: 1px solid var(--border-strong); }
+  details:last-child { border-bottom: 1px solid var(--border-strong); }
+
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    min-height: 48px;
+    padding-block: 1rem;
+    font-weight: 650;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+
+  summary::after {
+    content: '+';
+    flex-shrink: 0;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--accent-text);
+    transition: transform var(--transition);
+  }
+
+  details[open] summary::after { transform: rotate(45deg); }
+
+  details p { color: var(--text-muted); padding-bottom: 1.25rem; max-width: 62ch; }
+</style>

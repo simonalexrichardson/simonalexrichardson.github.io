@@ -1,0 +1,60 @@
+---
+const points = [
+  {
+    title: 'It looks dated on a phone.',
+    body: "When someone looks you up on their phone and the site is fiddly or tired, they move on to the next name.",
+  },
+  {
+    title: "Customers can't find you on Google.",
+    body: "Search for what you do and where you do it. If you're not there, the work goes to whoever is.",
+  },
+  {
+    title: "You can't update it, or don't know who controls it.",
+    body: "The person who built it has vanished, nobody has the login, and the prices are years out of date.",
+  },
+];
+---
+
+<section class="problem">
+  <div class="container">
+    <p class="section-label">Sound familiar?</p>
+    <ul class="problem__list" role="list">
+      {points.map((p) => (
+        <li>
+          <h2>{p.title}</h2>
+          <p>{p.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .problem { background: var(--bg-subtle); }
+
+  .problem__list { list-style: none; }
+
+  .problem__list li {
+    display: grid;
+    gap: 0.5rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .problem__list li:last-child { padding-bottom: 0; }
+
+  @media (min-width: 760px) {
+    .problem__list li { grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: baseline; }
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    font-variation-settings: 'opsz' 72, 'SOFT' 40;
+  }
+
+  p:not(.section-label) { color: var(--text-muted); }
+</style>

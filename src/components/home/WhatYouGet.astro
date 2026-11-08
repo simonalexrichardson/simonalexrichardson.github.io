@@ -1,0 +1,53 @@
+---
+const items = [
+  { title: 'Designed for your business', body: "A bespoke design that looks like you. No template with your logo dropped on top." },
+  { title: 'Made for phones first', body: 'It works properly on the phone in your customer\'s hand, then scales up to everything else.' },
+  { title: 'Fast', body: 'Pages load quickly, even on a patchy signal.' },
+  { title: 'Found on Google', body: 'The local search basics done properly, so people nearby can find you.' },
+  { title: 'You own your domain', body: 'Your web address is registered in your name. It stays yours whatever happens.' },
+  { title: 'Looked after', body: 'Hosting, updates, backups and small changes are handled. You just tell me what you need.' },
+];
+---
+
+<section>
+  <div class="container">
+    <p class="section-label">What you get</p>
+    <h2 class="m-heading">One person building it, and one person to call afterwards.</h2>
+    <dl class="get">
+      {items.map((i) => (
+        <div>
+          <dt>{i.title}</dt>
+          <dd>{i.body}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .get {
+    display: grid;
+    gap: 2rem 3rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 680px) {
+    .get { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 980px) {
+    .get { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  dt { font-weight: 700; }
+  dt::after {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--accent);
+    margin-block: 0.4rem 0.6rem;
+  }
+  dd { color: var(--text-muted); }
+</style>

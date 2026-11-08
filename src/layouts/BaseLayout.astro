@@ -11,6 +11,7 @@ import frauncesLatin from '@fontsource-variable/fraunces/files/fraunces-latin-fu
 import frauncesLatinItalic from '@fontsource-variable/fraunces/files/fraunces-latin-full-italic.woff2?url';
 import caveatLatin from '@fontsource/caveat/files/caveat-latin-400-normal.woff2?url';
 import Nav from '../components/Nav.astro';
+import { site, serviceAreaText } from '../config/site';
 
 interface Props {
   title?: string;
@@ -19,8 +20,8 @@ interface Props {
 }
 
 const {
-  title = 'Simon Richardson · Freelance web designer & developer (UK)',
-  description = 'Simon Richardson is a UK-based freelance web developer. I build marketing sites, custom web apps, and AI features for clients who want them to actually work.',
+  title = 'Websites for small businesses in Hitchin, Herts & Cambs · Simon Richardson',
+  description = `Bespoke websites for small businesses, trades, bands and clubs in ${serviceAreaText}, built and looked after by one person you can actually talk to.`,
   ogImage = '/images/og-image.png',
 } = Astro.props;
 
@@ -38,19 +39,18 @@ const seoJsonLd = {
     {
       '@type': 'Person',
       '@id': PERSON_ID,
-      name: 'Simon Richardson',
+      name: site.name,
       url: SITE_URL,
-      jobTitle: 'Freelance web designer & developer',
-      description: 'UK-based freelance developer building marketing sites, custom web apps, and AI features.',
+      jobTitle: 'Web designer',
       image: ogImageURL.toString(),
-      address: { '@type': 'PostalAddress', addressCountry: 'GB' },
+      address: { '@type': 'PostalAddress', addressLocality: site.location.town, addressRegion: site.location.county, addressCountry: site.location.country },
       sameAs: ['https://github.com/simonalexrichardson'],
       worksFor: { '@id': BUSINESS_ID },
     },
     {
       '@type': 'WebSite',
       '@id': WEBSITE_ID,
-      name: 'Simon Richardson',
+      name: site.name,
       url: SITE_URL,
       publisher: { '@id': PERSON_ID },
       inLanguage: 'en-GB',
@@ -58,21 +58,24 @@ const seoJsonLd = {
     {
       '@type': 'ProfessionalService',
       '@id': BUSINESS_ID,
-      name: 'Simon Richardson · Web design & development',
+      name: `${site.name} Web Design`,
       url: SITE_URL,
       image: ogImageURL.toString(),
-      description: 'Freelance web design and development from the UK: marketing sites, custom web apps, AI features.',
-      areaServed: { '@type': 'Country', name: 'United Kingdom' },
-      provider: { '@id': PERSON_ID },
-      priceRange: '££',
+      email: site.email,
+      ...(site.phone ? { telephone: site.phone } : {}),
+      description: `Bespoke websites for small businesses in ${serviceAreaText}, built and looked after by one person.`,
+      address: { '@type': 'PostalAddress', addressLocality: site.location.town, addressRegion: site.location.county, addressCountry: site.location.country },
+      areaServed: site.serviceArea.map((name) => ({ '@type': 'AdministrativeArea', name })),
+      founder: { '@id': PERSON_ID },
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Services',
-        itemListElement: [
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Marketing site design & build', description: 'Landing pages and multi-page sites that load fast and convert.' } },
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom web applications', description: 'Forms, dashboards, payments, auth. Bespoke web apps.' } },
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI features and integrations', description: 'Claude API, email automation, AI-powered workflows.' } },
-        ],
+        itemListElement: [site.pricing.build, site.pricing.care].map((p) => ({
+          '@type': 'Offer',
+          priceCurrency: 'GBP',
+          price: p.amount,
+          itemOffered: { '@type': 'Service', name: p.name, description: p.summary },
+        })),
       },
     },
   ],
@@ -94,7 +97,6 @@ const seoJsonLd = {
 
     <!-- Preload critical fonts so the hero/headings don't pop in -->
     <link rel="preload" href={frauncesLatin} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={frauncesLatinItalic} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={caveatLatin} as="font" type="font/woff2" crossorigin />
 
     <!-- Sitemap -->
@@ -118,7 +120,7 @@ const seoJsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
-    <meta property="og:image:alt" content="Simon Richardson · freelance web designer & developer (UK)" />
+    <meta property="og:image:alt" content="Your website should be bringing you work. Simon Richardson, web design in Hitchin." />
     <meta property="og:site_name" content="Simon Richardson" />
     <meta property="og:locale" content="en_GB" />
 
@@ -127,7 +129,7 @@ const seoJsonLd = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
-    <meta name="twitter:image:alt" content="Simon Richardson · freelance web designer & developer (UK)" />
+    <meta name="twitter:image:alt" content="Your website should be bringing you work. Simon Richardson, web design in Hitchin." />
 
     <!-- Indexing: allowed -->
     <meta name="robots" content="index, follow, max-image-preview:large" />

@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import CtaPair from '../CtaPair.astro';
+// TODO: replace src/assets/simon.jpg with a sharper photo (at least 1000px wide).
+import simon from '../../assets/simon.jpg';
+import { site, serviceAreaText } from '../../config/site';
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div>
+      <p class="hero__where">Websites from {site.location.town}, for {serviceAreaText}</p>
+      <h1 class="hero__title">Your website should be <em>bringing you work.</em></h1>
+      <p class="hero__sub">
+        If it's embarrassing or you don't have one, I'll fix that, and then I'll look after it so you
+        never have to think about it.
+      </p>
+      <CtaPair />
+    </div>
+    <figure class="hero__photo">
+      <Image
+        src={simon}
+        alt="Simon Richardson smiling, wearing a black T-shirt"
+        width={480}
+        height={560}
+        format="webp"
+        quality={78}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <figcaption class="h-note">Hello, I'm Simon</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero { padding-block: clamp(2.5rem, 7vw, 5.5rem); }
+
+  .hero__inner {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 820px) {
+    .hero__inner { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 4rem; }
+  }
+
+  .hero__where {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .hero__title {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.03;
+    font-variation-settings: 'opsz' 144, 'SOFT' 40;
+    text-wrap: balance;
+  }
+
+  .hero__title em { color: var(--accent-text); }
+
+  .hero__sub {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    max-width: 44ch;
+    margin-block: 1.25rem 2rem;
+    line-height: 1.55;
+  }
+
+  .hero__photo {
+    position: relative;
+    max-width: 340px;
+    justify-self: center;
+    transform: rotate(1.5deg);
+  }
+
+  .hero__photo img {
+    width: 100%;
+    aspect-ratio: 6 / 7;
+    object-fit: cover;
+    object-position: 58% 30%;
+    border-radius: var(--radius-lg);
+    border: 6px solid var(--bg-surface);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .hero__photo figcaption {
+    position: absolute;
+    left: -0.75rem;
+    bottom: -0.9rem;
+    background: var(--bg-surface);
+    color: var(--accent-text);
+    padding: 0.2em 0.7em;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-card);
+    transform: rotate(-4deg);
+    font-size: 1.5rem;
+  }
+</style>
