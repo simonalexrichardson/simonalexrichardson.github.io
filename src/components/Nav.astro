@@ -9,8 +9,7 @@ const links = [
 <nav class="nav" aria-label="Main">
   <div class="container nav__inner">
     <a href="/" class="nav__name" aria-label="Simon Richardson, home">
-      <img class="nav__logo" src="/favicon.svg" alt="" width="28" height="28" />
-      <span class="nav__name-text">Simon Richardson</span>
+      Simon Richardson
     </a>
     <div class="nav__right">
       {links.map((l) => <a href={l.href} class="nav__link nav__link--wide">{l.label}</a>)}
@@ -43,13 +42,14 @@ const links = [
   .nav__name {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
-    font-weight: 650;
-    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-size: 1.3125rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 144, 'SOFT' 40;
+    white-space: nowrap;
     min-height: 44px;
   }
-
-  .nav__logo { width: 28px; height: 28px; border-radius: 50%; }
 
   .nav__right { display: flex; align-items: center; gap: 1.25rem; }
 
@@ -83,9 +83,5 @@ const links = [
 
   @media (max-width: 760px) {
     .nav__link--wide { display: none; }
-  }
-
-  @media (max-width: 440px) {
-    .nav__name-text { display: none; }
   }
 </style>

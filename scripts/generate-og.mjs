@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import { readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -27,13 +28,12 @@ const html = `
   .mark {
     width: 128px;
     height: 128px;
-    background: #6e1423;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 40px; transform: scale(.75); transform-origin: left top;
   }
-  .mark svg { width: 80px; height: 80px; }
+  .mark svg { width: 128px; height: 128px; }
   h1 {
     font-size: 68px;
     font-weight: 800;
@@ -78,10 +78,7 @@ const html = `
 </style>
 </head>
 <body>
-  <div class="mark"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-    <path d="M 23 21 L 13 32 L 23 43" stroke="#f8f7f4" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M 41 21 L 51 32 L 41 43" stroke="#f8f7f4" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg></div>
+  <div class="mark">${readFileSync(resolve(__dirname, '../public/favicon.svg'), 'utf8')}</div>
   <h1>Your website should be bringing you work.</h1>
   <p>Bespoke websites from Hitchin, built and looked after by Simon Richardson.</p>
   <div class="url">simonrichardson.dev</div>
