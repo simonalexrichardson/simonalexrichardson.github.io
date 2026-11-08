@@ -16,3 +16,6 @@ scripts/_*.mjs
 
 # Local Claude Code config (per-machine, not for the public repo)
 .claude/
+
+# Wrangler local state
+.wrangler/
