@@ -3,7 +3,19 @@ export interface Env {
   TO_EMAIL: string;
   FROM_EMAIL: string;
   ALLOWED_ORIGIN: string;
+  /** Only set when testing locally against a stub. */
+  RESEND_API_BASE?: string;
 }
+
+const LIMITS: Record<string, number> = {
+  name: 200,
+  email: 320,
+  business: 200,
+  website: 500,
+  message: 5000,
+  problem: 5000,
+  utm_source: 200,
+};
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -35,55 +47,62 @@ export default {
       return json({ success: false, error: 'invalid form data' }, 400, corsHeaders);
     }
 
-    // Honeypot — silently succeed so bots don't retry.
+    // Honeypot: silently succeed so bots don't retry.
     if (payload.botcheck) {
       return json({ success: true }, 200, corsHeaders);
     }
 
-    const name = str(payload.name);
-    const email = str(payload.email);
-    const project = str(payload.project);
-    const budget = str(payload.budget);
-    const timeline = str(payload.timeline);
-    const utm_source = str(payload.utm_source);
+    const isReview = str(payload.form) === 'review';
+    const fields = {
+      name: str(payload.name),
+      email: str(payload.email),
+      business: str(payload.business),
+      website: str(payload.website),
+      // `project` is what the previous contact form sent. Keeping it means the Worker can be
+      // deployed before the new site without breaking the form that's live at that moment.
+      message: str(payload.message) || str(payload.project),
+      problem: str(payload.problem),
+      utm_source: str(payload.utm_source),
+    };
 
-    if (!name || !email || !project) {
+    const missing = isReview
+      ? !fields.name || !fields.email || !fields.business || !fields.problem
+      : !fields.name || !fields.email || !fields.message;
+    if (missing) {
       return json({ success: false, error: 'missing required fields' }, 400, corsHeaders);
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
       return json({ success: false, error: 'invalid email' }, 400, corsHeaders);
     }
-    if (project.length < 20) {
-      return json({ success: false, error: 'project description too short' }, 400, corsHeaders);
-    }
-    if (name.length > 200 || email.length > 320 || project.length > 5000) {
-      return json({ success: false, error: 'field too long' }, 400, corsHeaders);
+    for (const [key, value] of Object.entries(fields)) {
+      if (value.length > LIMITS[key]) {
+        return json({ success: false, error: 'field too long' }, 400, corsHeaders);
+      }
     }
 
-    const subject = `New project enquiry — ${name}`;
+    const oneLineName = fields.name.replace(/\s+/g, ' ');
+    const subject = isReview ? `Free site review request: ${oneLineName}` : `New enquiry: ${oneLineName}`;
 
-    const lines: string[] = [
-      `Name: ${name}`,
-      `Email: ${email}`,
+    const rows: [string, string][] = [
+      ['Name', fields.name],
+      ['Email', fields.email],
+      ['Business', fields.business],
+      ['Website', fields.website],
+      ['UTM source', fields.utm_source],
     ];
-    if (budget) lines.push(`Budget: ${budget}`);
-    if (timeline) lines.push(`Timeline: ${timeline}`);
-    if (utm_source) lines.push(`UTM source: ${utm_source}`);
-    lines.push('', 'Project:', project);
-    const text = lines.join('\n');
+    const present = rows.filter(([, value]) => value);
+    const bodyLabel = isReview ? "What's not working" : 'Message';
+    const body = isReview ? fields.problem : fields.message;
 
+    const text = [...present.map(([k, v]) => `${k}: ${v}`), '', `${bodyLabel}:`, body].join('\n');
     const html = `<div style="font-family: ui-sans-serif, system-ui, sans-serif; line-height: 1.6">
-      <p><strong>Name:</strong> ${esc(name)}</p>
-      <p><strong>Email:</strong> <a href="mailto:${esc(email)}">${esc(email)}</a></p>
-      ${budget ? `<p><strong>Budget:</strong> ${esc(budget)}</p>` : ''}
-      ${timeline ? `<p><strong>Timeline:</strong> ${esc(timeline)}</p>` : ''}
-      ${utm_source ? `<p><strong>UTM source:</strong> ${esc(utm_source)}</p>` : ''}
+      ${present.map(([k, v]) => `<p><strong>${k}:</strong> ${esc(v)}</p>`).join('\n')}
       <hr style="border:none;border-top:1px solid #ddd;margin:1.25rem 0">
-      <p><strong>Project:</strong></p>
-      <p style="white-space: pre-wrap">${esc(project)}</p>
+      <p><strong>${esc(bodyLabel)}:</strong></p>
+      <p style="white-space: pre-wrap">${esc(body)}</p>
     </div>`;
 
-    const res = await fetch('https://api.resend.com/emails', {
+    const res = await fetch(`${env.RESEND_API_BASE ?? 'https://api.resend.com'}/emails`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${env.RESEND_API_KEY}`,
@@ -92,7 +111,7 @@ export default {
       body: JSON.stringify({
         from: env.FROM_EMAIL,
         to: env.TO_EMAIL,
-        reply_to: email,
+        reply_to: fields.email,
         subject,
         text,
         html,

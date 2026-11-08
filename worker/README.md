@@ -1,6 +1,6 @@
 # Contact form worker
 
-Cloudflare Worker that accepts contact-form POSTs from `simonrichardson.dev` and forwards them to email via the Resend API.
+Cloudflare Worker that accepts POSTs from the `/contact` and `/review` forms on `simonrichardson.dev` and forwards them to email via the Resend API. The hidden `form` field says which one it is. The endpoint URL lives in `src/config/site.ts`.
 
 ## One-time setup
 
