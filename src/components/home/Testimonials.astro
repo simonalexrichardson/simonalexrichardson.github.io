@@ -1,0 +1,147 @@
+---
+const quotes = [
+  {
+    body: "Simon got our site live in days, not months. He pushed back where it mattered, asked questions I hadn't thought of, and made the right calls. No hand-holding required.",
+    name: 'Adam',
+    org: 'Altitude Drone Surveying',
+  },
+  {
+    body: "Half the brief was jokes, the other half was contradictions. Simon got both. The site sounds like us, not like a brochure.",
+    name: 'Barry',
+    org: 'The Non-Starters',
+  },
+  {
+    body: "We needed somewhere bookers could find our setlist and listen before calling. Done in a week. Looks better than half the venues we play.",
+    name: 'Simon',
+    org: 'Shabby Road',
+  },
+];
+---
+
+<section id="testimonial" aria-labelledby="testimonial-heading">
+  <div class="container">
+  <h2 id="testimonial-heading" class="sr-only">Client testimonials</h2>
+  <p class="testimonials__lead-in" aria-hidden="true">
+    <span class="h-note">Real clients</span>
+    <svg class="testimonials__lead-arrow" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 8 C 18 14 30 28 34 56"/>
+      <path d="M26 48 L 34 58 L 42 48"/>
+    </svg>
+  </p>
+  <ul class="testimonials" role="list">
+    {quotes.map((q) => (
+      <li>
+        <figure class="testimonial">
+          <span class="testimonial__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testimonial__quote">
+            <p>{q.body}</p>
+          </blockquote>
+          <figcaption class="testimonial__attribution">
+            <strong>{q.name}</strong>
+            <span aria-hidden="true"> · </span>
+            <span class="testimonial__org">{q.org}</span>
+          </figcaption>
+        </figure>
+      </li>
+    ))}
+  </ul>
+  </div>
+</section>
+
+<style>
+  .testimonials__lead-in {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-text);
+    margin-bottom: 0.25rem;
+    transform: rotate(-3deg);
+    transform-origin: left bottom;
+  }
+
+  .testimonials__lead-in .h-note {
+    color: inherit;
+    line-height: 1;
+  }
+
+  .testimonials__lead-arrow {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    transform: translateY(0.6rem) rotate(8deg);
+  }
+
+  .testimonials {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 880px) {
+    .testimonials { grid-template-columns: 1fr; gap: 1rem; }
+  }
+
+  .testimonial {
+    position: relative;
+    height: 100%;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition:
+      border-color var(--transition),
+      transform var(--transition),
+      box-shadow var(--transition);
+  }
+
+  .testimonial:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .testimonial__mark {
+    position: absolute;
+    top: -0.1rem;
+    left: 1.25rem;
+    font-size: 3.5rem;
+    line-height: 1;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--accent);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .testimonial__quote {
+    font-size: var(--text-base);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    line-height: 1.55;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+
+  .testimonial__attribution {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .testimonial__attribution strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .testimonial__org {
+    color: var(--text-muted);
+  }
+</style>

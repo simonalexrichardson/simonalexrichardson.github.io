@@ -1,8 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import { getCollection } from 'astro:content';
 import { projects, concepts } from '../data/projects.ts';
 
-const [featured, ...rest] = projects;
+const shots = import.meta.glob<{ default: ImageMetadata }>('../assets/work/*.jpg', { eager: true });
+const shot = (file: string) => shots[`../assets/work/${file}`].default;
 
 // Only treat caseStudy as live if a non-draft entry exists (drafts shown in dev).
 const liveCaseStudies = new Set(
@@ -11,65 +14,30 @@ const liveCaseStudies = new Set(
     ({ data }) => import.meta.env.PROD ? !data.draft : true,
   )).map((cs) => `/case-studies/${cs.id}`),
 );
-
-const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.caseStudy)
-  ? featured.caseStudy
-  : null;
 ---
 
-<section id="work" class="container">
-  <p class="section-label">Things I've built</p>
-
-  <!-- Featured card -->
-  <a
-    href={featuredCaseStudy ?? featured.url}
-    class="work-featured"
-    target={featuredCaseStudy ? undefined : '_blank'}
-    rel={featuredCaseStudy ? undefined : 'noopener noreferrer'}
-    aria-label={featuredCaseStudy ? `Read the ${featured.name} case study` : `Visit ${featured.name} (opens in new tab)`}
-  >
-    <div class="work-featured__image-wrap">
-      <img
-        src={featured.image}
-        alt={featured.imageAlt}
-        class="work-featured__image"
-        width="960"
-        height="560"
-        loading="eager"
-        decoding="async"
-      />
-      <span class="card-arrow card-arrow--lg" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
-      </span>
-    </div>
-    <div class="work-featured__body">
-      <div class="work-featured__meta">
-        <span class="tag">{featured.tag}</span>
-        <span class="work-featured__url">{new URL(featured.url).hostname}</span>
-      </div>
-      <h2 class="work-featured__name">{featured.name}</h2>
-      <p class="work-featured__desc">{featured.description}</p>
-    </div>
-  </a>
-
-  <!-- Remaining cards -->
+<section id="work" class="work">
+  <div class="container">
+  <p class="section-label">Work</p>
+  <h2 class="m-heading work__heading">Things I've built. Have a click around.</h2>
   <ul class="work-grid" role="list">
     {
-      rest.map((project) => {
+      projects.map((project) => {
         const cs = project.caseStudy && liveCaseStudies.has(project.caseStudy)
           ? project.caseStudy
           : null;
         const cardBody = (
           <>
             <div class="work-card__image-wrap">
-              <img
-                src={project.image}
+              <Image
+                src={shot(project.image)}
                 alt={project.imageAlt}
                 class="work-card__image"
-                width="600"
-                height="375"
+                widths={[420, 640, 900]}
+                sizes="(max-width: 580px) 100vw, 500px"
+                format="webp"
+                quality={72}
                 loading="lazy"
-                decoding="async"
               />
               {!project.noLink && (
                 <span class="card-arrow" aria-hidden="true">
@@ -130,14 +98,15 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
               aria-label={`View the ${concept.name} concept (opens in new tab)`}
             >
               <div class="concept-card__image-wrap">
-                <img
-                  src={concept.image}
+                <Image
+                  src={shot(concept.image)}
                   alt={concept.imageAlt}
                   class="concept-card__image"
-                  width="480"
-                  height="300"
+                  widths={[320, 480, 640]}
+                  sizes="(max-width: 880px) 50vw, 330px"
+                  format="webp"
+                  quality={72}
                   loading="lazy"
-                  decoding="async"
                 />
                 <span class="card-arrow card-arrow--sm" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
@@ -158,108 +127,35 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
       </ul>
     </div>
   )}
+  </div>
 </section>
 
 <style>
-  /* ── Featured card ── */
+  .work { background: var(--bg-subtle); }
+  .work__heading { margin-bottom: 2.5rem; }
 
-  .work-featured {
-    display: block;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    margin-bottom: 1.25rem;
-    background: var(--bg-surface);
-    box-shadow: var(--shadow-card);
-    transition:
-      box-shadow var(--transition-slow),
-      border-color var(--transition-slow),
-      transform var(--transition-slow);
-  }
+  /* Whole cards are links, so they skip the underlined link style used in body copy. */
+  .work-card__link,
+  .concept-card__image-link,
+  .concept-card__cta { color: inherit; text-decoration: none; }
 
-  .work-featured:hover {
-    box-shadow: var(--shadow-card-hover);
-    border-color: var(--border-strong);
-    transform: translateY(-2px);
-  }
-
-  .work-featured__image-wrap {
-    position: relative;
-    aspect-ratio: 16 / 8;
-    background: var(--bg-subtle);
-    overflow: hidden;
-  }
-
-  .work-featured__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--transition-slow);
-  }
-
-  .work-featured:hover .work-featured__image {
-    transform: scale(1.02);
-  }
-
-  .work-featured__body {
-    padding: 1.5rem 1.75rem 1.75rem;
-  }
-
-  .work-featured__meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .work-featured__url,
-  .work-card__url {
-    font-size: var(--text-xs);
-    color: var(--text-faint);
-  }
-
-  .work-featured__name {
-    font-family: var(--font-display);
-    font-size: var(--text-3xl);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin-bottom: 0.5rem;
-    font-variation-settings: "opsz" 144, "SOFT" 40;
-  }
-
-  .work-featured__desc {
-    font-size: var(--text-base);
-    color: var(--text-muted);
-    line-height: 1.6;
-    max-width: 60ch;
-  }
+  .work-card__url { font-size: 0.875rem; color: var(--text-muted); overflow-wrap: anywhere; }
+  .work-card__meta .tag,
+  .concept-card__meta .tag { font-size: 0.8125rem; }
+  .work-card__meta .tag { color: var(--text); }
 
   /* ── Grid cards ── */
 
   .work-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.25rem;
     list-style: none;
   }
 
   @media (max-width: 580px) {
     .work-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Orphan card (odd number): cap at half width */
-  .work-card:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-    max-width: calc(50% - 0.625rem);
-  }
-
-  @media (max-width: 580px) {
-    .work-card:last-child:nth-child(odd) {
-      grid-column: auto;
-      max-width: none;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
@@ -323,6 +219,7 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
 
   .work-card__meta {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.625rem;
     margin-bottom: 0.5rem;
@@ -373,14 +270,14 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
 
   .concept-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
     list-style: none;
   }
 
   @media (max-width: 880px) {
     .concept-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0.75rem;
     }
   }
@@ -388,7 +285,7 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
   /* Stay 2-col down to phones; only collapse on the very narrowest screens. */
   @media (max-width: 360px) {
     .concept-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
@@ -430,7 +327,7 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     font-size: 1.05rem;
     line-height: 1;
     color: var(--accent-on);
-    background: var(--accent-bright);
+    background: var(--accent);
     padding: 0.25em 0.7em 0.3em;
     border-radius: 6px;
     transform: rotate(4deg);
@@ -493,18 +390,16 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     padding: 0.625rem 0.5rem;
     margin-inline: -0.5rem;
     margin-bottom: -0.25rem;
-    display: inline-flex;
+    display: inline-block;
     align-self: flex-start;
-    align-items: center;
-    gap: 0.3em;
     font-size: var(--text-sm);
     font-weight: 600;
-    color: var(--accent);
-    text-decoration: none;
+    color: var(--accent-text);
     transition: color var(--transition);
   }
 
   .concept-card__cta span {
+    display: inline-block;
     transition: transform var(--transition);
   }
 
@@ -538,18 +433,6 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     height: 14px;
   }
 
-  .card-arrow--lg {
-    top: 0.875rem;
-    right: 0.875rem;
-    width: 40px;
-    height: 40px;
-  }
-
-  .card-arrow--lg svg {
-    width: 16px;
-    height: 16px;
-  }
-
   .card-arrow--sm {
     top: 0.5rem;
     right: 0.5rem;
@@ -562,7 +445,6 @@ const featuredCaseStudy = featured.caseStudy && liveCaseStudies.has(featured.cas
     height: 12px;
   }
 
-  .work-featured:hover .card-arrow,
   .work-card__link:hover .card-arrow,
   .concept-card__image-link:hover .card-arrow,
   .concept-card__image-link:focus-visible .card-arrow {

@@ -362,7 +362,7 @@ section + section {
 .m-page { padding-block: clamp(2.5rem, 7vw, 5rem) var(--section-gap); }
 .m-page > .container > .m-lede { margin-bottom: 2.5rem; }
 
-.marketing a:not(.btn) { color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
+:where(.marketing) a:not(.btn) { color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
 
 .cta-pair { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
