@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { getCollection } from 'astro:content';
-import { projects, concepts } from '../data/projects.ts';
+import { featured, projects, concepts } from '../data/projects.ts';
 
 const shots = import.meta.glob<{ default: ImageMetadata }>('../assets/work/*.jpg', { eager: true });
 const shot = (file: string) => shots[`../assets/work/${file}`].default;
@@ -20,6 +20,38 @@ const liveCaseStudies = new Set(
   <div class="container">
   <p class="section-label">Work</p>
   <h2 class="m-heading work__heading">Things I've built. Have a click around.</h2>
+  <a
+    href={featured.url}
+    class="work-featured"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`Visit ${featured.name} (opens in new tab)`}
+  >
+    <div class="work-featured__image-wrap">
+      <Image
+        src={shot(featured.image)}
+        alt={featured.imageAlt}
+        class="work-featured__image"
+        widths={[640, 1000, 1280]}
+        sizes="(max-width: 1080px) 100vw, 1000px"
+        format="webp"
+        quality={72}
+        loading="lazy"
+      />
+      <span class="card-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </span>
+    </div>
+    <div class="work-featured__body">
+      <div class="work-card__meta">
+        <span class="tag">{featured.tag}</span>
+        <span class="work-card__url">{new URL(featured.url).hostname}</span>
+      </div>
+      <h3 class="work-featured__name">{featured.name}</h3>
+      <p class="work-featured__desc">{featured.description}</p>
+    </div>
+  </a>
+
   <ul class="work-grid" role="list">
     {
       projects.map((project) => {
@@ -134,7 +166,56 @@ const liveCaseStudies = new Set(
   .work { background: var(--bg-subtle); }
   .work__heading { margin-bottom: 2.5rem; }
 
+  .work-featured {
+    display: block;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    transition:
+      box-shadow var(--transition-slow),
+      border-color var(--transition-slow),
+      transform var(--transition-slow);
+  }
+
+  .work-featured:hover {
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+
+  .work-featured__image-wrap {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-subtle);
+    overflow: hidden;
+  }
+
+  .work-featured__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .work-featured__body { padding: 1.5rem 1.75rem 1.75rem; }
+
+  .work-featured__name {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+  }
+
+  .work-featured__desc { color: var(--text-muted); max-width: 60ch; }
+
   /* Whole cards are links, so they skip the underlined link style used in body copy. */
+  .work-featured,
   .work-card__link,
   .concept-card__image-link,
   .concept-card__cta { color: inherit; text-decoration: none; }
@@ -445,6 +526,7 @@ const liveCaseStudies = new Set(
     height: 12px;
   }
 
+  .work-featured:hover .card-arrow,
   .work-card__link:hover .card-arrow,
   .concept-card__image-link:hover .card-arrow,
   .concept-card__image-link:focus-visible .card-arrow {

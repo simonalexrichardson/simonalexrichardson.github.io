@@ -27,7 +27,6 @@ cd worker && npx wrangler deploy
 
 Everything below is in `src/config/site.ts` unless it says otherwise.
 
-- [ ] **Photo:** replace `src/assets/simon.jpg` with a sharper one, at least 1000px wide. The current one is 600px and soft.
 - [ ] **Second photo:** the About section reuses the same image. Point `src/components/home/About.astro` at a different one, ideally behind the kit.
 - [ ] **Prices:** confirm `pricing`.
 

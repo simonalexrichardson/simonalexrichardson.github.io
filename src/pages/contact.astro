@@ -22,7 +22,7 @@ import { site, whatsappHref } from '../config/site';
         <aside class="contact__other" aria-label="Other ways to get in touch">
           <h2>Prefer WhatsApp?</h2>
           {site.whatsapp ? (
-            <a class="btn btn--primary" href={whatsappHref}>WhatsApp me</a>
+            <a class="btn btn--primary" href={whatsappHref} target="_blank" rel="noopener noreferrer">WhatsApp me<span class="sr-only"> (opens in a new tab)</span></a>
           ) : (
             <p class="placeholder"><strong>PLACEHOLDER:</strong> WhatsApp button appears once the number is in src/config/site.ts</p>
           )}

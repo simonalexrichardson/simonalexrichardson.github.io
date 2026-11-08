@@ -1,0 +1,36 @@
+<a href="#top" class="to-top" data-to-top aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+</a>
+
+<script>
+  const link = document.querySelector<HTMLElement>('[data-to-top]')!;
+  const update = () => link.classList.toggle('to-top--on', window.scrollY > 600);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+</script>
+
+<style>
+  .to-top {
+    position: fixed;
+    right: calc(1rem + env(safe-area-inset-right, 0px));
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: var(--text);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-card-hover);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition), visibility var(--transition), background-color var(--transition);
+  }
+
+  .to-top--on { opacity: 1; visibility: visible; }
+  .to-top:hover { background: var(--bg-subtle); }
+  .to-top svg { width: 20px; height: 20px; }
+</style>

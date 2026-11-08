@@ -14,6 +14,15 @@ export interface Project {
   noLink?: boolean;
 }
 
+export const featured: Project = {
+  name: 'Bandhamster',
+  url: 'https://bandhamster.com',
+  description: 'One home for musicians, music lovers and promoters. Band websites, a musician board and a gig guide, all live and growing.',
+  tag: 'Platform',
+  image: 'bandhamster.jpg',
+  imageAlt: 'Screenshot of the Bandhamster homepage',
+};
+
 export const projects: Project[] = [
   {
     name: 'Altitude Drone Surveying',

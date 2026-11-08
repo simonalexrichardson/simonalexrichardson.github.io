@@ -11,6 +11,7 @@ import frauncesLatin from '@fontsource-variable/fraunces/files/fraunces-latin-fu
 import frauncesLatinItalic from '@fontsource-variable/fraunces/files/fraunces-latin-full-italic.woff2?url';
 import caveatLatin from '@fontsource/caveat/files/caveat-latin-400-normal.woff2?url';
 import Nav from '../components/Nav.astro';
+import BackToTop from '../components/BackToTop.astro';
 import { site, serviceAreaText } from '../config/site';
 
 interface Props {
@@ -145,5 +146,6 @@ const seoJsonLd = {
     <a href="#main" class="sr-only sr-only-focusable">Skip to main content</a>
     <Nav />
     <slot />
+    <BackToTop />
   </body>
 </html>

@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import CtaPair from '../CtaPair.astro';
-// TODO: replace src/assets/simon.jpg with a sharper photo (at least 1000px wide).
 import simon from '../../assets/simon.jpg';
 import { site, serviceAreaText } from '../../config/site';
 ---
@@ -20,9 +19,9 @@ import { site, serviceAreaText } from '../../config/site';
     <figure class="hero__photo">
       <Image
         src={simon}
-        alt="Simon Richardson smiling, wearing a black T-shirt"
-        width={480}
-        height={560}
+        alt="Simon Richardson in a black T-shirt, at his desk"
+        width={560}
+        height={654}
         format="webp"
         quality={78}
         loading="eager"
@@ -85,7 +84,6 @@ import { site, serviceAreaText } from '../../config/site';
     width: 100%;
     aspect-ratio: 6 / 7;
     object-fit: cover;
-    object-position: 58% 30%;
     background: var(--bg-subtle);
     border-radius: var(--radius-lg);
     border: 6px solid var(--bg-surface);
