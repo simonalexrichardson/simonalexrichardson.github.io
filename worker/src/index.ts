@@ -13,7 +13,6 @@ const LIMITS: Record<string, number> = {
   business: 200,
   website: 500,
   message: 5000,
-  problem: 5000,
   utm_source: 200,
 };
 
@@ -52,7 +51,6 @@ export default {
       return json({ success: true }, 200, corsHeaders);
     }
 
-    const isReview = str(payload.form) === 'review';
     const fields = {
       name: str(payload.name),
       email: str(payload.email),
@@ -61,14 +59,10 @@ export default {
       // `project` is what the previous contact form sent. Keeping it means the Worker can be
       // deployed before the new site without breaking the form that's live at that moment.
       message: str(payload.message) || str(payload.project),
-      problem: str(payload.problem),
       utm_source: str(payload.utm_source),
     };
 
-    const missing = isReview
-      ? !fields.name || !fields.email || !fields.business || !fields.problem
-      : !fields.name || !fields.email || !fields.message;
-    if (missing) {
+    if (!fields.name || !fields.email || !fields.message) {
       return json({ success: false, error: 'missing required fields' }, 400, corsHeaders);
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
@@ -81,7 +75,8 @@ export default {
     }
 
     const oneLineName = fields.name.replace(/\s+/g, ' ');
-    const subject = isReview ? `Free site review request: ${oneLineName}` : `New enquiry: ${oneLineName}`;
+    // A website on the enquiry means they want the free review too, so make it easy to spot.
+    const subject = fields.website ? `New enquiry, with a site to review: ${oneLineName}` : `New enquiry: ${oneLineName}`;
 
     const rows: [string, string][] = [
       ['Name', fields.name],
@@ -91,15 +86,13 @@ export default {
       ['UTM source', fields.utm_source],
     ];
     const present = rows.filter(([, value]) => value);
-    const bodyLabel = isReview ? "What's not working" : 'Message';
-    const body = isReview ? fields.problem : fields.message;
 
-    const text = [...present.map(([k, v]) => `${k}: ${v}`), '', `${bodyLabel}:`, body].join('\n');
+    const text = [...present.map(([k, v]) => `${k}: ${v}`), '', 'Message:', fields.message].join('\n');
     const html = `<div style="font-family: ui-sans-serif, system-ui, sans-serif; line-height: 1.6">
       ${present.map(([k, v]) => `<p><strong>${k}:</strong> ${esc(v)}</p>`).join('\n')}
       <hr style="border:none;border-top:1px solid #ddd;margin:1.25rem 0">
-      <p><strong>${esc(bodyLabel)}:</strong></p>
-      <p style="white-space: pre-wrap">${esc(body)}</p>
+      <p><strong>Message:</strong></p>
+      <p style="white-space: pre-wrap">${esc(fields.message)}</p>
     </div>`;
 
     const res = await fetch(`${env.RESEND_API_BASE ?? 'https://api.resend.com'}/emails`, {

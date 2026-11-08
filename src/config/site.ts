@@ -1,21 +1,18 @@
 /**
- * Every business detail on the site lives here: prices, contact details, booking link,
- * service area and case studies. Change it here and it changes everywhere.
+ * Every business detail on the site lives here: prices, contact details and service area.
+ * Change it here and it changes everywhere. Past work lives in src/data/projects.ts.
  *
- * Anything set to '' or marked `placeholder: true` shows a dashed PLACEHOLDER box on the
- * page until you fill it in. README.md lists all of them.
+ * README.md lists anything still to fill in.
  */
 export const site = {
   name: 'Simon Richardson',
   url: 'https://simonrichardson.dev',
   email: 'simonalexrichardson@gmail.com',
 
-  /** TODO: your number, in international format, e.g. '+447700900000'. Empty hides the link. */
-  phone: '',
-  /** TODO: digits only with country code, e.g. '447700900000'. Empty shows a placeholder. */
-  whatsapp: '',
-  /** TODO: your Cal.com or Calendly link. Empty sends "Book a chat" to the contact page. */
-  bookingUrl: '',
+  /** International format. Empty hides the link. */
+  phone: '+447875761720',
+  /** Digits only with country code. Empty sends "WhatsApp me" to the contact page. */
+  whatsapp: '447875761720',
 
   /** The Cloudflare Worker in /worker. PUBLIC_FORM_ENDPOINT overrides it for local testing. */
   formEndpoint: import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://contact.simonrichardson.dev/',
@@ -46,35 +43,8 @@ export const site = {
     },
     note: 'Every site comes with a care plan for the first 12 months.',
   },
-
-  /** TODO: swap these for real work. Never add a client, result or quote that isn't real. */
-  caseStudies: [
-    {
-      placeholder: true,
-      name: 'PLACEHOLDER: client name',
-      trade: 'PLACEHOLDER: what they do',
-      result: 'PLACEHOLDER: one line on what changed for them',
-      before: 'Before screenshot',
-      after: 'After screenshot',
-    },
-    {
-      placeholder: true,
-      name: 'PLACEHOLDER: client name',
-      trade: 'PLACEHOLDER: what they do',
-      result: 'PLACEHOLDER: one line on what changed for them',
-      before: 'Before screenshot',
-      after: 'After screenshot',
-    },
-    {
-      placeholder: true,
-      name: 'PLACEHOLDER: client name',
-      trade: 'PLACEHOLDER: what they do',
-      result: 'PLACEHOLDER: one line on what changed for them',
-      before: 'Before screenshot',
-      after: 'After screenshot',
-    },
-  ],
 };
 
-export const bookingHref = site.bookingUrl || '/contact#book';
+const whatsappText = encodeURIComponent("Hi Simon, I've seen your website and I'd like a chat about mine.");
+export const whatsappHref = site.whatsapp ? `https://wa.me/${site.whatsapp}?text=${whatsappText}` : '/contact';
 export const serviceAreaText = site.serviceArea.join(' and ');

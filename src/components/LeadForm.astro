@@ -12,14 +12,13 @@ export interface Field {
 }
 
 interface Props {
-  formType: 'contact' | 'review';
   fields: Field[];
   submitLabel: string;
   successTitle: string;
   successBody: string;
 }
 
-const { formType, fields, submitLabel, successTitle, successBody } = Astro.props;
+const { fields, submitLabel, successTitle, successBody } = Astro.props;
 ---
 
 <div class="lead" data-lead-root>
@@ -31,8 +30,6 @@ const { formType, fields, submitLabel, successTitle, successBody } = Astro.props
   </noscript>
 
   <form data-lead-form action={site.formEndpoint} method="post">
-    <input type="hidden" name="form" value={formType} />
-
     <!-- Honeypot: invisible to people, tempting to bots. The Worker drops anything that fills it. -->
     <div class="lead__trap" aria-hidden="true">
       <label>Leave this empty <input type="text" name="botcheck" tabindex="-1" autocomplete="off" /></label>
@@ -40,23 +37,23 @@ const { formType, fields, submitLabel, successTitle, successBody } = Astro.props
 
     {fields.map((f) => (
       <div class="lead__field">
-        <label for={`${formType}-${f.name}`}>
+        <label for={`lead-${f.name}`}>
           {f.label}
           {!f.required && <span class="lead__optional"> (optional)</span>}
         </label>
         {f.multiline ? (
-          <textarea id={`${formType}-${f.name}`} name={f.name} rows="5" required={f.required} maxlength="5000" />
+          <textarea id={`lead-${f.name}`} name={f.name} rows="5" required={f.required} maxlength="5000" />
         ) : (
           <input
-            id={`${formType}-${f.name}`}
+            id={`lead-${f.name}`}
             name={f.name}
             type={f.type ?? 'text'}
             required={f.required}
             autocomplete={f.autocomplete}
-            aria-describedby={f.hint ? `${formType}-${f.name}-hint` : undefined}
+            aria-describedby={f.hint ? `lead-${f.name}-hint` : undefined}
           />
         )}
-        {f.hint && <p id={`${formType}-${f.name}-hint`} class="lead__hint">{f.hint}</p>}
+        {f.hint && <p id={`lead-${f.name}-hint`} class="lead__hint">{f.hint}</p>}
       </div>
     ))}
 

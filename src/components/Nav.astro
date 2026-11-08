@@ -1,12 +1,9 @@
 ---
-import { bookingHref } from '../config/site';
-
 const links = [
   { href: '/#pricing', label: 'Pricing' },
   { href: '/#work', label: 'Work' },
   { href: '/#about', label: 'About' },
 ];
-const path = Astro.url.pathname.replace(/\/$/, '');
 ---
 
 <nav class="nav" aria-label="Main">
@@ -17,8 +14,7 @@ const path = Astro.url.pathname.replace(/\/$/, '');
     </a>
     <div class="nav__right">
       {links.map((l) => <a href={l.href} class="nav__link nav__link--wide">{l.label}</a>)}
-      <a href="/review" class="nav__link" aria-current={path === '/review' ? 'page' : undefined}>Free review</a>
-      <a href={bookingHref} class="nav__cta">Book a chat</a>
+      <a href="/contact" class="nav__cta">Get in touch</a>
     </div>
   </div>
 </nav>
@@ -67,8 +63,7 @@ const path = Astro.url.pathname.replace(/\/$/, '');
     transition: color var(--transition);
   }
 
-  .nav__link:hover,
-  .nav__link[aria-current='page'] { color: var(--text); }
+  .nav__link:hover { color: var(--text); }
 
   .nav__cta {
     display: inline-flex;

@@ -2,7 +2,7 @@
 
 Services site for Simon Richardson: bespoke websites for small businesses, trades, bands and clubs in Hertfordshire and Cambridgeshire. Built with [Astro](https://astro.build), hosted on GitHub Pages, with forms handled by a small Cloudflare Worker that emails via Resend.
 
-The site has one job: turn someone who has heard of Simon into a booked 15-minute call or a free site review request.
+The site has one job: turn someone who has heard of Simon into a WhatsApp message or an enquiry through the contact form. Adding a website to that form asks for the free site review, so there's only one form.
 
 ## Local development
 
@@ -25,15 +25,11 @@ cd worker && npx wrangler deploy
 
 ## What to fill in before going live
 
-Everything below is in `src/config/site.ts` unless it says otherwise. Anything unfinished shows a dashed PLACEHOLDER box on the page.
+Everything below is in `src/config/site.ts` unless it says otherwise.
 
 - [ ] **Photo:** replace `src/assets/simon.jpg` with a sharper one, at least 1000px wide. The current one is 600px and soft.
 - [ ] **Second photo:** the About section reuses the same image. Point `src/components/home/About.astro` at a different one, ideally behind the kit.
 - [ ] **Prices:** confirm `pricing`.
-- [ ] **Case studies:** replace the 3 placeholders in `caseStudies` with real work, and add real before and after images in `src/components/home/CaseStudies.astro`. Never add a client, result, logo or quote that isn't real.
-- [ ] **Phone:** set `phone`. It stays hidden until you do.
-- [ ] **WhatsApp:** set `whatsapp`, digits only with country code.
-- [ ] **Booking link:** set `bookingUrl` to your Cal.com or Calendly link. Until then, "Book a chat" goes to the contact page.
 
 ## Environment variables and secrets
 
@@ -57,17 +53,18 @@ To send a real test once you have a working key, send to Resend's `delivered@res
 | Page | Performance | Accessibility | Best practices | SEO |
 |---|---|---|---|---|
 | `/` | 95 | 100 | 100 | 100 |
-| `/review` | 99 | 100 | 100 | 100 |
 | `/contact` | 99 | 100 | 100 | 100 |
 | `/privacy` | 99 | 100 | 100 | 100 |
 
-Re-run it after adding real photos and case studies, because images are the most likely thing to pull the homepage below 95.
+Re-run it after adding real photos, because images are the most likely thing to pull the homepage below 95.
 
 ## Where things live
 
 - `src/config/site.ts`: every business detail
 - `src/pages/index.astro` and `src/components/home/`: the homepage
-- `src/pages/review.astro`, `contact.astro`, `privacy.astro`: the other pages
-- `src/pages/writing/`: posts and past projects, linked from the footer only
+- `src/data/projects.ts` and `src/assets/work/`: the projects and concept sites on the homepage
+- `src/components/home/Testimonials.astro`: client quotes. Never add one that isn't real
+- `src/pages/contact.astro`, `privacy.astro`: the other pages
+- `src/pages/writing/`: posts, linked from the footer only
 - `src/content/`: blog posts and case studies
 - `scripts/generate-og.mjs`: regenerates the social sharing image

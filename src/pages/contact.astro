@@ -2,24 +2,36 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
 import LeadForm from '../components/LeadForm.astro';
-import { site } from '../config/site';
-
-const whatsappText = encodeURIComponent("Hi Simon, I've seen your website and I'd like a chat about mine.");
+import { site, whatsappHref } from '../config/site';
 ---
 
 <BaseLayout
   title="Contact · Simon Richardson, web design in Hitchin"
-  description={`Book a free 15-minute chat or send a message about your website. Simon Richardson, based in ${site.location.town}.`}
+  description={`WhatsApp me or send a message about your website, and get three things I'd fix for free. Simon Richardson, based in ${site.location.town}.`}
 >
   <main id="main" class="marketing m-page">
     <div class="container">
       <p class="section-label">Contact</p>
       <h1 class="m-heading">Let's have a chat about your website.</h1>
-      <p class="m-lede">Send a message, drop me a WhatsApp, or book 15 minutes. Whichever's easiest.</p>
+      <p class="m-lede">
+        WhatsApp me or fill this in, whichever's easiest. Got a site already? Add the link and I'll
+        tell you three things I'd fix. Free, no obligation.
+      </p>
 
       <div class="contact">
+        <aside class="contact__other" aria-label="Other ways to get in touch">
+          <h2>Prefer WhatsApp?</h2>
+          {site.whatsapp ? (
+            <a class="btn btn--primary" href={whatsappHref}>WhatsApp me</a>
+          ) : (
+            <p class="placeholder"><strong>PLACEHOLDER:</strong> WhatsApp button appears once the number is in src/config/site.ts</p>
+          )}
+          <h2>Or email or ring me</h2>
+          <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+          {site.phone && <p><a href={`tel:${site.phone}`}>{`0${site.phone.slice(3, 7)} ${site.phone.slice(7)}`}</a></p>}
+        </aside>
+
         <LeadForm
-          formType="contact"
           submitLabel="Send message"
           successTitle="Thanks, that's with me."
           successBody="I'll get back to you by email soon."
@@ -27,30 +39,11 @@ const whatsappText = encodeURIComponent("Hi Simon, I've seen your website and I'
             { name: 'name', label: 'Your name', required: true, autocomplete: 'name' },
             { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
             { name: 'business', label: 'Business name', autocomplete: 'organization' },
+            { name: 'website', label: 'Current website', autocomplete: 'url', hint: "Add it and I'll tell you three things I'd fix, free. Don't have one? Leave it blank." },
             { name: 'message', label: 'How can I help?', required: true, multiline: true },
           ]}
         />
-
-        <aside class="contact__other" aria-label="Other ways to get in touch">
-          <h2>Other ways</h2>
-          <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
-          {site.phone && <p><a href={`tel:${site.phone}`}>{site.phone}</a></p>}
-          {site.whatsapp ? (
-            <a class="btn btn--secondary" href={`https://wa.me/${site.whatsapp}?text=${whatsappText}`}>Chat on WhatsApp</a>
-          ) : (
-            <p class="placeholder"><strong>PLACEHOLDER:</strong> WhatsApp button appears once the number is in src/config/site.ts</p>
-          )}
-        </aside>
       </div>
-
-      <section id="book" class="book">
-        <h2 class="m-heading">Book a free 15-min chat</h2>
-        {site.bookingUrl ? (
-          <iframe src={site.bookingUrl} title="Book a free 15-minute chat with Simon" loading="lazy"></iframe>
-        ) : (
-          <p class="placeholder"><strong>PLACEHOLDER:</strong> your Cal.com or Calendly calendar appears here once the link is in src/config/site.ts</p>
-        )}
-      </section>
     </div>
   </main>
   <Footer />
@@ -61,21 +54,10 @@ const whatsappText = encodeURIComponent("Hi Simon, I've seen your website and I'
 
   @media (min-width: 860px) {
     .contact { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 4rem; }
+    .contact__other { grid-column: 2; grid-row: 1; }
   }
 
   .contact__other h2 { font-size: var(--text-base); font-weight: 700; margin-bottom: 0.5rem; }
+  .contact__other h2:not(:first-child) { margin-top: 1.75rem; }
   .contact__other p { overflow-wrap: anywhere; margin-bottom: 1rem; }
-
-  .book { margin-top: var(--section-gap); padding: 0; border: 0; }
-  .book .placeholder { margin-top: 1.5rem; }
-
-  iframe {
-    display: block;
-    width: 100%;
-    height: 700px;
-    margin-top: 1.5rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--bg-surface);
-  }
 </style>
