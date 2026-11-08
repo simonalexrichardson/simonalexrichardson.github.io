@@ -5,7 +5,7 @@ tags: ['Design', 'Process', 'Concepts']
 publishedAt: 2026-05-11
 ---
 
-I spent a week building six speculative marketing sites for six different industries: an electrician, a plumber, a landscape designer, a home care provider, a swim school, and an aerospace engineering firm. None of them are real clients. All of them are live on the portfolio under [Concepts](/#work).
+I spent a week building six speculative marketing sites for six different industries: an electrician, a plumber, a landscape designer, a home care provider, a swim school, and an aerospace engineering firm. None of them are real clients. All of them are live on the portfolio under [Concepts](/writing#work).
 
 Why? Two reasons. First, "shows range" is much more legible when you can point at six different examples in six different verticals, rather than waving vaguely at a single client roster. Second, every build clarifies what you already know and exposes what you don't.
 
