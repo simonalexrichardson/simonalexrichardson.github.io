@@ -20,8 +20,8 @@ export const site = {
   /** Digits only with country code. Empty sends "WhatsApp me" to the contact page. */
   whatsapp: '447875761720',
 
-  /** Site token from Cloudflare Web Analytics. Empty means no analytics script. */
-  cloudflareAnalyticsToken: '',
+  /** Site token from Cloudflare Web Analytics. Empty turns analytics off. */
+  cloudflareAnalyticsToken: '734719ce9ece41b488e4c1e89d268f4c',
 
   /** The Cloudflare Worker in /worker. PUBLIC_FORM_ENDPOINT overrides it for local testing. */
   formEndpoint: import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://contact.simonrichardson.dev/',

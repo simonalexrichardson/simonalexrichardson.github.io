@@ -140,7 +140,15 @@ const seoJsonLd = {
     <meta name="google-site-verification" content="TSrW0pwokdxbeA5lXZ58PN4xG87p4t7NIZuZDp7zmpY" />
 
     {site.cloudflareAnalyticsToken && (
-      <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: site.cloudflareAnalyticsToken })}></script>
+      <script is:inline define:vars={{ token: site.cloudflareAnalyticsToken }}>
+        // Holds back until just after the page has finished, so counting visits can't compete with it.
+        addEventListener('load', () => setTimeout(() => {
+          const beacon = document.createElement('script');
+          beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+          beacon.dataset.cfBeacon = JSON.stringify({ token });
+          document.head.append(beacon);
+        }, 2000));
+      </script>
     )}
 
     <!-- Structured data: Person + WebSite + ProfessionalService graph -->

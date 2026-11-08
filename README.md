@@ -29,7 +29,6 @@ Everything below is in `src/config/site.ts` unless it says otherwise.
 
 - [ ] **Second photo:** the About section reuses the same image. Point `src/components/home/About.astro` at a different one, ideally behind the kit.
 - [ ] **Email:** in Cloudflare, Email > Email Routing, enable it for simonrichardson.dev and forward `hello@` to Gmail. Do this before going live, or mail to the address on the site will bounce.
-- [ ] **Analytics:** add the site in Cloudflare Web Analytics and paste the token into `cloudflareAnalyticsToken`.
 - [ ] **Prices:** `buildFrom` and `carePerMonth` at the top of the config set every price on the site.
 
 ## Environment variables and secrets
