@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout
+  title="Privacy · Simon Richardson"
+  description="What the forms on this website collect, why, and what happens to it."
+>
+  <main id="main" class="marketing m-page">
+    <div class="container privacy">
+      <h1 class="m-heading">Privacy</h1>
+      <p class="m-lede">The short version: the forms send your details to me so I can reply, and that's it.</p>
+
+      <h2>What the forms collect</h2>
+      <p>
+        Your name and email address, your business name and current website if you give them, and
+        whatever you write in the message box. If you arrived from a tracked link, the name of that
+        source is included too.
+      </p>
+
+      <h2>Why I collect it</h2>
+      <p>
+        To reply to your enquiry or send you the site review you asked for. I don't add you to a
+        mailing list and I don't sell or share your details.
+      </p>
+
+      <h2>Who handles it</h2>
+      <p>
+        Form messages pass through Cloudflare and are delivered to my inbox by Resend, an email
+        service. The website itself is hosted on GitHub Pages, which may keep standard server logs.
+        If you book a call or message me on WhatsApp, that company's own privacy policy applies too.
+      </p>
+
+      <h2>How long I keep it</h2>
+      <p>
+        Your message stays in my email for as long as it's useful for our conversation or any work we
+        do together. Ask me to delete it at any time.
+      </p>
+
+      <h2>Cookies and analytics</h2>
+      <p>This site doesn't set cookies and doesn't use analytics.</p>
+
+      <h2>Your rights</h2>
+      <p>
+        You can ask to see, correct or delete what I hold about you by emailing
+        <a href={`mailto:${site.email}`}>{site.email}</a>. If you're unhappy with how I've handled your
+        data, you can complain to the Information Commissioner's Office at ico.org.uk.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .privacy { max-width: 760px; }
+  h2 { font-size: var(--text-lg); font-weight: 700; margin-block: 2rem 0.35rem; }
+  p:not(.m-lede) { color: var(--text-muted); }
+</style>

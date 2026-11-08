@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout
+  title="Free website review · Simon Richardson"
+  description={`Send me your website and I'll tell you 3 things I'd fix. Free, no obligation. Simon Richardson, web design in ${site.location.town}.`}
+>
+  <main id="main" class="marketing m-page">
+    <div class="container">
+      <p class="section-label">Free site review</p>
+      <h1 class="m-heading">I'll tell you three things I'd fix.</h1>
+      <p class="m-lede">I'll look at your site and send you 3 things I'd fix. Free, no obligation.</p>
+      <LeadForm
+        formType="review"
+        submitLabel="Send me my 3 fixes"
+        successTitle="Got it, thanks."
+        successBody="I'll have a proper look at your site and email you the 3 things I'd fix."
+        fields={[
+          { name: 'name', label: 'Your name', required: true, autocomplete: 'name' },
+          { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
+          { name: 'business', label: 'Business name', required: true, autocomplete: 'organization' },
+          { name: 'website', label: 'Current website', autocomplete: 'url', hint: "Don't have one? Just leave this blank." },
+          { name: 'problem', label: "What's not working?", required: true, multiline: true },
+        ]}
+      />
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

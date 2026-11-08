@@ -1,0 +1,164 @@
+---
+import { site } from '../config/site';
+
+export interface Field {
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'url';
+  required?: boolean;
+  autocomplete?: string;
+  multiline?: boolean;
+  hint?: string;
+}
+
+interface Props {
+  formType: 'contact' | 'review';
+  fields: Field[];
+  submitLabel: string;
+  successTitle: string;
+  successBody: string;
+}
+
+const { formType, fields, submitLabel, successTitle, successBody } = Astro.props;
+---
+
+<div class="lead" data-lead-root>
+  <noscript>
+    <p class="lead__notice">
+      This form needs JavaScript. You can email me instead at
+      <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+  </noscript>
+
+  <form data-lead-form action={site.formEndpoint} method="post">
+    <input type="hidden" name="form" value={formType} />
+
+    <!-- Honeypot: invisible to people, tempting to bots. The Worker drops anything that fills it. -->
+    <div class="lead__trap" aria-hidden="true">
+      <label>Leave this empty <input type="text" name="botcheck" tabindex="-1" autocomplete="off" /></label>
+    </div>
+
+    {fields.map((f) => (
+      <div class="lead__field">
+        <label for={`${formType}-${f.name}`}>
+          {f.label}
+          {!f.required && <span class="lead__optional"> (optional)</span>}
+        </label>
+        {f.multiline ? (
+          <textarea id={`${formType}-${f.name}`} name={f.name} rows="5" required={f.required} maxlength="5000" />
+        ) : (
+          <input
+            id={`${formType}-${f.name}`}
+            name={f.name}
+            type={f.type ?? 'text'}
+            required={f.required}
+            autocomplete={f.autocomplete}
+            aria-describedby={f.hint ? `${formType}-${f.name}-hint` : undefined}
+          />
+        )}
+        {f.hint && <p id={`${formType}-${f.name}-hint`} class="lead__hint">{f.hint}</p>}
+      </div>
+    ))}
+
+    <button type="submit" class="btn btn--primary" data-label={submitLabel}>{submitLabel}</button>
+    <p class="lead__small">I only use this to reply to you. <a href="/privacy">Privacy</a>.</p>
+
+    <p class="lead__error" data-lead-error role="alert" hidden>
+      Sorry, that didn't send. Nothing's wrong at your end. Please try again, or email me at
+      <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+  </form>
+
+  <div class="lead__success" data-lead-success role="status" tabindex="-1" hidden>
+    <p class="lead__success-title">{successTitle}</p>
+    <p>{successBody}</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-lead-root]').forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('[data-lead-form]')!;
+    const error = root.querySelector<HTMLElement>('[data-lead-error]')!;
+    const success = root.querySelector<HTMLElement>('[data-lead-success]')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+
+    const source = new URLSearchParams(location.search).get('utm_source');
+    if (source) {
+      const input = Object.assign(document.createElement('input'), { type: 'hidden', name: 'utm_source', value: source });
+      form.append(input);
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      button.disabled = true;
+      button.textContent = 'Sending...';
+      error.hidden = true;
+
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        const data = await res.json().catch(() => ({ success: false }));
+        if (!res.ok || !data.success) throw new Error('send failed');
+        form.hidden = true;
+        success.hidden = false;
+        success.focus();
+      } catch {
+        error.hidden = false;
+        button.disabled = false;
+        button.textContent = button.dataset.label ?? 'Send';
+      }
+    });
+  });
+</script>
+
+<style>
+  .lead { max-width: 620px; }
+
+  .lead__field { margin-bottom: 1.25rem; }
+
+  label { display: block; font-weight: 650; margin-bottom: 0.35rem; }
+  .lead__optional { font-weight: 400; color: var(--text-muted); }
+
+  input:not([type='hidden']),
+  textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.65rem 0.85rem;
+    font: inherit;
+    color: var(--text);
+    background: var(--bg-surface);
+    border: 1.5px solid var(--text-muted);
+    border-radius: var(--radius-sm);
+  }
+
+  textarea { resize: vertical; }
+
+  input:focus-visible,
+  textarea:focus-visible { outline: 3px solid var(--accent-text); outline-offset: 1px; }
+
+  .lead__hint,
+  .lead__small { font-size: var(--text-sm); color: var(--text-muted); margin-top: 0.35rem; }
+  .lead__small { margin-top: 0.75rem; }
+
+  .lead__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .lead__notice,
+  .lead__error,
+  .lead__success {
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    background: var(--accent-subtle);
+  }
+
+  .lead__notice { margin-bottom: 1.5rem; }
+  .lead__error { margin-top: 1rem; }
+
+  .lead__success { background: var(--bg-surface); border: 1px solid var(--border); box-shadow: var(--shadow-card); padding: 1.75rem; }
+  .lead__success:focus { outline: none; }
+  .lead__success-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+</style>
