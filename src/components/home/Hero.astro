@@ -75,7 +75,8 @@ import { site, serviceAreaText } from '../../config/site';
 
   .hero__photo {
     position: relative;
-    max-width: 340px;
+    /* A definite width, so the frame can't resize itself when the image arrives. */
+    width: min(100%, 340px);
     justify-self: center;
     transform: rotate(1.5deg);
   }
@@ -85,6 +86,7 @@ import { site, serviceAreaText } from '../../config/site';
     aspect-ratio: 6 / 7;
     object-fit: cover;
     object-position: 58% 30%;
+    background: var(--bg-subtle);
     border-radius: var(--radius-lg);
     border: 6px solid var(--bg-surface);
     box-shadow: var(--shadow-card-hover);

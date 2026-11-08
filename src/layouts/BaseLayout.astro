@@ -97,6 +97,7 @@ const seoJsonLd = {
 
     <!-- Preload critical fonts so the hero/headings don't pop in -->
     <link rel="preload" href={frauncesLatin} as="font" type="font/woff2" crossorigin />
+    {Astro.url.pathname === '/' && <link rel="preload" href={frauncesLatinItalic} as="font" type="font/woff2" crossorigin />}
     <link rel="preload" href={caveatLatin} as="font" type="font/woff2" crossorigin />
 
     <!-- Sitemap -->
